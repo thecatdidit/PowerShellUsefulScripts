@@ -112,4 +112,4 @@ function Get-OnlineVerGoogleChrome
             Return $swobject
         }
     }
-}  # END Function Get-OnlineGoogleChrome
+}  # END Function Get-OnlineVerGoogleChrome
