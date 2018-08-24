@@ -62,6 +62,9 @@
 
 #>
 
+#Allows TLS 1.2 for FileHippo HTTPS access
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 function Get-OnlineVerFlashPlayer
 {
 
