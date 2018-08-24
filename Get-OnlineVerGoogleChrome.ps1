@@ -17,7 +17,17 @@
     x68 and x64 versions. It then outputs the information as a
     PSObject to the Host.
 .EXAMPLE
-   PS C:\> Get-OnlineVerGoogleChrome -Quiet
+        PS C:\> Get-OnlineVerFlashPlayer.ps1
+
+        Software_Name    : GoogleChrome
+        Software_URL     : http://feeds.feedburner.com/GoogleChromeReleases
+        Online_Version   : 68.0.3440.106
+        Online_Date      : 2018-08-23
+        Download_URL_x86 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi
+        Download_URL_x64 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi
+	
+	PS C:\> Get-OnlineVeNotePadPlusPlus -Quiet
+        68.0.3440.106
 .INPUTS
     -Quiet
         Use of this parameter will output just the current version of
