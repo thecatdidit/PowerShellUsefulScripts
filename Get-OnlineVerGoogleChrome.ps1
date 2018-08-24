@@ -17,7 +17,7 @@
     x68 and x64 versions. It then outputs the information as a
     PSObject to the Host.
 .EXAMPLE
-   PS C:\> Get-OnlineVerGoogleChrome -Quiert
+   PS C:\> Get-OnlineVerGoogleChrome -Quiet
 .INPUTS
     -Quiet
         Use of this parameter will output just the current version of
@@ -40,8 +40,9 @@
         Download_URL_x64 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi
 
     
-    If -Quiet is specified then just the value of 'Online Version'
-    will be displayed.
+    	If -Quiet is specified then just the value of 'Online Version'
+    	will be displayed.
+
 .NOTES
     Resources/Credits:
     https://github.com/itsontheb
