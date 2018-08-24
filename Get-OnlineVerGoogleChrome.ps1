@@ -2,7 +2,7 @@
 .NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE
-	 Revision:		v6
+	 Revision:	v6
 	 Last Modified: 24 August 2018
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusesfulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
