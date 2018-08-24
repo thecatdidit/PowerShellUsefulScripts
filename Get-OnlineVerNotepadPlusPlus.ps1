@@ -124,4 +124,3 @@ function Get-OnlineVerNotepadPlusPlus
         }
     }
 }  # END Function Get-OnlineVerNotepadPlusPlus
-Get-OnlineVerNotepadPlusPlus
