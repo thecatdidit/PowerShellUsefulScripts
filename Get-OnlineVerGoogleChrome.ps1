@@ -39,16 +39,13 @@
         Download_URL_x86 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi
         Download_URL_x64 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi
 
-    
-    	If -Quiet is specified then just the value of 'Online Version'
+   	If -Quiet is specified then just the value of 'Online Version'
     	will be displayed.
-
 .NOTES
     Resources/Credits:
     https://github.com/itsontheb
 
     Helpful URLs:
-
 #>
 
 function Get-OnlineVerGoogleChrome
