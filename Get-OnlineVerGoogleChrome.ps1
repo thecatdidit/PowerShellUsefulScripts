@@ -1,8 +1,16 @@
 <#
+.NOTES
+	===========================================================================
+	 Created with: 	PowerShell ISE
+	 Revision:		v6
+	 Last Modified: 24 August 2018
+	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusesfulscripts)
+	 Organizaiton: 	Happy Days Are Here Again
+	 Filename:     	Get-OnlineVerGoogleChrome.ps1
+	===========================================================================
 .Synopsis
     Queries Google's Website for the current version of
-    Chrome and returns the version, date updated, and
-    download URLs if available.
+    Chrome and returns the version, date uploaded and download URLs
 .DESCRIPTION
     Utilizes Invoke-WebRequest to query Google Chrome's Dev Team Blog and
     pulls out the Version, Update Date and Download URLs for both
@@ -16,13 +24,21 @@
         Google Chrome instead of the entire object. It will always be the
         last parameter.
 .OUTPUTS
-    An object containing the following:
+        An object containing the following:
         Software Name: Name of the software
         Software URL: The URL info was sourced from
         Online Version: The current version found
         Online Date: The date the version was updated
         Download URL x86: Download URL for the win32 version
         Download URL x64: Download URL for the win64 version
+.EXAMPLE
+        Software_Name    : GoogleChrome
+        Software_URL     : http://feeds.feedburner.com/GoogleChromeReleases
+        Online_Version   : 68.0.3440.106
+        Online_Date      : 2018-08-23
+        Download_URL_x86 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi
+        Download_URL_x64 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi
+
     
     If -Quiet is specified then just the value of 'Online Version'
     will be displayed.
