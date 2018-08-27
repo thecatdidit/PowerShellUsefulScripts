@@ -9,8 +9,9 @@
 	 Filename:     	Get-3PUP-FileHippo.ps1
 	===========================================================================
 	.DESCRIPTION
-		This script is designed to query for the current versions of third party products supported within our Configuration Management infrastructure 
-		The 3PUP versions are checked via FileHippo and emailed at the end of the script.
+	This script is designed to query for the current versions of third party products
+	that are supported on a current assignment.
+	The 3PUP versions are checked via FileHippo and emailed at the end of the script.
         You can configure all aspects of the email (SMTP server, recipients, body, etc.)
         The body is designed to be an HTML-based grid for easy access
         Especially useful for those in smaller shops or those that have no third party add-in/catalog in their ConfigMgr/WSUS systems. 
