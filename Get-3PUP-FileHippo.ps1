@@ -2,8 +2,8 @@
 	.NOTES
 	===========================================================================
 	 Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2016 v5.2.129
-	 Revision:	v6
-	 Last Modified: 20 Augus 2018
+	 Revision:	v7
+	 Last Modified: 27 August 2018
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-3PUP-FileHippo.ps1
