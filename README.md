@@ -3,7 +3,7 @@ A collection of custom PowerShell scrips that I have written to ease some of the
 
 A shout out to Reddit user 'itsontheb' for help with putting legs on what I already had. You can find more of his great work here: https://github.com/itsontheb/ .
 
-I'd also like to thank /r/PowerShell on Reddit. 
+I'd also like to thank r/PowerShell on Reddit. 
 
 These scripts are designed be informational-only in nature. They return version, publish date and download URL information. You can use them and set a particular variable for passthrough. Each has a "-quiet" parameter to just return the version number.
 
