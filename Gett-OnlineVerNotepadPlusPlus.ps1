@@ -8,7 +8,7 @@
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerNotepadPlusPlus.ps1
 	===========================================================================
-	.Synopsis
+    .SYNOPSIS
         Queries Notepad++ Website for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
@@ -34,11 +34,9 @@
     
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
-
     .EXAMPLE
         PS C:\> Get-OnlineVeNotePadPlusPlus
-
-        Software_Name    : NotepadPlusPlus
+	Software_Name    : NotepadPlusPlus
         Software_URL     : https://notepad-plus-plus.org/download
         Online_Version   : 7.5.8
         Online_Date      : 2018-07-23
@@ -46,13 +44,10 @@
         Download_URL_x64 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x64.exe
 
         PS C:\> Get-OnlineVeNotePadPlusPlus -Quiet
-        
         7.5.8
-
     .NOTES
         Resources/Credits:
         https://github.com/itsontheb
-
 #>
 
 function Get-OnlineVerNotepadPlusPlus
