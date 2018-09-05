@@ -1,9 +1,9 @@
-﻿<#	
+<#	
 	.NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:	v5
-	 Last Modified: 24 August 2018
+	 Revision:		v6
+	 Last Modified: 05 September 2018
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerNotepadPlusPlus.ps1
@@ -13,29 +13,18 @@
         the app and returns the version, date updated, and
         download URLs if available.
     .DESCRIPTION
-	This function retrieves the latest data associated with Notepad++.
-        Utilizes Invoke-WebRequest to query NotepadPlusPlus Download PAge and
+	    This function retrieves the latest data associated with Notepad++.
+        Utilizes Invoke-WebRequest to query NotepadPlusPlus Download Page and
         pulls out the Version, Update Date and Download URLs for both
-        x68 and x64 versions. It then outputs the information as a
+        x86 and x64 versions. It then outputs the information as a
         PSObject to the Host.
-    .EXAMPLE
-        PS C:\> Get-OnlineVerNotepadPlusPlus.ps1
-	Software_Name    : NotepadPlusPlus
-	Software_URL     : https://notepad-plus-plus.org/download
-	Online_Version   : 7.5.8
-	Online_Date      : 2018-07-23
-	Download_URL_x86 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x86.exe
-	Download_URL_x64 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x64.exe
-	
-	PS C:\> Get-OnlineverNotepadPlusPlus.ps1 -Quiet
-	7.5.8
     .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
             Google Chrome instead of the entire object. It will always be the
             last parameter.
-.OUTPUTS
-    An object containing the following:
+    .OUTPUTS
+        An object containing the following:
         Software Name: Name of the software
         Software URL: The URL info was sourced from
         Online Version: The current version found
@@ -45,9 +34,24 @@
     
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
-.NOTES
-    Resources/Credits:
-    https://github.com/itsontheb
+
+    .EXAMPLE
+        PS C:\> Get-OnlineVeNotePadPlusPlus
+
+        Software_Name    : NotepadPlusPlus
+        Software_URL     : https://notepad-plus-plus.org/download
+        Online_Version   : 7.5.8
+        Online_Date      : 2018-07-23
+        Download_URL_x86 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x86.exe
+        Download_URL_x64 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x64.exe
+
+        PS C:\> Get-OnlineVeNotePadPlusPlus -Quiet
+        
+        7.5.8
+
+    .NOTES
+        Resources/Credits:
+        https://github.com/itsontheb
 
 #>
 
