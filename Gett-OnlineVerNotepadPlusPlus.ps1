@@ -37,11 +37,11 @@
     .EXAMPLE
         PS C:\> Get-OnlineVeNotePadPlusPlus
 	Software_Name    : NotepadPlusPlus
-	Software_URL     : https://notepad-plus-plus.org/download
-	Online_Version   : 7.5.8
-	Online_Date      : 2018-07-23
-	Download_URL_x86 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x86.exe
-	Download_URL_x64 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x64.exe
+        Software_URL     : https://notepad-plus-plus.org/download
+        Online_Version   : 7.5.8
+        Online_Date      : 2018-07-23
+        Download_URL_x86 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x86.exe
+        Download_URL_x64 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x64.exe
 
         PS C:\> Get-OnlineVeNotePadPlusPlus -Quiet
         7.5.8
