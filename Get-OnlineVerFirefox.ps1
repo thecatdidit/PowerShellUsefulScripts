@@ -1,4 +1,4 @@
-﻿       <#	
+	#<
 	.NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17134)
@@ -8,17 +8,17 @@
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerFirefox.ps1
 	===========================================================================
-	.Synopsis
+	.SYNOPSIS
         Queries Mozilla's Website for the current version of
         Firefox and returns the version, date updated, and
         download URLs if available.
-    .DESCRIPTION
+	.DESCRIPTION
 	    This function retrieves the latest data associated with Mozilla Firefox
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes x86 and x64.
         It then outputs the information as a
         PSObject to the Host
-    .EXAMPLE
+	.EXAMPLE
         PS C:\> Get-OnlineVerFirefox.ps1
 
         Software_Name    : Mozilla Firefox
@@ -30,13 +30,14 @@
     
        PS C:\> Get-OnlineVerFirefox -Quiet
        61.0.2
-  
-    .INPUTS
+ 
+ 	.INPUTS
         -Quiet
             Use of this parameter will output just the current version of
             Flash Player instead of the entire object. It will always be the
-            last parameter.
-    .OUTPUTS
+            last parameter
+	    
+	.OUTPUTS
             An object containing the following:
             Software Name: Name of the software
             Software URL: The URL info was sourced from
