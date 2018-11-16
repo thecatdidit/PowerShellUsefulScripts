@@ -47,8 +47,8 @@
             Download URL x86: Direct download link for the x86 version
     
             If -Quiet is specified then just the value of 'Online Version'
-            will be displayed.
-    .NOTES
+            will be displayed
+	.NOTES
             Resources/Credits:
             https://github.com/itsontheb
 
