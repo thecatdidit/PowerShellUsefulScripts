@@ -24,7 +24,7 @@
         PS C:\> Get-OnlineVerFirefox.ps1
 
         Software_Name    : Mozilla Firefox
-        Software_URL     : https://product-details.mozilla.org/1.0/firefox_versions.json
+        Software_URL     : https://www.mozilla.org/en-us/firefox/61.0.2/releasenotes/
         Online_Version   : 61.0.2
         Online_Date      : 2018-08-08
         Download_URL_x64 : https://download-origin.cdn.mozilla.net/pub/firefox/releases/61.0.2/win64/en-US/Firefox%20Setup%2061.0.2.exe
@@ -104,8 +104,10 @@ function Get-OnlineVerFirefox
         $FirefoxDownloadX86 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win32/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
         
 
-        $swObject.Online_Version = $FirefoxVersion
+         $swObject.Online_Version = $FirefoxVersion
         $swobject.Online_Date = $FirefoxDate
+        $swobject.Software_URL = $ffReleaseNotes
+         
          
         } 
         catch
