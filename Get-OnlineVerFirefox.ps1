@@ -1,4 +1,4 @@
-<#  .NOTES
+<#
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17134)
 	 Revision:	v6
@@ -53,7 +53,6 @@
 	.NOTES
             Resources/Credits:
             https://github.com/itsontheb
-
 #>
 
 function Get-OnlineVerFirefox
