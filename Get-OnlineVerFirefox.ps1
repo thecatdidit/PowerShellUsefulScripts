@@ -2,12 +2,15 @@
 	.NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:	v5
-	 Last Modified: 24 August 2018
+	 Revision:	v6
+	 Last Modified: 13 December 2018
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerFirefox.ps1
 	===========================================================================
+	.CHANGELOG
+	 v6: Modified logic to obtain release dates as the JSON occasionally contains
+	     incorrect data when major version releases come out.	
 	.SYNOPSIS
         Queries Mozilla's Website for the current version of
         Firefox and returns the version, date updated, and
@@ -95,16 +98,16 @@ function Get-OnlineVerFirefox
             
 
         $uri = 'https://product-details.mozilla.org/1.0/firefox_versions.json'
-        $FirefoxVersion = Invoke-WebRequest $appFirefox -UseBasicParsing | ConvertFrom-Json | select -ExpandProperty LATEST_FIREFOX_vERSION
-        $FirefoxDate = (Invoke-WebRequest 'https://product-details.mozilla.org/1.0/firefox_history_stability_releases.json' -UseBasicParsing | ConvertFrom-Json) | select -ExpandProperty $FirefoxVersion
+        $FirefoxVersion = Invoke-WebRequest $uri -UseBasicParsing | ConvertFrom-Json | select -ExpandProperty LATEST_FIREFOX_vERSION
+        $ffReleaseNotes = "https://www.mozilla.org/en-us/firefox/"+$firefoxversion+"/releasenotes/"
+        (curl -Uri $ffReleaseNotes| Select-Object -ExpandProperty Content) -match "<h3>Firefox Release</h3>`n            `n              <p>(?<content>.*)</p>" | Out-Null
+        $FirefoxDate = ($matches['content'])
         $FirefoxDownloadX64 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win64/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
         $FirefoxDownloadX86 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win32/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
         
 
         $swObject.Online_Version = $FirefoxVersion
         $swobject.Online_Date = $FirefoxDate
-        
-        
          
         } 
         catch
@@ -139,4 +142,4 @@ function Get-OnlineVerFirefox
             Return $swobject
         }
     }
-}  # END Function Get-OnlineVerFlashPlayer
+}  # END Function Get-OnlineVerFirefox
