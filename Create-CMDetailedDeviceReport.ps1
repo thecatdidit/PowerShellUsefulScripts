@@ -95,9 +95,9 @@ $computers = @()
 # NameSpace:   Site Code
 # Collections: Can be one or more collections (e.g. "COL001","COL002"
 ##
-$SCCMName = 's'
-$Namespace = 'root\sms\site_BFI'
-$Collections = "BFI00282"
+$SCCMName = '<MANAGEMENTPOINT>'
+$Namespace = 'root\sms\site_<SITECODE>'
+$Collections = "<COLLECTIONID>"
 
 ##
 # Load Configuration Manager PowerShell Module
@@ -147,6 +147,14 @@ ForEach ($i in $PCList)
 			where
 				SMS_R_SYSTEM.Name= ""$($i.Name)"" ")
     $ProcessorType = $ProcessorClass.SMS_G_System_COMPUTER_SYSTEM.SystemType
+    
+    ##
+    # For the $Software variable, replace '<APPLICATION>'
+    # with your wildcard search.
+    # (e.g. *Adobe Flash Player*, *Symantec Endpoint Protection*)
+    # In the event that no information can be obtained.
+    ##
+    
     $Software = Get-WmiObject -ComputerName "$($SCCMName)" -Namespace "$($Namespace)" `
 				  -Query ("select InstalledLocation,ProductVersion,ProductName
             from 
