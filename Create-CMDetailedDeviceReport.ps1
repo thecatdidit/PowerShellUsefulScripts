@@ -16,7 +16,7 @@
         for each machine. This can be run against Windows workstations and
         servers.
 
-    .DESCRIPTION   
+	.DESCRIPTION   
         Queries members of a Device-Based Collection and returns detailed data
         for each machine.
 
@@ -95,7 +95,7 @@ $computers = @()
 # NameSpace:   Site Code
 # Collections: Can be one or more collections (e.g. "COL001","COL002"
 ##
-$SCCMName = 'sccmpssbfi201'
+$SCCMName = 's'
 $Namespace = 'root\sms\site_BFI'
 $Collections = "BFI00282"
 
