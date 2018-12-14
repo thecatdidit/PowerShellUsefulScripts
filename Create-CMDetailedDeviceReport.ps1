@@ -2,14 +2,14 @@
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17134)
 	 Revision:		2018.12.14.01
-     Last Modified:	14 Dec 2018
+	 Last Modified:	14 Dec 2018
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Create-CMDetailedDeviceReport.ps1
 	===========================================================================
 	.CHANGELOG
 	 (14 Dec 2018)
-        Script initial creation.
+         Script initial creation.
 
 	.SYNOPSIS
         Script to query Device-Based Collection(s) and return detailed data
