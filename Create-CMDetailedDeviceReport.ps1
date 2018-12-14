@@ -8,7 +8,7 @@
 	 Filename:     	Create-CMDetailedDeviceReport.ps1
 	===========================================================================
 	.CHANGELOG
-	 (14 Dec 2018)
+	 [REV. 2018.12.14.01]
          Script initial creation.
 
 	.SYNOPSIS
