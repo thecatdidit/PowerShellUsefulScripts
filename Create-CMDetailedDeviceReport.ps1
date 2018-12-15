@@ -212,7 +212,7 @@ ForEach ($i in $PCList)
     $Fullstat | Add-Member -Type NoteProperty -Name ProductName -Value ($software | Select-Object -ExpandProperty ProductName -First 1)
     $Fullstat | Add-Member -Type NoteProperty -Name ProductVersion -Value ($software | Select-Object -ExpandProperty ProductVersion -First 1)
     $Fullstat | Add-Member -Type NoteProperty -Name IsActive -Value $i.ClientActiveStatus
-    $Fullstat | Add-Member -Type NoteProperty -NAme LastPolicyRequest -Value $i.LastPolicyRequest
+    $Fullstat | Add-Member -Type NoteProperty -Name LastPolicyRequest -Value $i.LastPolicyRequest
     $Fullstat | Add-Member -type NoteProperty -Name IPAddresses -Value $IPAddress
     $Computers += $Fullstat
     $Fullstat
