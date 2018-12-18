@@ -1,32 +1,32 @@
 <#
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:		2018.12.18.01
-	 Last Modified:	18 December 2018
-	 Created by:	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
-	 Organizaiton:	Happy Days Are Here Again
-	 Filename:		Get-OnlineVerFirefox.ps1
+	 Revision:
+	 Last Modified: 13 December 2018
+	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
+	 Organizaiton: 	Happy Days Are Here Again
+	 Filename:     	Get-OnlineVerFirefox.ps1
 	===========================================================================
 	.CHANGELOG
 	 v6: Modified logic to obtain release dates as the JSON occasionally contains
 	     incorrect data when major version releases come out.	
 	.SYNOPSIS
-		Queries Mozilla's Website for the current version of
-		Firefox and returns the version, date updated, and
-		download URLs if available.
+        Queries Mozilla's Website for the current version of
+        Firefox and returns the version, date updated, and
+        download URLs if available.
 	.DESCRIPTION
-		This function retrieves the latest data associated with Mozilla Firefox
-		Invoke-WebRequest queries the site to obtain app release date, version and 
-		download URLs. This includes x86 and x64.
-		It then outputs the information as a
-		PSObject to the Host
+	    This function retrieves the latest data associated with Mozilla Firefox
+        Invoke-WebRequest queries the site to obtain app release date, version and 
+        download URLs. This includes x86 and x64.
+        It then outputs the information as a
+        PSObject to the Host
 
-		The version info for Firefox is obtained from a JSON file that Mozilla 
-		maintains for browser builds (current, beta, etc.). Once the version
-		number is obtained, it is used to find the date of release by
-		parsing data from the Firefox release notes website. The date is
-		extracted from this page as the JSON data tends to suffer from mistypes
-		on occasion when new builds are released.
+        The version info for Firefox is obtained from a JSON file that Mozilla 
+        maintains for browser builds (current, beta, etc.). Once the version
+        number is obtained, it is used to find the date of release by
+        parsing data from the Firefox release notes website. The date is
+        extracted from this page as the JSON data tends to suffer from mistypes
+        on occasion when new builds are released.
 
         The URLs for the release notes and direct download links are extrapolated
         by updating Firefox's URL syntax with the version number. The teplates:
@@ -94,7 +94,7 @@ function Get-OnlineVerFirefox
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
-            'Software_URL'     = $uri
+            'Software_URL'     = 'UNKNOWN'
             'Online_Version'   = 'UNKNOWN' 
             'Online_Date'      = 'UNKNOWN'
             'Download_URL_x64' = 'UNKNOWN'
@@ -123,10 +123,9 @@ function Get-OnlineVerFirefox
         $FirefoxDownloadX86 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win32/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
         
 
-         $swObject.Online_Version = $FirefoxVersion
+        $swObject.Online_Version = $FirefoxVersion
         $swobject.Online_Date = $FirefoxDate
         $swobject.Software_URL = $ffReleaseNotes
-         
          
         } 
         catch
