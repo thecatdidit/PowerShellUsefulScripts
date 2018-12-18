@@ -8,8 +8,10 @@
 	 Filename:     	Get-OnlineVerFirefox.ps1
 	===========================================================================
 	.CHANGELOG
-	 v6: Modified logic to obtain release dates as the JSON occasionally contains
-	     incorrect data when major version releases come out.	
+	[2018.12.14.02]
+	Cleaned up errant tabs and spaces that were acting screwy on GitHub.
+	[2018.12.18.01]
+	Updated script documentation with information on URL syntax, etc.
 	.SYNOPSIS
         Queries Mozilla's Website for the current version of
         Firefox and returns the version, date updated, and
