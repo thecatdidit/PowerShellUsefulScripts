@@ -15,7 +15,7 @@
         Firefox and returns the version, date updated, and
         download URLs if available.
 	.DESCRIPTION
-	    This function retrieves the latest data associated with Mozilla Firefox
+	This function retrieves the latest data associated with Mozilla Firefox
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes x86 and x64.
         It then outputs the information as a
@@ -49,8 +49,8 @@
         Download_URL_x64 : https://download-origin.cdn.mozilla.net/pub/firefox/releases/61.0.2/win64/en-US/Firefox%20Setup%2061.0.2.exe
         Download_URL_x86 : https://download-origin.cdn.mozilla.net/pub/firefox/releases/61.0.2/win32/en-US/Firefox%20Setup%2061.0.2.exe
     
-       PS C:\> Get-OnlineVerFirefox -Quiet
-       61.0.2
+       	PS C:\> Get-OnlineVerFirefox -Quiet
+       	61.0.2
  
  	.INPUTS
         -Quiet
