@@ -25,7 +25,6 @@
 		4.9.4.212024
 		4.10.1.219990
 		
-		
 		Steps:
 		
 		1. 'bcua-service.exe' and 'bcua-notifier.exe' are forcefully terminated
@@ -41,7 +40,6 @@
 		whatever BCUA version is needed.
 		A log file is created to log details of the agent removal. To set it
 		to another directory, update the $logFile variable
-		
 	.USAGE
 		PS> Remove-UnifiedAgent.ps1
 	.INPUTS
@@ -52,7 +50,6 @@
 	.NOTES
 		A forthcoming revision will provide some parameters for 
 		settings such as logfile location.
-        Also, the timestamp functionality will be made more modular
 #>
 
 
