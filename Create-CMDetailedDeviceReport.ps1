@@ -93,7 +93,7 @@ $computers = @()
 # Add the requested values:
 # SCCMName:    Management Point server name (FQDN)
 # NameSpace:   Site Code
-# Collections: Can be one or more collections (e.g. "COL001","COL002"
+# Collections: Can be one or more collections (e.g. "COL001","COL002")
 ##
 $SCCMName = '<MANAGEMENTPOINT>'
 $Namespace = 'root\sms\site_<SITECODE>'
