@@ -1,13 +1,13 @@
-# PowerShellUsefulScripts
-A collection of custom PowerShell scrips that I have written to ease some of the daily requirements of IT tasks
+## PowerShell Useful Scripts
 
-A shout out to Reddit user 'itsontheb' for help with putting legs on what I already had. You can find more of his great work here: https://github.com/itsontheb/ .
+This is a collection of scripts that I have created in the course of work and study to streamline processes related to SCCM and Third Party (3PUP) patch management. Included are scripts to directly query version and installer download information for major third party applications. 
 
-I'd also li**ke** to thank r/PowerShell on Reddit. 
+There are also a few other miscellaneous bits here and there that may not be necessarily related to the above. 
 
-These scripts are designed be informational-only in nature. They return version, publish date and download URL information. You can use them and set a particular variable for passthrough. Each has a "-quiet" parameter to just return the version number.
+## Thanks, Credits and Acknowledgments
+I want to note a few resources and individuals that have helped me learn much in this journey. I can only hope to give back to others out there.
 
-In my own environment, I use these as the basis for a daily email that goes out to the team highlighting different third party (3PUP) applications and their latest versions. You may find it of similar use if you don't have an enterprise 3PUP plugin or not system-driven, unified means of doing this ($$$). 
-
-More to come soon!
-Tue 04 Sep 2018
+* **[r/PowerShell](https://www.reddit.com/r/powershell)**
+* **[r/SCCM](https://www.reddit.com/r/powershell)**
+* **[NathanTheGr8](https://github.com/NathanTheGr8)** . I was able to figure out how to properly query Adobe Acrobat Reader DC version information through his great work
+* **[itsontheb](https://github.com/itsontheb)** . A good dude on GitHub and Reddit for expertise. Thanks for getting me started!
