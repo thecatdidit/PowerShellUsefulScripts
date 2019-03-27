@@ -130,4 +130,4 @@ function Get-OnlineVerAdobeReader
             Return $swobject
         }
     }
-}  # END Function Get-OnlineAdobeReader
+}  # END Function Get-OnlineVerAdobeReader
