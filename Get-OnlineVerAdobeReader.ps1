@@ -2,14 +2,13 @@
 	.NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17763)
-	 Revision:		v5
+	 Revision:	v5
 	 Last Modified: 27 Mar 2019
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerAdobeReader.ps1
 	===========================================================================
 	.CHANGELOG
-	
 	[2019.27.03.1230]
 	Script creation
 	.SYNOPSIS
@@ -36,20 +35,19 @@
 
 	.INPUTS
         -Quiet
-            Use of this parameter will output just the current version of
-            Google Chrome instead of the entire object. It will always be the
-            last parameter.
+         Use of this parameter will output just the current version of
+         Adobe Reader instead of the entire object. It will always be the
+         last parameter.
 	.OUTPUTS
         An object containing the following:
         Software Name: Name of the software
         Software URL: The URL info was sourced from
         Online Version: The current version found
         Online Date: The date the version was updated
-        Download URL x86: Download URL for the win32 version
-        Download URL x64: Download URL for the win64 version
     
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
+	
 	.NOTES
         Resources/Credits:
         https://github.com/itsontheb
