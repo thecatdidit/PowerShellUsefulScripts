@@ -139,4 +139,4 @@ function Get-OnlineVer7Zip
             Return $swobject
         }
     }
-}  # END Function Get-OnlineVerNotepadPlusPlus
+}  # END Function Get-OnlineVer7Zip
