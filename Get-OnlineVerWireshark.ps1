@@ -58,18 +58,16 @@
 #>
 
 
-function Get-OnlineVerWireshark
-{
+function Get-OnlineVerWireshark {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = 'Wireshark'
         $uri = "https://support.bluejeans.com/knowledge/desktop-app-deployment"
@@ -83,48 +81,41 @@ function Get-OnlineVerWireshark
         }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
-}
+    }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
   
-        $uri = 'https://www.wireshark.org/wireshark-pad.xml'
-        $xml_versions = New-Object XML
-        $xml_versions.Load($uri)
-        $wiresharkVersion = ($xml_versions.XML_DIZ_INFO.Program_Info.Program_Version).ToString()
-        $wiresharkDate = ($xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Year + "-" + $xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Month + "-" + $xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Day).ToString()
-        $wiresharkURL = ("https://1.na.dl.wireshark.org/win64/Wireshark-win64-" + $wiresharkVersion + ".exe").ToString()
+            $uri = 'https://www.wireshark.org/wireshark-pad.xml'
+            $xml_versions = New-Object XML
+            $xml_versions.Load($uri)
+            $wiresharkVersion = ($xml_versions.XML_DIZ_INFO.Program_Info.Program_Version).ToString()
+            $wiresharkDate = ($xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Year + "-" + $xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Month + "-" + $xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Day).ToString()
+            $wiresharkURL = ("https://1.na.dl.wireshark.org/win64/Wireshark-win64-" + $wiresharkVersion + ".exe").ToString()
         
-        $swObject.Online_Version = $wiresharkVersion
-        $swObject.Online_Date = $wiresharkDate
-        $swObject.Download_URL_x64 = $wiresharkURL
+            $swObject.Online_Version = $wiresharkVersion
+            $swObject.Online_Date = $wiresharkDate
+            $swObject.Download_URL_x64 = $wiresharkURL
  
-         }
-        catch
-        {
+        }
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
    
+        }
     }
-    }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }
