@@ -96,7 +96,7 @@ function Get-OnlineVerBlueJeans
         $site -match "Command Line Switch for silent deployment: msiexec /i "“BlueJeans.(?<version>.*).msi" | Out-Null
         $blueJeansVersion = $matches['version']
 
-        $blueJeansURL = "https://swdl.bluejeans.com/desktop-app/win/" + $blueJeansVersion.Replace("m","") + ".0/BlueJeans." + "2.11.593m" + ".msi"
+        $blueJeansURL = "https://swdl.bluejeans.com/desktop-app/win/" + $blueJeansVersion.Replace("m","") + ".0/BlueJeans." + $blueJeansVersion + ".msi"
         
         $swObject.Online_Version = $blueJeansVersion
         $swObject.Online_Date = $blueJeansDate
