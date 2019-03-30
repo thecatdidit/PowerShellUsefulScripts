@@ -76,19 +76,17 @@
             https://github.com/itsontheb
 #>
 
-function Get-OnlineVerFirefox
-{
+function Get-OnlineVerFirefox {
 
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = "Mozilla Firefox"
         $uri = 'https://product-details.mozilla.org/1.0/firefox_versions.json'
@@ -108,57 +106,49 @@ function Get-OnlineVerFirefox
     }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             
 
-        $uri = 'https://product-details.mozilla.org/1.0/firefox_versions.json'
-        $FirefoxVersion = Invoke-WebRequest $uri -UseBasicParsing | ConvertFrom-Json | select -ExpandProperty LATEST_FIREFOX_vERSION
-        $ffReleaseNotes = "https://www.mozilla.org/en-us/firefox/"+$firefoxversion+"/releasenotes/"
-        (curl -Uri $ffReleaseNotes| Select-Object -ExpandProperty Content) -match "<h3>Firefox Release</h3>`n            `n              <p>(?<content>.*)</p>" | Out-Null
-        $FirefoxDate = ($matches['content'])
-        $FirefoxDownloadX64 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win64/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
-        $FirefoxDownloadX86 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win32/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
+            $uri = 'https://product-details.mozilla.org/1.0/firefox_versions.json'
+            $FirefoxVersion = Invoke-WebRequest $uri -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty LATEST_FIREFOX_vERSION
+            $ffReleaseNotes = "https://www.mozilla.org/en-us/firefox/" + $firefoxversion + "/releasenotes/"
+            (Invoke-WebRequest -Uri $ffReleaseNotes | Select-Object -ExpandProperty Content) -match "<h3>Firefox Release</h3>`n            `n              <p>(?<content>.*)</p>" | Out-Null
+            $FirefoxDate = ($matches['content'])
+            $FirefoxDownloadX64 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win64/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
+            $FirefoxDownloadX86 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win32/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
         
 
-        $swObject.Online_Version = $FirefoxVersion
-        $swobject.Online_Date = $FirefoxDate
-        $swobject.Software_URL = $ffReleaseNotes
+            $swObject.Online_Version = $FirefoxVersion
+            $swobject.Online_Date = $FirefoxDate
+            $swobject.Software_URL = $ffReleaseNotes
          
         } 
-        catch
-        {
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
           
 
-        # Get the Download URLs
-        if ($swObject.Online_Version -ne 'UNKNOWN')
-        {
+            # Get the Download URLs
+            if ($swObject.Online_Version -ne 'UNKNOWN') {
            
-            $swobject.Download_URL_X64 = $FirefoxDownloadX64
-            $swobject.Download_URL_X86 = $FirefoxDownloadX86
+                $swobject.Download_URL_X64 = $FirefoxDownloadX64
+                $swobject.Download_URL_X86 = $FirefoxDownloadX86
+            }
         }
-  }
     }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }

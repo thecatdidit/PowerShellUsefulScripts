@@ -65,31 +65,29 @@
 #Allows TLS 1.2 for FileHippo HTTPS access
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-function Get-OnlineVerFlashPlayer
-{
+function Get-OnlineVerFlashPlayer {
 
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = "Adobe Flash Player"
         $uri = 'https://fpdownload.macromedia.com/pub/flashplayer/masterversion/masterversion.xml'
        
             
         $hashtable = [ordered]@{
-            'Software_Name'    = $softwareName
-            'Software_URL'     = $uri
-            'Online_Version'   = 'UNKNOWN' 
-            'Online_Date'      = 'UNKNOWN'
-            'Download_URL_PPAPI' = 'UNKNOWN'
-            'Download_URL_NPAPI' = 'UNKNOWN'
+            'Software_Name'        = $softwareName
+            'Software_URL'         = $uri
+            'Online_Version'       = 'UNKNOWN' 
+            'Online_Date'          = 'UNKNOWN'
+            'Download_URL_PPAPI'   = 'UNKNOWN'
+            'Download_URL_NPAPI'   = 'UNKNOWN'
             'Download_URL_ActiveX' = 'UNKNOWN'
         }
     
@@ -97,63 +95,55 @@ function Get-OnlineVerFlashPlayer
     }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             
 
-        $uri = 'https://fpdownload.macromedia.com/pub/flashplayer/masterversion/masterversion.xml'
-        $xml_versions = New-Object XML
-        $xml_versions.Load($uri)
-        $FlashMajorVersion = ($xml_versions.version.release.NPAPI_win.version).Substring(0,2)
-        $FlashFullVersion = ($xml_versions.version.release.NPAPI_win.version).replace(",",".")
-        $FlashURLPrefix = "https://fpdownload.macromedia.com/pub/flashplayer/pdc/" + $FlashFullVersion
-        $FlashDateURI= (curl -Uri https://filehippo.com/download_adobe-flash-player/tech -UseBasicParsing | Select-Object Content -ExpandProperty Content)
-        $FlashDateURI -match "Date added:</span> <span class=""field-value"">`r`n                                (?<content>.*)</span>" | Out-Null
-        $app1Date = ($matches['content'])
-        $swObject.Online_Version = $FlashFullVersion
-        $swobject.Online_Date = $app1Date
+            $uri = 'https://fpdownload.macromedia.com/pub/flashplayer/masterversion/masterversion.xml'
+            $xml_versions = New-Object XML
+            $xml_versions.Load($uri)
+            $FlashMajorVersion = ($xml_versions.version.release.NPAPI_win.version).Substring(0, 2)
+            $FlashFullVersion = ($xml_versions.version.release.NPAPI_win.version).replace(",", ".")
+            $FlashURLPrefix = "https://fpdownload.macromedia.com/pub/flashplayer/pdc/" + $FlashFullVersion
+            $FlashDateURI = (Invoke-WebRequest -Uri https://filehippo.com/download_adobe-flash-player/tech -UseBasicParsing | Select-Object Content -ExpandProperty Content)
+            $FlashDateURI -match "Date added:</span> <span class=""field-value"">`r`n                                (?<content>.*)</span>" | Out-Null
+            $app1Date = ($matches['content'])
+            $swObject.Online_Version = $FlashFullVersion
+            $swobject.Online_Date = $app1Date
         
          
         } 
-        catch
-        {
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
           
 
-        # Get the Download URLs
-        if ($swObject.Online_Version -ne 'UNKNOWN')
-        {
+            # Get the Download URLs
+            if ($swObject.Online_Version -ne 'UNKNOWN') {
            
             
-           $FlashURLPPAPI = $FlashURLPrefix + "/install_flash_player_" + $FlashMajorVersion + "_ppapi.msi"
-           $FlashURLActiveX = $FlashURLPRefix + "/install_flash_player_" + $FlashMajorVersion + "_active_X.msi"
-           $FLashURLNPAPI = $FlashURLPRefix +  "/install_flash_player_" + $FlashMajorVersion + "_plugin.msi"
+                $FlashURLPPAPI = $FlashURLPrefix + "/install_flash_player_" + $FlashMajorVersion + "_ppapi.msi"
+                $FlashURLActiveX = $FlashURLPRefix + "/install_flash_player_" + $FlashMajorVersion + "_active_X.msi"
+                $FLashURLNPAPI = $FlashURLPRefix + "/install_flash_player_" + $FlashMajorVersion + "_plugin.msi"
 
-            $swObject.DOWNLOAD_URL_PPAPI = $FlashURLPPAPI
-            $swObject.DOWNLOAD_URL_NPAPI = $FlashURLNPAPI
-            $swObject.DOWNLOAD_URL_ActiveX = $FlashURLActiveX
+                $swObject.DOWNLOAD_URL_PPAPI = $FlashURLPPAPI
+                $swObject.DOWNLOAD_URL_NPAPI = $FlashURLNPAPI
+                $swObject.DOWNLOAD_URL_ActiveX = $FlashURLActiveX
+            }
         }
-  }
     }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }

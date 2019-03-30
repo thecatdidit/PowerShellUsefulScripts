@@ -53,18 +53,16 @@
 #>
 
 
-function Get-OnlineVerPostman
-{
+function Get-OnlineVerPostman {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = 'Postman'
         $URI = 'https://dl.pstmn.io/changelog?channel=stable&platform=win'
@@ -78,45 +76,38 @@ function Get-OnlineVerPostman
         }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
-}
+    }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
   
-        $postmanDetails = (Invoke-WebRequest $uri | ConvertFrom-Json)
-        $postmanVersion = $postmanDetails.changelog[0].name
-        $postmanDate = $postmandetails.changelog[0].createdAt.Substring(0,10)
-        $postmanDownload = $postmanDetails.changelog[0].assets.url
-        $swObject.Online_Version = $postmanVersion
-        $swObject.Online_Date = $PostmanDate
-        $swObject.Download_URL_x64 = $postmanDownload
+            $postmanDetails = (Invoke-WebRequest $uri | ConvertFrom-Json)
+            $postmanVersion = $postmanDetails.changelog[0].name
+            $postmanDate = $postmandetails.changelog[0].createdAt.Substring(0, 10)
+            $postmanDownload = $postmanDetails.changelog[0].assets.url
+            $swObject.Online_Version = $postmanVersion
+            $swObject.Online_Date = $PostmanDate
+            $swObject.Download_URL_x64 = $postmanDownload
  
-         }
-        catch
-        {
+        }
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
    
+        }
     }
-    }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }

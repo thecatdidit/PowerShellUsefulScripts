@@ -54,18 +54,16 @@
 #>
 
 
-function Get-OnlineVerBlueJeans
-{
+function Get-OnlineVerBlueJeans {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = 'Blue Jeans'
         $uri = "https://support.bluejeans.com/knowledge/desktop-app-deployment"
@@ -79,51 +77,44 @@ function Get-OnlineVerBlueJeans
         }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
-}
+    }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
   
-        $site = (Invoke-WebRequest -uri $uri -UseBasicParsing).Content
+            $site = (Invoke-WebRequest -uri $uri -UseBasicParsing).Content
 
-        $site -match "Last Updated: (?<date>.*) //"  | Out-Null
-        $blueJeansDate = $matches['date']
+            $site -match "Last Updated: (?<date>.*) //" | Out-Null
+            $blueJeansDate = $matches['date']
 
-        $site -match "Command Line Switch for silent deployment: msiexec /i "“BlueJeans.(?<version>.*).msi" | Out-Null
-        $blueJeansVersion = $matches['version']
+            $site -match "Command Line Switch for silent deployment: msiexec /i "“BlueJeans.(?<version>.*).msi" | Out-Null
+            $blueJeansVersion = $matches['version']
 
-        $blueJeansURL = "https://swdl.bluejeans.com/desktop-app/win/" + $blueJeansVersion.Replace("m","") + ".0/BlueJeans." + $blueJeansVersion + ".msi"
+            $blueJeansURL = "https://swdl.bluejeans.com/desktop-app/win/" + $blueJeansVersion.Replace("m", "") + ".0/BlueJeans." + $blueJeansVersion + ".msi"
         
-        $swObject.Online_Version = $blueJeansVersion
-        $swObject.Online_Date = $blueJeansDate
-        $swObject.Download_URL_x64 = $blueJeansURL
+            $swObject.Online_Version = $blueJeansVersion
+            $swObject.Online_Date = $blueJeansDate
+            $swObject.Download_URL_x64 = $blueJeansURL
  
-         }
-        catch
-        {
+        }
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
    
+        }
     }
-    }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }

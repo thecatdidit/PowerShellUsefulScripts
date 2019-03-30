@@ -22,44 +22,41 @@ $Category = "bios"
 $DownloadDir = "C:\HPContent\Downloads"
 $ExtractedDir = "C:\HPContent\Packages\HP"
     
-        $HPModelsTable= @(
-        @{ ProdCode = '80FC'; Model = "Elite x2 1012 G1"}
-        @{ ProdCode = '82CA'; Model = "Elite x2 1012 G2" }
-        @{ ProdCode = '80FB'; Model = "EliteBook 1030 G1" }
-        @{ ProdCode = '80FA'; Model = "EliteBook 1040 G3"  }
-        @{ ProdCode = '225A'; Model = "EliteBook 820 G2"  }
-        @{ ProdCode = '807C'; Model = "EliteBook 820 G3"  }
-        @{ ProdCode = '2216'; Model = "EliteBook 840 G2"  }
-        @{ ProdCode = '8079'; Model = "EliteBook 840 G3"  }
-        )
-        $HPModelName = $HPModelsTable | ? ProdCode -eq $Model | % Model
+$HPModelsTable = @(
+    @{ ProdCode = '80FC'; Model = "Elite x2 1012 G1" }
+    @{ ProdCode = '82CA'; Model = "Elite x2 1012 G2" }
+    @{ ProdCode = '80FB'; Model = "EliteBook 1030 G1" }
+    @{ ProdCode = '80FA'; Model = "EliteBook 1040 G3" }
+    @{ ProdCode = '225A'; Model = "EliteBook 820 G2" }
+    @{ ProdCode = '807C'; Model = "EliteBook 820 G3" }
+    @{ ProdCode = '2216'; Model = "EliteBook 840 G2" }
+    @{ ProdCode = '8079'; Model = "EliteBook 840 G3" }
+)
+$HPModelName = $HPModelsTable | Where-Object ProdCode -eq $Model | ForEach-Object Model
  
  
-foreach ($Model in $HPModelsTable)
-    {
+foreach ($Model in $HPModelsTable) {
     Write-Output "Checking Product Code $($Model.ProdCode) for BIOS Updates"
     $BIOS = Get-SoftpaqList -platform $Model.ProdCode -os $OS -category $Category
-    if (Test-Path "$($DownloadDir)\$($Model.Model)"){$CurrentDownloadedVersion = (Get-childitem -Path "$($DownloadDir)\$($Model.Model)").Name}
+    if (Test-Path "$($DownloadDir)\$($Model.Model)") { $CurrentDownloadedVersion = (Get-ChildItem -Path "$($DownloadDir)\$($Model.Model)").Name }
     $MostRecent = ($Bios | Measure-Object -Property "ReleaseDate" -Maximum).Maximum
-    $BIOS = $BIOS | WHERE "ReleaseDate" -eq "$MostRecent"
+    $BIOS = $BIOS | Where-Object "ReleaseDate" -eq "$MostRecent"
     $DownloadPath = "$($DownloadDir)\$($Model.Model)\$($BIOS.Version)"
     $ExtractedPath = "$($ExtractedDir)\$($Model.Model)"
     
-    if (-not (Test-Path "$($DownloadPath)"))
-        {
-        if ($CurrentDownloadedVersion) {Write-Output "Update Found, Replacing $([decimal]$CurrentDownloadedVersion) with $([decimal]$BIOS.Version)"}
-        Else {Write-Output "Update Found, Downloading: $([decimal]$BIOS.Version)"}
+    if (-not (Test-Path "$($DownloadPath)")) {
+        if ($CurrentDownloadedVersion) { Write-Output "Update Found, Replacing $([decimal]$CurrentDownloadedVersion) with $([decimal]$BIOS.Version)" }
+        Else { Write-Output "Update Found, Downloading: $([decimal]$BIOS.Version)" }
         Write-Output "Downloading BIOS Update for: $($Model.Model) aka $($Model.ProdCode)"
         Get-Softpaq -number $BIOS.ID -saveAs "$($DownloadPath)\$($BIOS.id).exe" -Verbose
         Write-Output "Creating Readme file with BIOS Info HERE: $($DownloadPath)\$($Bios.ReleaseDate).txt"
         $BIOS | Out-File -FilePath "$($DownloadPath)\$($Bios.ReleaseDate).txt"
-        $BiosFileName = Get-ChildItem -Path "$($DownloadPath)\*.exe" | select -ExpandProperty "Name"
+        $BiosFileName = Get-ChildItem -Path "$($DownloadPath)\*.exe" | Select-Object -ExpandProperty "Name"
         
-        if (Test-path $ExtractedPath) 
-            {
+        if (Test-Path $ExtractedPath) {
             Write-Output "Deleting $($ExtractedPath) Contents before extracting new contents"
-            remove-item -Path $ExtractedPath -Recurse -Force
-            }
+            Remove-Item -Path $ExtractedPath -Recurse -Force
+        }
         Write-Output "Extracting Downloaded BIOS File to: $($ExtractedPath)"
         Start-Process "$($DownloadPath)\$($BiosFileName)" -ArgumentList "-pdf -e -s -f$($ExtractedPath)" -wait
         #Start-Sleep -Seconds 2
@@ -72,7 +69,7 @@ foreach ($Model in $HPModelsTable)
         Remove-Item -Path "$($ExtractedPath)\HPBIOSUPDREC.exe" -Verbose
         
         Start-Sleep -Seconds 3
-        }
-    Else
-        {Write-Output "No New BIOS Available"}
     }
+    Else
+    { Write-Output "No New BIOS Available" }
+}

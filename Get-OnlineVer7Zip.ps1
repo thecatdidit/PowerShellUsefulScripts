@@ -58,18 +58,16 @@
             https://github.com/itsontheb
 #>
 
-function Get-OnlineVer7Zip
-{
+function Get-OnlineVer7Zip {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = '7Zip'
         $URI = 'https://www.7-zip.org/download.html'
@@ -87,14 +85,12 @@ function Get-OnlineVer7Zip
     }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             $uri = 'https://www.7-zip.org/download.html'
-            $7ZipURL = (curl -Uri $uri| Select-Object -ExpandProperty Content)
+            $7ZipURL = (Invoke-WebRequest -Uri $uri | Select-Object -ExpandProperty Content)
             $7ZIPURL -match "<P><B>Download 7-Zip (?<version>.*) \((?<date>.*)\) f" | Out-Null
             $7ZipVersion = ($matches['version'])
             $7ZipDate = ($matches['date'])
@@ -103,39 +99,33 @@ function Get-OnlineVer7Zip
             $swObject.Online_Date = $7ZipDate
 
         }
-        catch
-        {
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
           
 
-        # Get the Download URLs
-        if ($swObject.Online_Version -ne 'UNKNOWN')
-        {
+            # Get the Download URLs
+            if ($swObject.Online_Version -ne 'UNKNOWN') {
        
-            $7ZipDownloadx64 = "https://www.7-zip.org/a/7z"+$7ZipVersion.replace(".","")+"-x64.msi"
-            $7ZipDownloadx86 = "https://www.7-zip.org/a/7z"+$7ZipVersion.replace(".","")+".msi"
+                $7ZipDownloadx64 = "https://www.7-zip.org/a/7z" + $7ZipVersion.replace(".", "") + "-x64.msi"
+                $7ZipDownloadx86 = "https://www.7-zip.org/a/7z" + $7ZipVersion.replace(".", "") + ".msi"
             
             
-            $swObject.Download_URL_x86 = $7ZipDownloadx86
-            $swObject.Download_URL_x64 = $7ZipDownloadx64
+                $swObject.Download_URL_x86 = $7ZipDownloadx86
+                $swObject.Download_URL_x64 = $7ZipDownloadx64
+            }
         }
     }
-    }
-    End
-    {
-       # Output to Host
-        if ($Quiet)
-        {
+    End {
+        # Output to Host
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }

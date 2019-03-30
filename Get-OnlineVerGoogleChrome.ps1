@@ -58,18 +58,16 @@
     Helpful URLs:
 #>
 
-function Get-OnlineVerGoogleChrome
-{
+function Get-OnlineVerGoogleChrome {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = 'GoogleChrome'
         $URI = 'http://feeds.feedburner.com/GoogleChromeReleases'
@@ -87,52 +85,44 @@ function Get-OnlineVerGoogleChrome
     }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             $uri = 'http://feeds.feedburner.com/GoogleChromeReleases'
             $rawReq = Invoke-WebRequest -Uri $URI -UseBasicParsing
-            [xml]$strReleaseFeed = Invoke-webRequest $uri -UseBasicParsing
-            [string]$version = ($strReleaseFeed.feed.entry | Where-object{$_.title.'#text' -match 'Stable'}).content | Select-Object{$_.'#text'} | Where-Object{$_ -match 'Windows'} | ForEach{[version](($_ | Select-string -allmatches '(\d{1,4}\.){3}(\d{1,4})').matches | select-object -first 1 -expandProperty Value)} | Sort-Object -Descending | Select-Object -first 1
-            $releaseDate = ($strReleaseFeed.feed.entry | Where-object{$_.title.'#text' -match 'Stable'} | select -First 1).published
-            $releaseDate = $releaseDate.Substring(0,10) 
+            [xml]$strReleaseFeed = Invoke-WebRequest $uri -UseBasicParsing
+            [string]$version = ($strReleaseFeed.feed.entry | Where-Object { $_.title.'#text' -match 'Stable' }).content | Select-Object { $_.'#text' } | Where-Object { $_ -match 'Windows' } | ForEach-Object { [version](($_ | Select-String -allmatches '(\d{1,4}\.){3}(\d{1,4})').matches | Select-Object -first 1 -expandProperty Value) } | Sort-Object -Descending | Select-Object -first 1
+            $releaseDate = ($strReleaseFeed.feed.entry | Where-Object { $_.title.'#text' -match 'Stable' } | Select-Object -First 1).published
+            $releaseDate = $releaseDate.Substring(0, 10) 
 
             $swObject.Online_Version = $version
             $swObject.Online_Date = $releaseDate
 
         }
-        catch
-        {
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
           
 
-        # Get the Download URLs
-        if ($swObject.Online_Version -ne 'UNKNOWN')
-        {
-            $simpleVer = $version.Replace('.','')
-            $swObject.Download_URL_x86 = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi"
-            $swObject.Download_URL_x64 = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi"
+            # Get the Download URLs
+            if ($swObject.Online_Version -ne 'UNKNOWN') {
+                $simpleVer = $version.Replace('.', '')
+                $swObject.Download_URL_x86 = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi"
+                $swObject.Download_URL_x64 = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi"
+            }
         }
     }
-    }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }
