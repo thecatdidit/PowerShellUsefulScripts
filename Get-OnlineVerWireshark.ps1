@@ -120,23 +120,3 @@ function Get-OnlineVerWireshark {
         }
     }
 }  # END Function Get-OnlineVerBlueJeans
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$uri = 'https://www.wireshark.org/wireshark-pad.xml'
-$xml_versions.Load($uri)
-$wiresharkVersion = $xml_versions.XML_DIZ_INFO.Program_Info.Program_Version
-$wiresharkDate = $xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Year + "-" + $xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Month + "-" + $xml_versions.XML_DIZ_INFO.Program_Info.Program_Release_Day
-$wiresharkURL = "https://1.na.dl.wireshark.org/win64/Wireshark-win64-" + $wiresharkVersion + ".exe"
