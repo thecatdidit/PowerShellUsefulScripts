@@ -54,18 +54,16 @@
 #>
 
 
-function Get-OnlineVerSyncplicity
-{
+function Get-OnlineVerSyncplicity {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = 'Syncplicity'
         $uri = 'https://docs.axway.com/bundle/Syncplicity/page/windows_desktop_client_release_notes.html'
@@ -79,50 +77,43 @@ function Get-OnlineVerSyncplicity
         }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
-}
+    }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
   
-        $site = (curl -uri $uri -UseBasicParsing | select -ExpandProperty Content) 
-        0
-        $site -match "<h2 id=""Windowsdesktopclientreleasenotes-(?<content>.*)>(?<date>.*)</h2>"
-        $syncplicityDate = $matches['date']
-        $site -match "<p>Windows Client (?<version>.*)</p>"
+            $site = (Invoke-WebRequest -uri $uri -UseBasicParsing | Select-Object -ExpandProperty Content) 
+            0
+            $site -match "<h2 id=""Windowsdesktopclientreleasenotes-(?<content>.*)>(?<date>.*)</h2>"
+            $syncplicityDate = $matches['date']
+            $site -match "<p>Windows Client (?<version>.*)</p>"
         
-        $syncplicityVersion = $matches['version']
-        $syncplicityURL = 'https://download.syncplicity.com/windows/Syncplicity_Setup.exe'
+            $syncplicityVersion = $matches['version']
+            $syncplicityURL = 'https://download.syncplicity.com/windows/Syncplicity_Setup.exe'
         
-        $swObject.Online_Version = $syncplicityVersion
-        $swObject.Online_Date = $syncplicityDate
-        $swObject.Download_URL_x64 = $syncplicityURL
+            $swObject.Online_Version = $syncplicityVersion
+            $swObject.Online_Date = $syncplicityDate
+            $swObject.Download_URL_x64 = $syncplicityURL
  
-         }
-        catch
-        {
+        }
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
    
+        }
     }
-    }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }
