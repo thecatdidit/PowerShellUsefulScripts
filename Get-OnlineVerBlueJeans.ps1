@@ -90,10 +90,10 @@ function Get-OnlineVerBlueJeans
   
         $site = (Invoke-WebRequest -uri $uri -UseBasicParsing).Content
 
-        $site -match "Last Updated: (?<date>.*) //"
+        $site -match "Last Updated: (?<date>.*) //"  | Out-Null
         $blueJeansDate = $matches['date']
 
-        $site -match "Command Line Switch for silent deployment: msiexec /i "“BlueJeans.(?<version>.*).msi"
+        $site -match "Command Line Switch for silent deployment: msiexec /i "“BlueJeans.(?<version>.*).msi" | Out-Null
         $blueJeansVersion = $matches['version']
 
         $blueJeansURL = "https://swdl.bluejeans.com/desktop-app/win/" + $blueJeansVersion.Replace("m","") + ".0/BlueJeans." + "2.11.593m" + ".msi"
