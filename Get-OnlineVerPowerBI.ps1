@@ -6,26 +6,26 @@
 	 Last Modified: 30 March 2019
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
-	 Filename:     	Get-OnlineVerWinSCP.ps1
+	 Filename:     	Get-OnlineVerPowerBI.ps1
 	===========================================================================
 	.Synopsis
-        Queries the WinSCP Website for the current version of
+        Queries the PowerBI Website for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
     .DESCRIPTION
-	    This function retrieves the latest data associated with WinSCP
+	    This function retrieves the latest data associated with PowerBI
         Utilizes Invoke-WebRequest to query the Postman download page and
         pulls out the Version, Update Date and Download URLs for
         the app (x64 only) It then outputs the information as a
         PSObject to the Host.
     .EXAMPLE
-        PS C:\> Get-OnlineVerWinSCP
+        PS C:\> Get-OnlineVerPowerBI
         
-        Software_Name    : WinSCP
-        Software_URL     : https://winscp.net/eng/news.php
-        Online_Version   : 5.15
-        Online_Date      : 2019-03-27
-        Download_URL_x64 : https://winscp.net/download/WinSCP-5.15-Setup.exe
+        Software_Name    : PowerBI
+        Software_URL     : https://docs.microsoft.com/en-us/power-bi/desktop-latest-update
+        Online_Version   : 2.67.5404.981
+        Online_Date      : 3/28/2019
+        Download_URL_x64 : https://download.microsoft.com/download/9/B/A/9BAEFFEF-1A68-4102-8CDF-5D28BFFE6A61/PBIDesktop_x64.msi
 
         
     .INPUTS
@@ -34,8 +34,8 @@
             Google Chrome instead of the entire object. It will always be the
             last parameter.
 
-        PS C:\> Get-OnlineVerBlueJeans -Quiet
-        5.15
+        PS C:\> Get-OnlineVerPowerBI -Quiet
+        2.11.593m
 
 .OUTPUTS
         An object containing the following:
@@ -54,7 +54,7 @@
 #>
 
 
-function Get-OnlineVerWinSCP
+function Get-OnlineVerPowerBI
 {
     [cmdletbinding()]
     param (
@@ -67,8 +67,8 @@ function Get-OnlineVerWinSCP
     begin
     {
         # Initial Variables
-        $SoftwareName = 'WinSCP'
-        $uri = "https://winscp.net/eng/news.php"
+        $SoftwareName = 'PowerBI'
+        $uri = "https://docs.microsoft.com/en-us/power-bi/desktop-latest-update"
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
@@ -88,19 +88,17 @@ function Get-OnlineVerWinSCP
         try
         {
   
-        $site = (Invoke-WebRequest -uri $uri -UseBasicParsing).Content
-
-        $site -match "<p class=""items-list-blocks-item-date""><span class=""sr-only"">Published:</span>(?<date>.*)</p>" | Out-Null
-        $winscpdate = $matches['date']
-
-        $site -match "<h2 class=""items-list-blocks-item-heading"">WinSCP (?<version>.*) released</h2>" | Out-Null
-        $winscpVersion = $matches['version']
-
-        $winscpURL = "https://winscp.net/download/WinSCP-" + $winscpVersion + "-Setup.exe"
+        $uri2 = 'https://www.microsoft.com/en-us/download/details.aspx?id=45331'
+        $site = (curl -uri $uri2 -UseBasicParsing | select -ExpandProperty Content)
+        $site -match "Version:                                            </div><p>(?<version>.*)</p>" | Out-Null
+        $biVersion = $matches['version']
+        $site -match "Date Published:                                            </div><p>(?<date>.*)</p>" | Out-Null
+        $biDate = $matches['date']
+        $biDownloadURL = "https://download.microsoft.com/download/9/B/A/9BAEFFEF-1A68-4102-8CDF-5D28BFFE6A61/PBIDesktop_x64.msi"
         
-        $swObject.Online_Version = $winscpVersion
-        $swObject.Online_Date = $winscpdate
-        $swObject.Download_URL_x64 = $winscpURL
+        $swObject.Online_Version = $biVersion
+        $swObject.Online_Date = $biDate
+        $swObject.Download_URL_x64 = $biDownloadURL
  
          }
         catch
@@ -127,4 +125,4 @@ function Get-OnlineVerWinSCP
             Return $swobject
         }
     }
-}  # END Function Get-OnlineVerWinSCP
+}  # END Function Get-OnlineVerPowerBI

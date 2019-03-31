@@ -6,26 +6,26 @@
 	 Last Modified: 30 March 2019
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
-	 Filename:     	Get-OnlineVerWinSCP.ps1
+	 Filename:     	Get-OnlineVerSyncplicity.ps1
 	===========================================================================
 	.Synopsis
-        Queries the WinSCP Website for the current version of
+        Queries the Syncplicity Website for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
     .DESCRIPTION
-	    This function retrieves the latest data associated with WinSCP
+	    This function retrieves the latest data associated with Syncplicity
         Utilizes Invoke-WebRequest to query the Postman download page and
         pulls out the Version, Update Date and Download URLs for
         the app (x64 only) It then outputs the information as a
         PSObject to the Host.
     .EXAMPLE
-        PS C:\> Get-OnlineVerWinSCP
+        PS C:\> Get-OnlineVerSyncplicity
         
-        Software_Name    : WinSCP
-        Software_URL     : https://winscp.net/eng/news.php
-        Online_Version   : 5.15
-        Online_Date      : 2019-03-27
-        Download_URL_x64 : https://winscp.net/download/WinSCP-5.15-Setup.exe
+        Software_Name    : Syncplicity
+        Software_URL     : https://docs.axway.com/bundle/Syncplicity/page/windows_desktop_client_release_notes.html
+        Online_Version   : 6.0.1
+        Online_Date      : March 2019
+        Download_URL_x64 : https://download.syncplicity.com/windows/Syncplicity_Setup.exe
 
         
     .INPUTS
@@ -34,8 +34,8 @@
             Google Chrome instead of the entire object. It will always be the
             last parameter.
 
-        PS C:\> Get-OnlineVerBlueJeans -Quiet
-        5.15
+        PS C:\> Get-OnlineVerSyncplicity -Quiet
+        6.0.1
 
 .OUTPUTS
         An object containing the following:
@@ -54,21 +54,19 @@
 #>
 
 
-function Get-OnlineVerWinSCP
-{
+function Get-OnlineVerSyncplicity {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
-        $SoftwareName = 'WinSCP'
-        $uri = "https://winscp.net/eng/news.php"
+        $SoftwareName = 'Syncplicity'
+        $uri = 'https://docs.axway.com/bundle/Syncplicity/page/windows_desktop_client_release_notes.html'
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
@@ -79,52 +77,44 @@ function Get-OnlineVerWinSCP
         }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
-}
+    }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
   
-        $site = (Invoke-WebRequest -uri $uri -UseBasicParsing).Content
-
-        $site -match "<p class=""items-list-blocks-item-date""><span class=""sr-only"">Published:</span>(?<date>.*)</p>" | Out-Null
-        $winscpdate = $matches['date']
-
-        $site -match "<h2 class=""items-list-blocks-item-heading"">WinSCP (?<version>.*) released</h2>" | Out-Null
-        $winscpVersion = $matches['version']
-
-        $winscpURL = "https://winscp.net/download/WinSCP-" + $winscpVersion + "-Setup.exe"
+            $site = (Invoke-WebRequest -uri $uri -UseBasicParsing | Select-Object -ExpandProperty Content) 
+            0
+            $site -match "<h2 id=""Windowsdesktopclientreleasenotes-(?<content>.*)>(?<date>.*)</h2>"
+            $syncplicityDate = $matches['date']
+            $site -match "<p>Windows Client (?<version>.*)</p>"
         
-        $swObject.Online_Version = $winscpVersion
-        $swObject.Online_Date = $winscpdate
-        $swObject.Download_URL_x64 = $winscpURL
+            $syncplicityVersion = $matches['version']
+            $syncplicityURL = 'https://download.syncplicity.com/windows/Syncplicity_Setup.exe'
+        
+            $swObject.Online_Version = $syncplicityVersion
+            $swObject.Online_Date = $syncplicityDate
+            $swObject.Download_URL_x64 = $syncplicityURL
  
-         }
-        catch
-        {
+        }
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
    
+        }
     }
-    }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }
-}  # END Function Get-OnlineVerWinSCP
+}  # END Function Get-OnlineVerSyncplicity
