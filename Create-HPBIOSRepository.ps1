@@ -3,7 +3,7 @@
     This Script was created to build a BIOS Update Package. 
     Future Scripts based on this will be one that gets the Model / Product info from the machine it's running on and pull down the correct BIOS and run the Updater
  
-    REQUIREMENTS:  HP Client Management Script Library
+    SYSTEM REQUIREMENTS:  HP Client Management Script Library
     Download / Installer: https://ftp.hp.com/pub/caps-softpaq/cmit/hp-cmsl.html  
     Docs: https://developers.hp.com/hp-client-management/doc/client-management-script-library-0
     This Script was created using version 1.1.1
