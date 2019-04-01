@@ -37,7 +37,7 @@
         PS C:\> Get-OnlineVerBlueJeans -Quiet
         5.15
 
-.OUTPUTS
+	.OUTPUTS
         An object containing the following:
         Software Name: Name of the software
         Software URL: The URL info was sourced from
@@ -47,7 +47,7 @@
     
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
-.NOTES
+	.NOTES
     Resources/Credits:
     https://github.com/itsontheb
 
