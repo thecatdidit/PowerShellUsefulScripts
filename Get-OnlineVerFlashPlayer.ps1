@@ -21,7 +21,8 @@
 
     .NOTE: 
         At the moment, the release date of Flash Player is being obtained from FileHippo.
-        Once I have a bit of spare time, I will try and change this to use of the vendor site.
+        Once I have a bit of spare time, I will try and change this to reflectuse of the 
+	vendor site.
 
     .EXAMPLE
         PS C:\> Get-OnlineVerFlashPlayer.ps1
