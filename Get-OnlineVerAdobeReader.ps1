@@ -54,18 +54,16 @@
 
 #>
 
-function Get-OnlineVerAdobeReader
-{
+function Get-OnlineVerAdobeReader {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $softwareName = 'Adobe Acrobat Reader DC'
         $uri = 'https://helpx.adobe.com/acrobat/release-note/release-notes-acrobat-reader.html'
@@ -76,57 +74,50 @@ function Get-OnlineVerAdobeReader
             'Online_Version'   = 'UNKNOWN' 
             'Online_Date'      = 'UNKNOWN'
             'Download_URL_x64' = 'UNKNOWN'
-    }
+        }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
-}
-   Process
-    {
+    }
+    Process {
         # Get the Version & Release Date
-        try
-        {
-        $VersionRegex = "\d+(\.\d+)+"
-        $html = Invoke-WebRequest -UseBasicParsing -Uri "$uri"
-        $DC_Versions = $html.Links | Where-Object outerHTML -Match "\($VersionRegex\)"
-        $versionArray = @()
-        foreach ($version in $DC_Versions) {
-        $VersionNumber = [regex]::match($Version.outerHTML ,"$VersionRegex").Value
-        $versionArray += $VersionNumber
-        }
-        $adobeVersion = $versionArray[0]
+        try {
+            $VersionRegex = "\d+(\.\d+)+"
+            $html = Invoke-WebRequest -UseBasicParsing -Uri "$uri"
+            $DC_Versions = $html.Links | Where-Object outerHTML -Match "\($VersionRegex\)"
+            $versionArray = @()
+            foreach ($version in $DC_Versions) {
+                $VersionNumber = [regex]::match($Version.outerHTML , "$VersionRegex").Value
+                $versionArray += $VersionNumber
+            }
+            $adobeVersion = $versionArray[0]
         
-        $site = (curl -Uri $uri| Select-Object -ExpandProperty Content)
-        $site -match "<td valign=""top""><p><strong>Focus</strong></p>`n</td>`n</tr><tr><td>(?<content>.*)</td>" | Out-Null
-        $adobeDate = ($matches['content'])
+            $site = (Invoke-WebRequest -Uri $uri | Select-Object -ExpandProperty Content)
+            $site -match "<td valign=""top""><p><strong>Focus</strong></p>`n</td>`n</tr><tr><td>(?<content>.*)</td>" | Out-Null
+            $adobeDate = ($matches['content'])
       
-        $urlData = $adobeVersion.Replace(".","")
-        $downloadURL = 'http://ardownload.adobe.com/pub/adobe/reader/win/AcrobatDC/' + $urlData + "/AcrodrDCUpd" + $urlData + ".msp"
+            $urlData = $adobeVersion.Replace(".", "")
+            $downloadURL = 'http://ardownload.adobe.com/pub/adobe/reader/win/AcrobatDC/' + $urlData + "/AcrodrDCUpd" + $urlData + ".msp"
         
-        $swObject.Download_URL_x64 = $downloadURL
-        $swObject.Online_Version = $adobeVersion
-        $swObject.Online_Date = $adobeDate
+            $swObject.Download_URL_x64 = $downloadURL
+            $swObject.Online_Version = $adobeVersion
+            $swObject.Online_Date = $adobeDate
         
         }
-        catch
-        {
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
-      }
+        finally {
+        }
     }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }
