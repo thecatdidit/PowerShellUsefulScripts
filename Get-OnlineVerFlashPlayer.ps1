@@ -36,7 +36,7 @@
         Download_URL_ActiveX : https://fpdownload.macromedia.com/pub/flashplayer/pdc/30.0.0.154/install_flash_player_30_active_X.msi
 
     
-        PS C:\> Get-OnlineVeNotePadPlusPlus -Quiet
+        PS C:\> Get-OnlineVerFlashPlayer -Quiet
         30.0.0.154
     
     
