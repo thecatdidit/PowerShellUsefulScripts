@@ -52,8 +52,8 @@
             Online Version: The current version found
             Online Date: The date the version was updated
             Download URL PPAPI: Download URL for the PPAPI version
-            Download URL PPAPI: Download URL for the NPAPI version
-            Download URL PPAPI: Download URL for the ActiveX version
+            Download URL NPAPI: Download URL for the NPAPI version
+            Download URL ActiveX: Download URL for the ActiveX version
     
             If -Quiet is specified then just the value of 'Online Version'
             will be displayed.
