@@ -57,7 +57,6 @@
     .NOTES
             Resources/Credits:
             https://github.com/itsontheb (for help with creation of the update PSObject)
-
 #>
 
 #Allows TLS 1.2 for FileHippo HTTPS access
