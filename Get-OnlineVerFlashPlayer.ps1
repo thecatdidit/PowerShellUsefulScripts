@@ -1,5 +1,5 @@
 ﻿<#	
-	.NOTES
+    .NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17134)
 	 Revision:	v5
@@ -18,12 +18,11 @@
         download URLs. This includes NPAPI, PPAPI and ActiveX
         It then outputs the information as a
         PSObject to the Host.
-    .NOTE: 
+    .DISCLAIMER
         At the moment, the release date of Flash Player is being obtained from FileHippo.
         Once I have a bit of spare time, I will try and change this to reflectuse of the 
-	vendor site.
-	Usage of this script may affect the terms of your Adobe Enterprise deployment agreement for Flash Player. 
-	This script is provided AS-IS for the purposes of version tracking
+	vendor site. Usage of this script may affect the terms of your Adobe Enterprise deployment agreement for Flash Player. 
+	This script is provided AS-IS for the purposes of version tracking ONLY.
     .EXAMPLE
         PS C:\> Get-OnlineVerFlashPlayer.ps1
 
@@ -57,7 +56,7 @@
             will be displayed.
     .NOTES
             Resources/Credits:
-            https://github.com/itsontheb
+            https://github.com/itsontheb (for help with creation of the update PSObject)
 
 #>
 
