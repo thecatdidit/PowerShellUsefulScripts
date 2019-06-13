@@ -8,22 +8,22 @@
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerFlashPlayer.ps1
 	===========================================================================
-	.Synopsis
+    .SYNOPSIS
         Queries Adobe's Flash Player Website for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
     .DESCRIPTION
-	    This function retrieves the latest data associated with Adobe Flash Player
+	This function retrieves the latest data associated with Adobe Flash Player
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes NPAPI, PPAPI and ActiveX
         It then outputs the information as a
         PSObject to the Host.
-
     .NOTE: 
         At the moment, the release date of Flash Player is being obtained from FileHippo.
         Once I have a bit of spare time, I will try and change this to reflectuse of the 
 	vendor site.
-
+	Usage of this script may affect the terms of your Adobe Enterprise deployment agreement for Flash Player. 
+	This script is provided AS-IS for the purposes of version tracking
     .EXAMPLE
         PS C:\> Get-OnlineVerFlashPlayer.ps1
 
@@ -35,10 +35,8 @@
         Download_URL_NPAPI   : https://fpdownload.macromedia.com/pub/flashplayer/pdc/30.0.0.154/install_flash_player_30_plugin.msi
         Download_URL_ActiveX : https://fpdownload.macromedia.com/pub/flashplayer/pdc/30.0.0.154/install_flash_player_30_active_X.msi
 
-    
         PS C:\> Get-OnlineVerFlashPlayer -Quiet
         30.0.0.154
-    
     
     .INPUTS
         -Quiet
