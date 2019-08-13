@@ -1,13 +1,15 @@
 <#
 	===========================================================================
-	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:
-	 Last Modified: 13 December 2018
+	 Created with: 	PowerShell ISE (Win10 18362/1903)
+	 Revision:	2019.08.13.01
+	 Last Modified: 13 August 2019
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerFirefox.ps1
 	===========================================================================
 	.CHANGELOG
+	[2019.08.13.01]
+	Updated content query of FF release notes to reflect HTML layout changes
 	[2018.12.14.02]
 	Cleaned up errant tabs and spaces that were acting screwy on GitHub.
 	[2018.12.18.01]
@@ -115,7 +117,7 @@ function Get-OnlineVerFirefox {
             $uri = 'https://product-details.mozilla.org/1.0/firefox_versions.json'
             $FirefoxVersion = Invoke-WebRequest $uri -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty LATEST_FIREFOX_vERSION
             $ffReleaseNotes = "https://www.mozilla.org/en-us/firefox/" + $firefoxversion + "/releasenotes/"
-            (Invoke-WebRequest -Uri $ffReleaseNotes | Select-Object -ExpandProperty Content) -match "<h3>Firefox Release</h3>`n            `n              <p>(?<content>.*)</p>" | Out-Null
+            (Invoke-WebRequest -Uri $ffReleaseNotes | Select-Object -ExpandProperty Content) -match "<p class=""c-release-date"">(?<content>.*)</p>" | Out-Null
             $FirefoxDate = ($matches['content'])
             $FirefoxDownloadX64 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win64/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
             $FirefoxDownloadX86 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win32/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
