@@ -40,7 +40,7 @@
             last parameter.
 
         PS C:\> Get-OnlineVerPowerBI -Quiet
-        2.11.593m
+        2.78.5740.721
 
 	.OUTPUTS
         An object containing the following:
