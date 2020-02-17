@@ -9,8 +9,8 @@
 	 Filename:     	Get-OnlineVerPowerBI.ps1
 	===========================================================================
 	.CHANGELOG
-	    [2020.02.17.1130]
-	    Updated URI content query to reflect MS site content changes
+	[2020.02.17.1130]
+	Updated URI content query to reflect MS site content changes
 	
 	.SYNOPSIS
         Queries the PowerBI Website for the current version of
@@ -18,7 +18,7 @@
         download URLs if available.
     
 	.DESCRIPTION
-	    This function retrieves the latest data associated with PowerBI
+	This function retrieves the latest data associated with PowerBI
         Utilizes Invoke-WebRequest to query the Postman download page and
         pulls out the Version, Update Date and Download URLs for
         the app (x64 only) It then outputs the information as a
@@ -52,10 +52,10 @@
     
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
+	
 	.NOTES
-		Resources/Credits:
-		https://github.com/itsontheb
-
+        Thanks to r/itsontheb for assistance in creating a boilerplate for these scripts
+        https://github.com/itsontheb
 #>
 
 
