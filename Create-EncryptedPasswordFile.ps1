@@ -1,3 +1,41 @@
+<#	
+	.NOTES
+	===========================================================================
+	 Created with: 	PowerShell ISE (Win10 18363)
+	 Revision:      2020.02.19.1800
+	 Last Modified: 19 February 2020
+	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
+	 Organizaiton: 	Happy Days Are Here Again
+	 Filename:     	Create-EncryptedPasswordFile.ps1
+	===========================================================================
+	.CHANGELOG
+	[2020.02.19.1800]
+	Original script creation
+	
+	.SYNOPSIS
+	This script enables secure storage of user credentials in a single, 
+	PSAutomation COM Object so that this variable can be passed when needing
+	credentials for functions on remote systems.
+	
+	.DESCRIPTION
+	The script requests a manually submitted set of user credentials. The password is 
+	encrypted as SecureString, then paired with a 256-bit AES encryption key.
+	
+	.EXAMPLE
+        PS C:\> Create-EncryptedPasswordFile.ps1 -FilePath C:\Temp -FileName SomeFile 
+    
+	.INPUTS
+        -FilePath (MANDATORY)
+            Configures the location where both the Secure String password file and AES key
+            are stored.
+        -FileName (MANDATORY)
+            Configures the name of the password file and key file
+            Google Chrome instead of the entire object. It will always be the
+            last parameter.
+
+	.OUTPUTS
+        PSCredential System.Object
+#>
 Function Create-EncryptedPasswordFile($FilePath, $FileName) {
 
     if (Test-Path $FilePath) {
