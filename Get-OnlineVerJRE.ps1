@@ -9,38 +9,36 @@
 	 Filename:     	Get-OnlineVerJRE.ps1
 	===========================================================================
 	.SYNOPSIS
-        Queries Oracle's JRE site to determine the current version of 
-        the app, date of release and download URL
-    .DESCRIPTION
-	    Invoke-WebRequest (curl) is used to parse the product page. Values
-        for desired data are parsed via RegEx into a PSObject.
-    .EXAMPLE
-        PS C:\> Get-OnlineVerJRE
-       
-                Software_Name    : Java Runtime Engine
-                Software_URL     : https://www.java.com/en/download/manual.jsp
-                Online_Version   : 8 Update 241
-                Online_Date      : January 14, 2020
-                Download_URL_x64 : https://javadl.oracle.com/webapps/download/AutoDL?BundleId=241534_1f5b5a70bf22433b84d0e960903adac8 
-    .INPUTS
-        -Quiet
-            Use of this parameter will output just the current version of
-            Google Chrome instead of the entire object. It will always be the
-            last parameter.
-   .OUTPUTS
-        An object containing the following:
-        Software Name: Name of the software
-        Software URL: The URL info was sourced from
-        Online Version: The current version found
-        Online Date: The date the version was updated
-        Download URL: Download URL for the win32 version
-        
-    
-        If -Quiet is specified then just the value of 'Online Version'
-        will be displayed.
-    .REFERENCES AND ATTRIBUTIONS
-        Richard Tracy (https://github.com/PowerShellCrack)
-        Your code helped me better understand how to apply RegEx when parsing HTML. Thank you!
+		Queries Oracle's JRE site to determine the current version of 
+		the app, date of release and download URL
+	.DESCRIPTION
+		Invoke-WebRequest (curl) is used to parse the product page. Values
+		for desired data are parsed via RegEx into a PSObject.
+	.EXAMPLE
+		PS C:\> Get-OnlineVerJRE
+				Software_Name    : Java Runtime Engine
+				Software_URL     : https://www.java.com/en/download/manual.jsp
+				Online_Version   : 8 Update 241
+				Online_Date      : January 14, 2020
+				Download_URL_x64 : https://javadl.oracle.com/webapps/download/AutoDL?BundleId=241534_1f5b5a70bf22433b84d0e960903adac8 
+	.INPUTS
+		-Quiet
+			Use of this parameter will output just the current version of
+			Google Chrome instead of the entire object. It will always be the
+			last parameter.
+	.OUTPUTS
+		An object containing the following:
+		Software Name: Name of the software
+		Software URL: The URL info was sourced from
+		Online Version: The current version found
+		Online Date: The date the version was updated
+		Download URL: Download URL for the win32 version
+
+		If -Quiet is specified then just the value of 'Online Version'
+		will be displayed.
+	.REFERENCES AND ATTRIBUTIONS
+		Richard Tracy (https://github.com/PowerShellCrack)
+		Your code helped me better understand how to apply RegEx when parsing HTML. Thank you!
 #>
 
 function Get-OnlineVerJRE {
