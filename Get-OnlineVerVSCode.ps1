@@ -14,9 +14,10 @@
         This script retrieves information on the current release of Microsoft
         Visual Studio Code. 
     .DESCRIPTION
-       URL: https://code.visualstudio.com/feed.xml
+        Data is obtained from version release feed
+	URL: URL: https://code.visualstudio.com/feed.xml
         The version isn't explicity listed as a value, so it is extrapolated from
-        the download URL
+        the release notes URL
     .EXAMPLE
         PS C:\> Get-OnlineVerVSCode.ps1
         
