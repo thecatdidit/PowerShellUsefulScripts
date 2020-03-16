@@ -1,10 +1,10 @@
 <#
 	===========================================================================
-	 Created with:	PowerShell ISE (Win10 18362)
-	 Revision:		2020.03.16.01
-	 Last Modified:	16 March 2020
-	 Created by:	Jay Harper (jayharper@gmail.com)
-	 Filename:		Uninstall-BlueCoatUnifiedAgent.ps1
+	 Created with:   PowerShell ISE (Win10 18362)
+	 Revision:       2020.03.16.01
+	 Last Modified:  16 March 2020
+	 Created by:     Jay Harper (jayharper@gmail.com)
+	 Filename:       Uninstall-BlueCoatUnifiedAgent.ps1
 	===========================================================================
 	.CHANGELOG
 		REV. 2018.12.18.01
@@ -13,15 +13,15 @@
 		REV. 2019.09.20.1000
 		Updated script to cover additional resources where BCUA remnants should be deleted.
 		REV. 2019.10.04.1700
-        Finessing logging capabilities with a standardized function
-        REV. 2020.03.16.01
-        Cosmetic adjustments.
+		Finessing logging capabilities with a standardized function
+		REV. 2020.03.16.01
+		Cosmetic adjustments.
 	.SYNOPSIS
 		This script is designed to manually terminate Blue Coat Unified Agent
 		components and remove remnants of the application.
 		The steps are based on Symantec's HOWTO for manual uninstallation of UA
 		The script should be used ONLY WHEN BLUE COAT UNIFIED AGENT WILL NOT
-        UNINSTALL THROUGH STANDARD METHODS.
+		UNINSTALL THROUGH STANDARD METHODS.
 	.DESCRIPTION   
 		This script has been tested on the following versions of Unified Agent (x64):
 		4.7.6.198155
