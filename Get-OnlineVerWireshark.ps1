@@ -2,23 +2,21 @@
 	.NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:		v1
+	 Revision:      v1
 	 Last Modified: 30 March 2019
-	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
-	 Organizaiton: 	Happy Days Are Here Again
-	 Filename:     	Get-OnlineVerWireshark
+	 Created by:    Jay Harper (github.com/thecatdidit/powershellusefulscripts)
+	 Organizaiton:  Happy Days Are Here Again
+	 Filename:      Get-OnlineVerWireshark
 	===========================================================================
-	.Synopsis
+    .SYNOPSIS 
         Queries the Wireshark Website for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
-
         Wireshark maintains a PAD file for automation systems to keep 
         track of new releases.
-
         Site: https://www.wireshark.org/wireshark-pad.xml
     .DESCRIPTION
-	    This function retrieves the latest data associated with Wireshark
+        This function retrieves the latest data associated with Wireshark
         Utilizes Invoke-WebRequest to query the Wireshark download page and
         pulls out the Version, Update Date and Download URLs for
         the app (x64 only) It then outputs the information as a
@@ -81,7 +79,6 @@ function Get-OnlineVerWireshark {
         $swObject = New-Object -TypeName PSObject -Property $hashtable
     }
 
-
     Process {
         # Get the Version & Release Date
         try {
@@ -117,4 +114,4 @@ function Get-OnlineVerWireshark {
             Return $swobject
         }
     }
-}  # END Function Get-OnlineVerBlueJeans
+}  # END Function Get-OnlineVerWireshark
