@@ -1,13 +1,13 @@
 ﻿<#	
-	.NOTES
-	===========================================================================
-	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:      v1
-	 Last Modified: 30 March 2019
-	 Created by:    Jay Harper (github.com/thecatdidit/powershellusefulscripts)
-	 Organizaiton:  Happy Days Are Here Again
-	 Filename:      Get-OnlineVerWireshark
-	===========================================================================
+    .NOTES
+    ===========================================================================
+    Created with:   PowerShell ISE (Win10 17134)
+    Revision:       v1
+    Last Modified:  30 March 2019
+    Created by:     Jay Harper (github.com/thecatdidit/powershellusefulscripts)
+    Organizaiton:   Happy Days Are Here Again
+    Filename:       Get-OnlineVerWireshark
+    ===========================================================================
     .SYNOPSIS 
         Queries the Wireshark Website for the current version of
         the app and returns the version, date updated, and
@@ -22,14 +22,12 @@
         the app (x64 only) It then outputs the information as a
         PSObject to the Host.
     .EXAMPLE
-        PS C:\> Get-OnlineVerWireshark
-        
-       Software_Name    : Wireshark
-       Software_URL     : hhttps://www.wireshark.org/wireshark-pad.xml
-       Online_Version   : 3.0.0
-       Online_Date      : 2019-02-28
-       Download_URL_x64 : https://1.na.dl.wireshark.org/win64/Wireshark-win64-3.0.0.exe
-
+        PS C:\> Get-OnlineVerWireshark.ps1
+        Software_Name    : Wireshark
+        Software_URL     : hhttps://www.wireshark.org/wireshark-pad.xml
+        Online_Version   : 3.0.0
+        Online_Date      : 2019-02-28
+        Download_URL_x64 : https://1.na.dl.wireshark.org/win64/Wireshark-win64-3.0.0.exe
     .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
@@ -38,21 +36,19 @@
 
         PS C:\> Get-OnlineVerWireshark -Quiet
         3.0.0
-
-.OUTPUTS
+    .OUTPUTS
         An object containing the following:
-        Software Name: Name of the software
-        Software URL: The URL info was sourced from
-        Online Version: The current version found
-        Online Date: The date the version was updated
-        Download URL x64: Download URL for the win64 version
+        Software Name:      Name of the software
+        Software URL:       The URL info was sourced from
+        Online Version:     The current version found
+        Online Date:        The date the version was updated
+        Download URL x64:   Download URL for the win64 version
     
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
-.NOTES
-    Resources/Credits:
-    https://github.com/itsontheb
-
+    .NOTES
+        Resources/Credits:
+        https://github.com/itsontheb
 #>
 function Get-OnlineVerWireshark {
     [cmdletbinding()]
