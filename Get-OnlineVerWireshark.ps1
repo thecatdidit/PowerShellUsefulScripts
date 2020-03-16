@@ -27,7 +27,7 @@
         PS C:\> Get-OnlineVerWireshark
         
        Software_Name    : Wireshark
-       Software_URL     : https://support.bluejeans.com/knowledge/desktop-app-deployment
+       Software_URL     : hhttps://www.wireshark.org/wireshark-pad.xml
        Online_Version   : 3.0.0
        Online_Date      : 2019-02-28
        Download_URL_x64 : https://1.na.dl.wireshark.org/win64/Wireshark-win64-3.0.0.exe
@@ -70,7 +70,7 @@ function Get-OnlineVerWireshark {
     begin {
         # Initial Variables
         $SoftwareName = 'Wireshark'
-        $uri = "https://support.bluejeans.com/knowledge/desktop-app-deployment"
+        $uri = "https://www.wireshark.org/wireshark-pad.xml"
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
