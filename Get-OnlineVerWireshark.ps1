@@ -56,8 +56,6 @@
     https://github.com/itsontheb
 
 #>
-
-
 function Get-OnlineVerWireshark {
     [cmdletbinding()]
     param (
