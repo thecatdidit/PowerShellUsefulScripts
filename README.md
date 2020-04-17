@@ -11,3 +11,4 @@ I want to note a few resources and individuals that have helped me learn much in
 * **[r/SCCM](https://www.reddit.com/r/powershell)**
 * **[NathanTheGr8](https://github.com/NathanTheGr8)** . I was able to figure out how to properly query Adobe Acrobat Reader DC version information through his great work
 * **[itsontheb](https://github.com/itsontheb)** . A good dude on GitHub and Reddit for expertise. Thanks for getting me started!
+* **[skatterbrainz](https://github.com/skatterbrainz)** . This man is a kindred spirit in his meticulous and helpful nature. Thanks!
