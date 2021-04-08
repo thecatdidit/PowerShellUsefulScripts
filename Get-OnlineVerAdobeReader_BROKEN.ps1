@@ -1,3 +1,7 @@
+<# WARNING - SOURCE LINKS OR OTHER RESOURCES HAVE CHANGED, AND THIS SCRIPT MUST BE UPDATED. THIS WARNING WILL BE REMOVED ONCE THE CODE CHANGE IS IN PLACE. YOU HAVE BEEN WARNED.
+ # Wed 08 Apr 2021
+#>
+
 <#	
 	.NOTES
 	===========================================================================
