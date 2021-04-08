@@ -1,17 +1,17 @@
-<# WARNING - SOURCE LINKS OR OTHER RESOURCES HAVE CHANGED, AND THIS SCRIPT MUST BE UPDATED. THIS WARNING WILL BE REMOVED ONCE THE CODE CHANGE IS IN PLACE. YOU HAVE BEEN WARNED.
- # Wed 08 Apr 2021
-#>
-
 <#	
 	.NOTES
 	===========================================================================
-	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:	v6
-	 Last Modified: 05 September 2018
+	 Created with: 	PowerShell ISE (Win10 19042)
+	 Revision:      v7
+	 Last Modified: 08 April 2021
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerNotepadPlusPlus.ps1
 	===========================================================================
+    .CHANGELOG
+	[2021.04.08]
+    Overhauled source scraping and parsing functions to reflect the vendor's new
+    site layout
     .SYNOPSIS
         Queries Notepad++ Website for the current version of
         the app and returns the version, date updated, and
@@ -40,15 +40,15 @@
         will be displayed.
     .EXAMPLE
         PS C:\> Get-OnlineVerNotePadPlusPlus
-	Software_Name    : NotepadPlusPlus
-        Software_URL     : https://notepad-plus-plus.org/download
-        Online_Version   : 7.5.8
-        Online_Date      : 2018-07-23
-        Download_URL_x86 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x86.exe
-        Download_URL_x64 : https://notepad-plus-plus.org/repository/7.x/7.5.8/npp.7.5.8.Installer.x64.exe
+        Software_Name    : NotepadPlusPlus
+        Software_URL     : https://notepad-plus-plus.org/
+        Online_Version   : 7.9.5
+        Online_Date      : 2021-03-23
+        Download_URL_x86 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.9.5/npp.7.9.5.Installer.exe
+    Download_URL_x64 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.9.5/npp.7.9.5.Installer.x64.exe
 
         PS C:\> Get-OnlineVerNotePadPlusPlus -Quiet
-        7.5.8
+        7.9.5
     .NOTES
         Resources/Credits:
         https://github.com/itsontheb
@@ -66,7 +66,7 @@ function Get-OnlineVerNotepadPlusPlus {
     begin {
         # Initial Variables
         $SoftwareName = 'NotepadPlusPlus'
-        $URI = 'https://notepad-plus-plus.org/download'
+        $URI = 'https://notepad-plus-plus.org/'
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
@@ -84,16 +84,21 @@ function Get-OnlineVerNotepadPlusPlus {
     Process {
         # Get the Version & Release Date
         try {
-            Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
-            $uri = 'https://notepad-plus-plus.org/download'
-            $nppURL = (Invoke-WebRequest -Uri $uri | Select-Object -ExpandProperty Content)
-            $nppURL -match "<title>Notepad\+\+ v(?<content>.*) - Current Version</title>" | Out-Null
-            $nppVersion = ($matches['content'])
-            $nppURL -match "<p>Release Date: (?<content>.*)</p>" | Out-Null
-            $nppDate = ($matches['content'])
             
-            $swObject.Online_Version = $nppVersion
+            Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
+            $uri = 'https://notepad-plus-plus.org/'
+            $nppURL = (Invoke-WebRequest -Uri $uri)
+            $nppLink = ($nppURL.Links | Where outerHTML -Match "Current Version")
+            $nppVersionLink = "https://notepad-plus-plus.org" + $nppLink.href
+            
+            $nppDate = (Invoke-WebRequest $nppVersionLink)
+            $nppDate.Content -match "<p>Release Date: (?<content>.*)</p>"
+            $nppDate = $Matches['content']
             $swObject.Online_Date = $nppDate
+            
+            $nppLink.innerText -match "Current Version (?<content>.*)"
+            $nppVersion = $Matches['content']
+            $swObject.Online_Version = $nppVersion    
 
         }
         catch {
@@ -107,9 +112,9 @@ function Get-OnlineVerNotepadPlusPlus {
             # Get the Download URLs
             if ($swObject.Online_Version -ne 'UNKNOWN') {
        
-                $nppDownloadx86 = "https://notepad-plus-plus.org/repository/" + $nppVersion[0] + ".x/" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.x86.exe"
-                $nppDownloadx64 = "https://notepad-plus-plus.org/repository/" + $nppVersion[0] + ".x/" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.x64.exe"
-            
+                $nppDownloadx86 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.exe"
+                $nppDownloadx64 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.x64.exe"
+
                 $swObject.Download_URL_x86 = $nppDownloadx86
                 $swObject.Download_URL_x64 = $nppDownloadx64
             }
