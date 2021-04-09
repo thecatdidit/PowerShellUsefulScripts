@@ -1,5 +1,5 @@
 <#	
-	.NOTES
+    .NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 19042)
 	 Revision:      v7
@@ -9,9 +9,9 @@
 	 Filename:     	Get-OnlineVerNotepadPlusPlus.ps1
 	===========================================================================
     .CHANGELOG
-	[2021.04.08]
-    Overhauled source scraping and parsing functions to reflect the vendor's new
-    site layout
+        [2021.04.08] v7
+        Overhauled source scraping and parsing functions to reflect the vendor's new
+        site layout
     .SYNOPSIS
         Queries Notepad++ Website for the current version of
         the app and returns the version, date updated, and
