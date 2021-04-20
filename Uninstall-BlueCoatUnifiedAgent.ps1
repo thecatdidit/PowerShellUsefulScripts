@@ -1,12 +1,14 @@
 <#
 	===========================================================================
-	 Created with:   PowerShell ISE (Win10 18362)
-	 Revision:       2020.03.16.01
-	 Last Modified:  16 March 2020
+	 Created with:   PowerShell ISE (Win10 19042)
+	 Revision:       2021.04.20.01
+	 Last Modified:  20 April 2021
 	 Created by:     Jay Harper (jayharper@gmail.com)
 	 Filename:       Uninstall-BlueCoatUnifiedAgent.ps1
 	===========================================================================
 	.CHANGELOG
+		REV. 2021.04.20.01
+		Minor formatting cleanup
 		REV. 2018.12.18.01
 		Included the final module for uniformed logging as the utility is carried out
 		Script initial creation.
@@ -72,7 +74,7 @@
 ##
 function Get-Timestamp {
 
-    Return $(get-date -UFormat "%d%b%y%H%M%S")
+	Return $(get-date -UFormat "%d%b%y%H%M%S")
     
 }
     
@@ -123,79 +125,79 @@ Write-Output "$timeStamp Stopping all BlueCoat Services"
 Get-Process -name "bcua*" | Stop-Process -Force -ErrorAction SilentlyContinue
     
 if (Test-Path $regService -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp BCUA-Service Key Found. Removing..."
-    Remove-Item $regService -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp BCUA-Service Key Found. Removing..."
+	Remove-Item $regService -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 }
 else {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp No BCUA Service Key was found"
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp No BCUA Service Key was found"
 }
     
 if (Test-Path $regService2 -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp BCUA-Service2 Key Found. Removing..."
-    Remove-Item $regService2 -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp BCUA-Service2 Key Found. Removing..."
+	Remove-Item $regService2 -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 }
     
 if (Test-Path $regWFP -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp BCUA-WFP Key Found. Removing"
-    Remove-Item $regWFP -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp BCUA-WFP Key Found. Removing"
+	Remove-Item $regWFP -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 }
     
 if (Test-Path $regWFP2 -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp BCUA-WFP2 Key Found. Removing"
-    Remove-Item $regWFP2 -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp BCUA-WFP2 Key Found. Removing"
+	Remove-Item $regWFP2 -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 }
 if (Test-Path $regBC -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp Blue Coat Key Found. Removing"
-    Remove-Item $regBC -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp Blue Coat Key Found. Removing"
+	Remove-Item $regBC -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 }
 if ($regBCUAClasses) {    
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp Blue Coat installer classes found. Removing"
-    Remove-Item ($regBCUAClasses.PSPath) -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp Blue Coat installer classes found. Removing"
+	Remove-Item ($regBCUAClasses.PSPath) -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 }
     
 if (Test-Path $dirBCUA -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp Found ProgramData\bcua directory. Removing"
-    Remove-Item $dirBCUA -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp Found ProgramData\bcua directory. Removing"
+	Remove-Item $dirBCUA -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 }
     
 try {
-    if (Get-ItemProperty -Path $regProgramData -Name $dirBCUA -ErrorAction SilentlyContinue) {
-        $timeStamp = Get-Timestamp
-        Write-Output "$timeStamp Found ProgramData\BCUA registry key. Removing"
-        Remove-ItemProperty -Path $regProgramData -Name $dirBCUA -Force -Verbose -ErrorAction SilentlyContinue
-    }
+	if (Get-ItemProperty -Path $regProgramData -Name $dirBCUA -ErrorAction SilentlyContinue) {
+		$timeStamp = Get-Timestamp
+		Write-Output "$timeStamp Found ProgramData\BCUA registry key. Removing"
+		Remove-ItemProperty -Path $regProgramData -Name $dirBCUA -Force -Verbose -ErrorAction SilentlyContinue
+	}
 }
     
 catch {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp $regProgramData does not exist"
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp $regProgramData does not exist"
 }
     
     
 if (Test-Path $dirBlueCoat -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp Found Blue Coat Program Files Directory. Removing"
-    Remove-Item $dirBlueCoat -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp Found Blue Coat Program Files Directory. Removing"
+	Remove-Item $dirBlueCoat -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 }
     
 if (Test-Path $dirBCDriver -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp Found Blue Coat Driver. Removing"
-    Remove-Item $dirBCDriver -Force -Verbose -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp Found Blue Coat Driver. Removing"
+	Remove-Item $dirBCDriver -Force -Verbose -ErrorAction SilentlyContinue
 }
     
 if (Get-Service -Name bcua-service -ErrorAction SilentlyContinue) {
-    $timeStamp = Get-Timestamp
-    Write-Output "$timeStamp Service still installed. Removing"
-    Stop-Service bcua-service -Force -ErrorAction SilentlyContinue
+	$timeStamp = Get-Timestamp
+	Write-Output "$timeStamp Service still installed. Removing"
+	Stop-Service bcua-service -Force -ErrorAction SilentlyContinue
 }
     
 Remove-Item $regComponent1 -Force -ErrorAction SilentlyContinue
