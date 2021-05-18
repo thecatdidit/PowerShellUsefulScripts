@@ -2,12 +2,14 @@
 	===========================================================================
 	 Created with: 	Visual Studio Code 1.32.3/PS ISE 17763
 	 Revision:      v2
-	 Last Modified: 27 March 2019
+	 Last Modified: 18 May 2021
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVer7Zip.ps1
 	===========================================================================
 	.CHANGELOG
+	[2021.05.08.01]
+	Added '-UseBasicParsing' to web content calls
 	[2019.03.27.01]
 	Script creation
 	.SYNOPSIS
