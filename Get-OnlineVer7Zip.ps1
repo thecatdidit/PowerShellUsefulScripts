@@ -90,7 +90,7 @@ function Get-OnlineVer7Zip {
         try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             $uri = 'https://www.7-zip.org/download.html'
-            $7ZipURL = (Invoke-WebRequest -Uri $uri | Select-Object -ExpandProperty Content)
+            $7ZipURL = (Invoke-WebRequest -Uri $uri -UseBasicParsing | Select-Object -ExpandProperty Content)
             $7ZIPURL -match "<P><B>Download 7-Zip (?<version>.*) \((?<date>.*)\) f" | Out-Null
             $7ZipVersion = ($matches['version'])
             $7ZipDate = ($matches['date'])
