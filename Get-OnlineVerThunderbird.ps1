@@ -8,8 +8,8 @@
 	 Filename:     	Get-OnlineVerThunderbird.ps1
 	===========================================================================
 	.CHANGELOG
-     [2021.05.21]
-     Script creation
+        [2021.05.21]
+        Script creation
 
 	.SYNOPSIS
         Queries Mozilla's Website for the current version of
@@ -17,7 +17,7 @@
         download URLs if available.
 
 	.DESCRIPTION
-	    This function retrieves the latest data associated with Thunderbird
+	This function retrieves the latest data associated with Thunderbird
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes x86 and x64.
         It then outputs the information as a
