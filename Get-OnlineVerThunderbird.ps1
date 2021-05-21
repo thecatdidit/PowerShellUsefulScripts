@@ -35,7 +35,7 @@
         Thunderbird 78.10.2 is the version at the time of documentation. Using that version, we would get
 
         Release Notes: https://www.mozilla.org/en-us/thunderbird/78.10.2/releasenotes/
-        Download URL:https://download-origin.cdn.mozilla.net/pub/thunderbird/releases/78.10.2/win64/en-US/Thunderbird%20Setup%2078.10.2.exe
+        Download URL: https://download-origin.cdn.mozilla.net/pub/thunderbird/releases/78.10.2/win64/en-US/Thunderbird%20Setup%2078.10.2.exe
 
 	.EXAMPLE
         PS C:\> Get-OnlineVerThunderbird.ps1
