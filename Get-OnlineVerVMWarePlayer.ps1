@@ -1,15 +1,15 @@
 <#	
     ===========================================================================
 	 Created with: 	PowerShell ISE (Win10 19342)
-	 Revision:		v1
+	 Revision:	v1
 	 Last Modified: 22 May 2021
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerVMWarePlayer.ps1
 	===========================================================================
-	.CHANGELOG
-    v1 (2021.05.22)
-    Initial script creation
+    .CHANGELOG
+     v1 (2021.05.22)
+     Initial script creation
     
     .SYNOPSIS
         Queries the VMWare website for the current version of
@@ -17,7 +17,7 @@
         download URLs if available.
 
     .DESCRIPTION
-	    This function retrieves the latest data associated with VMWare Workstation
+	This function retrieves the latest data associated with VMWare Workstation
         Player. The app's website is parsed for an available Version, Release Date
         and Download URLs.
 
