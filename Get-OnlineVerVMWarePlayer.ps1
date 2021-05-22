@@ -6,8 +6,8 @@
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerVMWarePlayer.ps1
-	===========================================================================
-	.CHANGELOG
+    ===========================================================================
+    .CHANGELOG
     v1 (2021.05.22)
     Initial script creation
     
