@@ -17,7 +17,7 @@
         download URLs if available.
 
     .DESCRIPTION
-	    This function retrieves the latest data associated with VMWare Workstation
+	This function retrieves the latest data associated with VMWare Workstation
         Player. The app's website is parsed for an available Version, Release Date
         and Download URLs.
 
