@@ -1,5 +1,4 @@
 <#
-.NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE
 	 Revision:	v6
@@ -8,16 +7,19 @@
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerGoogleChrome.ps1
 	===========================================================================
-.Synopsis
-    Queries Google's Website for the current version of
-    Chrome and returns the version, date uploaded and download URLs
-.DESCRIPTION
-    Utilizes Invoke-WebRequest to query Google Chrome's Dev Team Blog and
-    pulls out the Version, Update Date and Download URLs for both
-    x68 and x64 versions. It then outputs the information as a
-    PSObject to the Host.
+	
+	.SYNOPSIS
+    	Queries Google's Website for the current version of
+    	Chrome and returns the version, date uploaded and download URLs
+	
+	.DESCRIPTION
+    	Utilizes Invoke-WebRequest to query Google Chrome's Dev Team Blog and
+    	pulls out the Version, Update Date and Download URLs for both
+    	x86 and x64 versions. It then outputs the information as a
+    	PSObject to the Host.
+
 .EXAMPLE
-        PS C:\> Get-OnlineVerFlashPlayer.ps1
+        PS C:\> Get-OnlineVerGoogleChrome.ps1
 
         Software_Name    : GoogleChrome
         Software_URL     : http://feeds.feedburner.com/GoogleChromeReleases
@@ -26,7 +28,7 @@
         Download_URL_x86 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi
         Download_URL_x64 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi
 	
-	PS C:\> Get-OnlineVeNotePadPlusPlus -Quiet
+	PS C:\> Get-OnlineVerGoogleChrome -Quiet
         68.0.3440.106
 .INPUTS
     -Quiet
