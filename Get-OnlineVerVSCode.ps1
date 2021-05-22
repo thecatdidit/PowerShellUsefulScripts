@@ -15,7 +15,7 @@
         Visual Studio Code. 
     .DESCRIPTION
         Data is obtained from version release feed
-	URL: URL: https://code.visualstudio.com/feed.xml
+        URL: https://code.visualstudio.com/feed.xml
         The version isn't explicity listed as a value, so it is extrapolated from
         the release notes URL
     .EXAMPLE
@@ -28,7 +28,7 @@
         Download_URL_x64 : https://go.microsoft.com/fwlink/?Linkid=852157
         Download_URL_x86 : https://go.microsoft.com/fwlink/?Linkid=852157
     
-       	PS C:\> Get-OnlineVerVS Code -Quiet
+       	PS C:\> Get-OnlineVerVSCode -Quiet
        	1.43
     .INPUTS
         -Quiet
