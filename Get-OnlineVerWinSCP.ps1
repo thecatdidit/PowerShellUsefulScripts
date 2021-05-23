@@ -66,18 +66,16 @@
 #>
 
 
-function Get-OnlineVerWinSCP
-{
+function Get-OnlineVerWinSCP {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory=$false, 
-                   Position=0)]
+        [Parameter(Mandatory = $false, 
+            Position = 0)]
         [switch]
         $Quiet
     )
 
-    begin
-    {
+    begin {
         # Initial Variables
         $SoftwareName = 'WinSCP'
         $uri = "https://winscp.net/eng/news.php"
@@ -91,52 +89,45 @@ function Get-OnlineVerWinSCP
         }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
-}
+    }
 
 
-   Process
-    {
+    Process {
         # Get the Version & Release Date
-        try
-        {
+        try {
   
-        $site = (Invoke-WebRequest -uri $uri -UseBasicParsing).Content
+            $site = (Invoke-WebRequest -uri $uri -UseBasicParsing).Content
 
-        $site -match "<p class=""items-list-blocks-item-date""><span class=""sr-only"">Published:</span>(?<date>.*)</p>" | Out-Null
-        $winscpdate = $matches['date']
+            $site -match "<p class=""items-list-blocks-item-date""><span class=""sr-only"">Published:</span>(?<date>.*)</p>" | Out-Null
+            $winscpdate = $matches['date']
 
-        $site -match "<h2 class=""items-list-blocks-item-heading"">WinSCP (?<version>.*) released</h2>" | Out-Null
-        $winscpVersion = ($matches['version']).Replace(" ",".")
-        $winscpVersion.Replace(" ",".") | Out-Null
+            $site -match "<h2 class=""items-list-blocks-item-heading"">WinSCP (?<version>.*) released</h2>" | Out-Null
+            $winscpVersion = ($matches['version']).Replace(" ", ".")
+            $winscpVersion.Replace(" ", ".") | Out-Null
 
-        $winscpURL = "https://winscp.net/download/WinSCP-" + $winscpVersion + "-Setup.exe"
+            $winscpURL = "https://winscp.net/download/WinSCP-" + $winscpVersion + "-Setup.exe"
         
-        $swObject.Online_Version = $winscpVersion
-        $swObject.Online_Date = $winscpdate
-        $swObject.Download_URL_x64 = $winscpURL
+            $swObject.Online_Version = $winscpVersion
+            $swObject.Online_Date = $winscpdate
+            $swObject.Download_URL_x64 = $winscpURL
  
-         }
-        catch
-        {
+        }
+        catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
             $message = $("Line {0} : {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.exception.message)
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
-        finally
-        {
+        finally {
    
+        }
     }
-    }
-    End
-    {
+    End {
         # Output to Host
-        if ($Quiet)
-        {
+        if ($Quiet) {
             Write-Verbose -Message '$Quiet was specified. Returning just the version'
             Return $swObject.Online_Version
         }
-        else
-        {
+        else {
             Return $swobject
         }
     }

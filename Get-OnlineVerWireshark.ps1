@@ -8,6 +8,12 @@
     Organizaiton:   Happy Days Are Here Again
     Filename:       Get-OnlineVerWireshark
     ===========================================================================
+    .CHANGELOG
+        v2 (22 May 2021)
+        Code cleanup
+        v1 (30 Mar 2020)
+        Original script creation
+    
     .SYNOPSIS 
         Queries the Wireshark Website for the current version of
         the app and returns the version, date updated, and
@@ -15,27 +21,29 @@
         Wireshark maintains a PAD file for automation systems to keep 
         track of new releases.
         Site: https://www.wireshark.org/wireshark-pad.xml
+    
     .DESCRIPTION
         This function retrieves the latest data associated with Wireshark
         Utilizes Invoke-WebRequest to query the Wireshark download page and
         pulls out the Version, Update Date and Download URLs for
         the app (x64 only) It then outputs the information as a
         PSObject to the Host.
+    
     .EXAMPLE
-        PS C:\> Get-OnlineVerWireshark.ps1
         Software_Name    : Wireshark
-        Software_URL     : hhttps://www.wireshark.org/wireshark-pad.xml
-        Online_Version   : 3.0.0
-        Online_Date      : 2019-02-28
-        Download_URL_x64 : https://1.na.dl.wireshark.org/win64/Wireshark-win64-3.0.0.exe
+        Software_URL     : https://www.wireshark.org/wireshark-pad.xml
+        Online_Version   : 3.4.5
+        Online_Date      : 2021-04-21
+        Download_URL_x64 : https://1.na.dl.wireshark.org/win64/Wireshark-win64-3.4.5.exe
+    
     .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
-            Google Chrome instead of the entire object. It will always be the
+            Wireshark instead of the entire object. It will always be the
             last parameter.
 
         PS C:\> Get-OnlineVerWireshark -Quiet
-        3.0.0
+        3.4.5
     .OUTPUTS
         An object containing the following:
         Software Name:      Name of the software
