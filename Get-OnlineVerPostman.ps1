@@ -8,7 +8,7 @@
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerPostman.ps1
 	===========================================================================
-	.CHANGELOG
+    .CHANGELOG
         v2 (24 May 2021)
         Code cleanup and 'UseBasicParsing' added to content pull
         v1 (24 May 2018)
