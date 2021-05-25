@@ -10,7 +10,7 @@
 	===========================================================================
 	.CHANGELOG
         v2 (24 May 2021)
-        Code cleanup and 'UseBasicParsing' added to content pull.
+        Code cleanup and 'UseBasicParsing' added to content pull
         v1 (24 May 2018)
         Script created
 
