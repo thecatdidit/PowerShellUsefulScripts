@@ -57,8 +57,8 @@
         will be displayed.
 
     .NOTES
-    Resources/Credits:
-    https://github.com/itsontheb
+        Resources/Credits:
+        https://github.com/itsontheb
 
 #>
 
