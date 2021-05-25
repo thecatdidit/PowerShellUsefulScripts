@@ -1,41 +1,50 @@
-﻿<#	
+<#	
 	.NOTES
 	===========================================================================
-	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:		v5
-	 Last Modified: 24 August 2018
+	 Created with: 	PowerShell ISE (Win10 19342)
+	 Revision:		v2
+	 Last Modified: 24 May 2021
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerPostman.ps1
 	===========================================================================
-	.Synopsis
+	.CHANGELOG
+        v2 (24 May 2021)
+        Code cleanup and 'UseBasicParsing' added to content pull.
+        v1 (24 May 2018)
+        Script created
+
+    .SYNOPSIS
         Queries the Postman Website for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
+
     .DESCRIPTION
-	    This function retrieves the latest data associated with Postman.
+	This function retrieves the latest data associated with Postman.
         Utilizes Invoke-WebRequest to query the Postman download page and
         pulls out the Version, Update Date and Download URLs for
         the app (x64 only) It then outputs the information as a
         PSObject to the Host.
+
     .EXAMPLE
         PS C:\> Get-OnlineVerPostman
         
         Software_Name    : Postman
         Software_URL     : https://dl.pstmn.io/changelog?channel=stable&platform=win
-        Online_Version   : 6.2.5
-        Online_Date      : 2018-08-20
-        Download_URL_x64 : https://dl.pstmn.io/download/version/6.2.5/windows64
+        Online_Version   : 8.5.1
+        Online_Date      : 2021-05-21
+        Download_URL_x64 : https://dl.pstmn.io/download/version/8.5.1/windows64
 
         PS C:\> Get-OnlineVerPostman -Quiet
-        6.2.5
+        8.5.1
 
     .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
-            Google Chrome instead of the entire object. It will always be the
+            Postman instead of the entire object. It will always be the
             last parameter.
-.OUTPUTS
+
+    .OUTPUTS
         An object containing the following:
         Software Name: Name of the software
         Software URL: The URL info was sourced from
@@ -46,12 +55,12 @@
     
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
-.NOTES
+
+    .NOTES
     Resources/Credits:
     https://github.com/itsontheb
 
 #>
-
 
 function Get-OnlineVerPostman {
     [cmdletbinding()]
@@ -83,7 +92,7 @@ function Get-OnlineVerPostman {
         # Get the Version & Release Date
         try {
   
-            $postmanDetails = (Invoke-WebRequest $uri | ConvertFrom-Json)
+            $postmanDetails = (Invoke-WebRequest $uri -UseBasicParsing | ConvertFrom-Json)
             $postmanVersion = $postmanDetails.changelog[0].name
             $postmanDate = $postmandetails.changelog[0].createdAt.Substring(0, 10)
             $postmanDownload = $postmanDetails.changelog[0].assets.url
@@ -111,4 +120,4 @@ function Get-OnlineVerPostman {
             Return $swobject
         }
     }
-}  # END Function Get-OnlineVerGoogleChrome
+}  # END Function Get-OnlinePostman
