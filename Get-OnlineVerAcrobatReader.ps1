@@ -20,7 +20,7 @@
         Adobe Acrobat Reader DC. The script returns the version, date updated, and
         download URLs if available.
 
-        .DESCRIPTION
+    .DESCRIPTION
         This function retrieves the latest data associated with Adobe Reader.
         Utilizes Invoke-WebRequest to query Adobe Reader's release notes pagean
         and pulls out the Version, Update Date and Download URLs for
