@@ -1,21 +1,21 @@
-<#	
-	.NOTES
-	===========================================================================
-	 Created with: 	PowerShell ISE (Win10 17763)
-	 Revision:	v2
-	 Last Modified: 09 June 2021
-	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
-	 Organizaiton: 	Happy Days Are Here Again
-	 Filename:     	Get-OnlineVerAdobeReader.ps1
-	===========================================================================
-	.CHANGELOG
+<#  
+    .NOTES
+    ===========================================================================
+     Created with:  PowerShell ISE (Win10 17763)
+     Revision:  v2
+     Last Modified: 09 June 2021
+     Created by:    Jay Harper (github.com/thecatdidit/powershellusefulscripts)
+     Organizaiton:  Happy Days Are Here Again
+     Filename:      Get-OnlineVerAdobeReader.ps1
+    ===========================================================================
+    .CHANGELOG
     v2 (09 June 2021)
     Corrected site scraping/parsing RegEx to reflect a new layout of the Adobe
     support site.
     v1 (27 March 2019)
     Script creation
 
-	.SYNOPSIS
+    .SYNOPSIS
         Queries the Adobe Website for the current version of
         Adobe Acrobat Reader DC. The script returns the version, date updated, and
         download URLs if available.
@@ -27,7 +27,7 @@
         the app (x64 only) It then outputs the information as a
         PSObject to the Host.
 
-	.EXAMPLE
+    .EXAMPLE
         PS C:\> Get-OnlineVerAdobeReader.ps1
 
                 Software_Name    : Adobe Acrobat Reader DC
@@ -39,13 +39,13 @@
         PS C:\> Get-OnlineVerAdobeReader.ps1 -Quiet
         21.005.20048
 
-	.INPUTS
+    .INPUTS
         -Quiet
          Use of this parameter will output just the current version of
          Adobe Reader instead of the entire object. It will always be the
          last parameter.
 
-	.OUTPUTS
+    .OUTPUTS
         An object containing the following:
         Software Name: Name of the software
         Software URL: The URL info was sourced from
@@ -55,7 +55,7 @@
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
 
-	.NOTES
+    .NOTES
         Resources/Credits:
         https://github.com/itsontheb
 
