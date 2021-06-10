@@ -2,14 +2,16 @@
     .NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 19042)
-	 Revision:      v7
-	 Last Modified: 08 April 2021
+	 Revision:      v8
+	 Last Modified: 10 June 2021
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerNotepadPlusPlus.ps1
 	===========================================================================
     .CHANGELOG
-        [2021.04.08] v7
+        [2021.06.10] v8
+	Added '-UseBasicParsing' to web calls re: IE engine decomm
+	[2021.04.08] v7
         Overhauled source scraping and parsing functions to reflect the vendor's new
         site layout
     .SYNOPSIS
@@ -87,11 +89,11 @@ function Get-OnlineVerNotepadPlusPlus {
             
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             $uri = 'https://notepad-plus-plus.org/'
-            $nppURL = (Invoke-WebRequest -Uri $uri)
+            $nppURL = (Invoke-WebRequest -Uri $uri -UseBasicParsing)
             $nppLink = ($nppURL.Links | Where outerHTML -Match "Current Version")
             $nppVersionLink = "https://notepad-plus-plus.org" + $nppLink.href
             
-            $nppDate = (Invoke-WebRequest $nppVersionLink)
+            $nppDate = (Invoke-WebRequest $nppVersionLink -UseBasicParsing)
             $nppDate.Content -match "<p>Release Date: (?<content>.*)</p>"
             $nppDate = $Matches['content']
             $swObject.Online_Date = $nppDate
