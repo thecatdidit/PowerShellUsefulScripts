@@ -9,4 +9,4 @@
 ```(Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' |  select $_.PSPath | Get-ItemProperty) | select DisplayName, InstallDate, UninstallString```
 
 ### Get information on the latest version of Firefox
-```(Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION
+```(Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION```
