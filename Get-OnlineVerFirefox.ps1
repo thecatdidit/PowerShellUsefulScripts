@@ -2,13 +2,13 @@
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 18362/1903)
 	 Revision:      v1
-	 Last Modified: 11 June 2021
+	 Last Modified: 11 Jun 2021
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerFirefox.ps1
 	===========================================================================
 	.CHANGELOG
-	    v1
+	v1 (11 Jun 2021)
         Original script creation
 
 	.SYNOPSIS
