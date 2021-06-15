@@ -30,8 +30,6 @@
             are stored.
         -FileName (MANDATORY)
             Configures the name of the password file and key file
-            Google Chrome instead of the entire object. It will always be the
-            last parameter.
 
 	.OUTPUTS
         PSCredential System.Object
