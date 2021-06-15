@@ -8,7 +8,7 @@
 	 Filename:     	Get-OnlineVerSyncplicity.ps1
 	===========================================================================
 	.CHANGELOG
-	    v2 (15 June 2021)
+	v2 (15 June 2021)
         .Modify parsing logic to reflect Axway website content change
         v1 (30 Mar 2019)
         .Initial script creation
