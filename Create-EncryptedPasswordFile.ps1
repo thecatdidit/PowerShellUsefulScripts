@@ -29,7 +29,7 @@
             Configures the location where both the Secure String password file and AES key
             are stored.
         -FileName (MANDATORY)
-        Configures the name of the password file and key file
+            Configures the name of the password file and key file
 
 	.OUTPUTS
         PSCredential System.Object
