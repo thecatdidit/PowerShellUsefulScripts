@@ -12,7 +12,7 @@
 ### Get information on the latest version of Firefox
 ```(Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION```
 
-### Download and install the latest version of Firefox
+### Download and automatically install the latest version of Firefox (Note: Uses 'C:\Temp' as download spot. Change to reflect your target dir if needed)
 ```New-Item -ItemType Directory -Path C:\Temp -Force | Out-Null
 $Firefox = (Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION
 $FirefoxDownload = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FIREFOX.LATEST_FIREFOX_VERSION + "/win64/en-US/Firefox%20Setup%20" + $FIREFOX.LATEST_FIREFOX_VERSION + ".exe"
