@@ -22,6 +22,9 @@ Start-Process -NoNewWindow -FilePath "C:\Temp\Firefox_$FirefoxVersion.exe" -Argu
 ### Locate an existing Firefox installation, then uninstall silently. (NOTE: Remove the '/S' parameter if you want Firefox's removal GUI wizard)
 ```Start-Process(((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty) | where DisplayName -Match "Firefox").UninstallString) /S```
 
+### Locate an existing Chrome installation, then uninstall silently. (NOTE: Remove '/qn' parameter if you want the uninstall wizard)
+```Start-process C:\windows\system32\msiexec.exe ((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty | where DisplayName -Match "Chrome").UninstallString).split('')[1], '/qn'```
+
 ### Reset Outlook default font to Arial (run as user)
 ```if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\MailSettings") -ne $true) {  New-Item "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\MailSettings" -force -ErrorAction SilentlyContinue | Out-Null }
 New-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mailsettings" -Name 'Template' -Value '' -PropertyType ExpandString -Force -ErrorAction SilentlyContinue | Out-Null;
