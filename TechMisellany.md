@@ -46,3 +46,37 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 
 ### Third party application download info
 * Google Chrome
+** https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi 
+
+* Firefox (using v64.0 as example)
+** x64: https://download-origin.cdn.mozilla.net/pub/firefox/releases/64.0/win64/en-US/Firefox%20Setup%2064.0.exe
+** x86: https://download-origin.cdn.mozilla.net/pub/firefox/releases/64.0/win32/en-US/Firefox%20Setup%2064.0.exe 
+
+* Notepad++ (using v7.6.1 as example)
+** x64: https://notepad-plus-plus.org/repository/7.x/7.6.1/npp.7.6.1.Installer.x64.exe
+** x86: https://notepad-plus-plus.org/repository/7.x/7.6.1/npp.7.6.1.Installer.x86.exe
+
+### Websites
+* https://prajwaldesai.com/
+* https://www.anoopcnair.com/
+* https://www.systemcenterdudes.com/
+* https://ccmexec.com/
+* http://www.scconfigmgr.com/
+* http://rzander.azurewebsites.net/
+* https://deploymentresearch.com/
+* https://deploymentbunny.com/
+* http://blog.colemberg.ch/
+* https://home.configmgrftw.com/blog/
+* https://damgoodadmin.com/
+* https://www.andersrodland.com/
+* https://www.osdeploy.com/
+* https://www.enhansoft.com/blog/author/garth
+* https://configgirl.com/
+* https://setupconfigmgr.com/
+* https://www.cvedetails.com/
+* https://ruckzuck.tools/
+* http://www.mssccm.com/
+* https://www.ghacks.net/category/windows/
+* https://www.neowin.net/news/tags/microsoft
+* https://www.catalog.update.microsoft.com/Home.asp
+* https://www.zerodayinitiative.com/blog
