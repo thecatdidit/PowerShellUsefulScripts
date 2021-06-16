@@ -43,3 +43,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 
 ### Detect Chrome, and uninstall silently if found
 ```Start-process C:\windows\system32\msiexec.exe ((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty | where DisplayName -Match "Chrome").UninstallString).split('')[1], '/qn'```
+
+### Third party application download info
+* Google Chrome
