@@ -31,3 +31,14 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 
 ### Install Chocolatey from web
 ```Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))```
+
+### Check Bitlocker status of system drive, then enable if needed
+```if ((Get-BitLockerVolume -MountPoint ($env:windir)[0] | Select-Object -ExpandProperty ProtectionStatus).Value__ -eq 0) { Resume-BitLocker -MountPoint ($env:windir)[0] }```
+
+### Detect Firefox, and uninstall silently if found
+```Start-Process(((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty) | where DisplayName -Match "Firefox").UninstallString) /S
+```
+
+### Get a list of installed Windows Updates - output to Grid View
+```(new-object -com "Microsoft.Update.Searcher").QueryHistory(0,((new-object -com "Microsoft.Update.Searcher").gettotalhistorycount()-1)) | where Title -Match "KB" | select Title, Description, Date | Out-GridView
+```
