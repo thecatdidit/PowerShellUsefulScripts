@@ -11,6 +11,14 @@
 ### Get information on the latest version of Firefox
 ```(Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION```
 
+### Download and install the latest version of Firefox
+```New-Item -ItemType Directory -Path C:\Temp -Force | Out-Null
+$Firefox = (Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION
+$FirefoxDownload = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FIREFOX.LATEST_FIREFOX_VERSION + "/win64/en-US/Firefox%20Setup%20" + $FIREFOX.LATEST_FIREFOX_VERSION + ".exe"
+Invoke-WebRequest -Uri $FirefoxDownload -UseBasicParsing -OutFile "C:\Temp\Firefox_$($FIREFOX.LATEST_FIREFOX_VERSION).exe"
+Start-Process -NoNewWindow -FilePath "C:\Temp\Firefox_$FirefoxVersion.exe" -ArgumentList /S
+```
+
 ### Reset Outlook default font to Arial (run as user)
 ```if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\MailSettings") -ne $true) {  New-Item "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\MailSettings" -force -ErrorAction SilentlyContinue | Out-Null }
 New-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mailsettings" -Name 'Template' -Value '' -PropertyType ExpandString -Force -ErrorAction SilentlyContinue | Out-Null;
