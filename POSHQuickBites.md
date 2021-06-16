@@ -1,6 +1,4 @@
 ## PowerShell Quick Bites
-### Get all Windows Updates installed on a machine, output to Grid View for eace of access
-```(new-object -com "Microsoft.Update.Searcher").QueryHistory(2,$wu.gettotalhistorycount()) | where Title -Match "KB" | select Date, Title, Description | Out-GridView```
 
 ### Get a list of all Automatic services currently Stopped
 ```Get-Service | select Name, Status, StartType, DisplayName | where StartType -Match "Automatic" | where Status -Match "Stopped"```
@@ -32,5 +30,5 @@ New-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mails
 New-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mailsettings" -Name 'TextFontSimple' -Value ([byte[]](0x3c,0x00,0x00,0x00,0x1f,0x00,0x00,0xf8,0x00,0x00,0x00,0x40,0xdc,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xff,0x00,0x22,0x41,0x72,0x69,0x61,0x6c,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00)) -PropertyType Binary -Force -ErrorAction SilentlyContinue | Out-Null;
 ```
 
-### List all Windows Updates installed on a computer, and put them into Grid View
+### List all main Windows Updates (KBs) installed on a computer, and put them into Grid View
 ``` (new-object -com "Microsoft.Update.Searcher").QueryHistory(0,((new-object -com "Microsoft.Update.Searcher").gettotalhistorycount()-1)) | where Title -Match "KB" | select Title, Description, Date | Out-GridView```
