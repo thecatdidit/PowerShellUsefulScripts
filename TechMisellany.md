@@ -40,3 +40,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 
 ### Get a list of installed Windows Updates - output to Grid View
 ```(new-object -com "Microsoft.Update.Searcher").QueryHistory(0,((new-object -com "Microsoft.Update.Searcher").gettotalhistorycount()-1)) | where Title -Match "KB" | select Title, Description, Date | Out-GridView```
+
+### Detect Chrome, and uninstall silently if found
+```Start-process C:\windows\system32\msiexec.exe ((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty | where DisplayName -Match "Chrome").UninstallString).split('')[1], '/qn'```
