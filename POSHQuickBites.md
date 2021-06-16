@@ -19,7 +19,7 @@ $FirefoxDownload = "https://download-origin.cdn.mozilla.net/pub/firefox/releases
 Invoke-WebRequest -Uri $FirefoxDownload -UseBasicParsing -OutFile "C:\Temp\Firefox_$($FIREFOX.LATEST_FIREFOX_VERSION).exe"
 Start-Process -NoNewWindow -FilePath "C:\Temp\Firefox_$FirefoxVersion.exe" -ArgumentList /S
 ```
-### Locate an existing Firefox installation, then uninstall silently. (NOTE: Remove the '/S' parameter if you want Firefox's removal GUI wizard)
+### Locate an existing Firefox installation, then uninstall silently. (NOTE: Remove the '/S' parameter if you want the uninstall wizard)
 ```Start-Process(((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty) | where DisplayName -Match "Firefox").UninstallString) /S```
 
 ### Locate an existing Chrome installation, then uninstall silently. (NOTE: Remove '/qn' parameter if you want the uninstall wizard)
