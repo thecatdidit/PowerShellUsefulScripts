@@ -32,3 +32,6 @@ New-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mails
 
 ### List all main Windows Updates (KBs) installed on a computer, and put them into Grid View (Note: Remove the query on Title for all updates - drivers, etc.)
 ``` (new-object -com "Microsoft.Update.Searcher").QueryHistory(0,((new-object -com "Microsoft.Update.Searcher").gettotalhistorycount()-1)) | where Title -Match "KB" | select Title, Description, Date | Out-GridView```
+
+### Check Bitlocker encryption status on the OS drive. If Bitlocker is disabled, it will be automatically enabled again
+```if ((Get-BitLockerVolume -MountPoint ($env:windir)[0] | Select-Object -ExpandProperty ProtectionStatus).Value__ -eq 0) { Resume-BitLocker -MountPoint ($env:windir)[0] }```
