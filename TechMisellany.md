@@ -44,6 +44,9 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 ### Detect Chrome, and uninstall silently if found
 ```Start-process C:\windows\system32\msiexec.exe ((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty | where DisplayName -Match "Chrome").UninstallString).split('')[1], '/qn'```
 
+### Check AD replication status via PSExec
+```C:\Temp\PsExec64.exe -s \\YOUR_DC_SERVER_HERE "C:\windows\system32\repadmin.exe" /replsummary```
+
 ### Third party application download info
 * Google Chrome
 ** https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi 
