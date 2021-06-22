@@ -11,7 +11,7 @@
 	v2 (21 Jun 2021)
         Corrected variable for Firefox version. Script output was not providing
         all of the requested data
-    v1 (11 Jun 2021)
+        v1 (11 Jun 2021)
         Original script creation
 
 	.SYNOPSIS
