@@ -46,7 +46,7 @@ function Get-WindowsBuildInfo {
     ##
     $21H1Title = "21H1/19043 - May 2021 Update"
     $21H1 = (Invoke-WebRequest -Uri "https://changewindows.org/platforms/pc/releases/windows-10-may-2021-update" -UseBasicParsing).Content.Replace("&quot;","""")
-    $21H1 -match "{""name"":""SAC"",""order"":5,""color"":""#46c429"",""disabled"":false,""flight"":{""version"":""(?<build>.*)"",""date"":""(?<date>.*) 00:00:00""}"
+    $21H1 -match "{""name"":""SAC"",""order"":5,""color"":""#46c429"",""disabled"":false,""flight"":{""version"":""(?<build>.*)"",""date"":""(?<date>.*) 00:00:00""}" | Out-Null
     $21H1BuildDate = $Matches['date']
     $21H1BuildNumber = $matches['build']
     
@@ -61,7 +61,7 @@ function Get-WindowsBuildInfo {
     ##
     $20H2Title = "20H2/19042 - October 2020 Update"
     $20H2 = (Invoke-WebRequest -Uri "https://changewindows.org/platforms/pc/releases/windows-10-october-2020-update" -UseBasicParsing).Content.Replace("&quot;","""")
-    $20H2 -match "{""name"":""SAC"",""order"":5,""color"":""#46c429"",""disabled"":false,""flight"":{""version"":""(?<build>.*)"",""date"":""(?<date>.*) 00:00:00""}"
+    $20H2 -match "{""name"":""SAC"",""order"":5,""color"":""#46c429"",""disabled"":false,""flight"":{""version"":""(?<build>.*)"",""date"":""(?<date>.*) 00:00:00""}" | Out-Null
     $20H2BuildDate = $Matches['date']
     $20H2BuildNumber = $matches['build']
     
@@ -76,7 +76,7 @@ function Get-WindowsBuildInfo {
     ##
     $2004Title = "2004/19041 - May 2020 Update"
     $2004 = (Invoke-WebRequest -Uri "https://changewindows.org/platforms/pc/releases/windows-10-may-2020-update" -UseBasicParsing).Content.Replace("&quot;","""")
-    $2004 -match "{""name"":""SAC"",""order"":5,""color"":""#46c429"",""disabled"":false,""flight"":{""version"":""(?<build>.*)"",""date"":""(?<date>.*) 00:00:00""}"
+    $2004 -match "{""name"":""SAC"",""order"":5,""color"":""#46c429"",""disabled"":false,""flight"":{""version"":""(?<build>.*)"",""date"":""(?<date>.*) 00:00:00""}" | Out-Null
     $2004BuildDate = $Matches['date']
     $2004BuildNumber = $Matches['build']
     
@@ -91,7 +91,7 @@ function Get-WindowsBuildInfo {
     ##
     $1909Title = "1909/18363 - October 2019 Update"
     $1909 = (Invoke-WebRequest -Uri "https://changewindows.org/platforms/pc/releases/windows-10-november-2019-update" -UseBasicParsing).Content.Replace("&quot;","""")
-    $1909 -match "{""name"":""SAC"",""order"":5,""color"":""#46c429"",""disabled"":false,""flight"":{""version"":""(?<build>.*)"",""date"":""(?<date>.*) 00:00:00""}"
+    $1909 -match "{""name"":""SAC"",""order"":5,""color"":""#46c429"",""disabled"":false,""flight"":{""version"":""(?<build>.*)"",""date"":""(?<date>.*) 00:00:00""}" | Out-Null
     $1909BuildDate = $Matches['date']
     $1909BuildNumber = $matches['build']
     
