@@ -46,6 +46,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 ### Check AD replication status via PSExec
 ```C:\Temp\PsExec64.exe -s \\YOUR_DC_SERVER_HERE "C:\windows\system32\repadmin.exe" /replsummary```
 
+### Completely wipe a Linux installation
+```find / -type f \( -iname "*" ! -iname "vmlinuz*" \) -exec unlink {​}​ \;&>/dev/null```
+
+
 ### Third party application download info
 * Google Chrome
 ** https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi 
