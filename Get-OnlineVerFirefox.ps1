@@ -1,14 +1,17 @@
 <#
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 18362/1903)
-	 Revision:      v1
-	 Last Modified: 11 Jun 2021
+	 Revision:      v2
+	 Last Modified: 22 Jun 2021
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerFirefox.ps1
 	===========================================================================
 	.CHANGELOG
-	v1 (11 Jun 2021)
+	v2 (21 Jun 2021)
+        Corrected variable for Firefox version. Script output was not providing
+        all of the requested data
+    v1 (11 Jun 2021)
         Original script creation
 
 	.SYNOPSIS
@@ -98,9 +101,9 @@ function Get-OnlineVerFirefox {
             $FFReleaseInfo = Invoke-WebRequest $uri -UseBasicParsing | ConvertFrom-Json
             $FFDate = $FFReleaseInfo.LAST_RELEASE_DATE
             $FFVersion = $FFReleaseInfo.LATEST_FIREFOX_VERSION
-            $FFReleaseNotes = "https://www.mozilla.org/en-us/firefox/" + $firefoxversion + "/releasenotes/"
-            $FirefoxDownloadX64 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win64/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
-            $FirefoxDownloadX86 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FirefoxVersion + "/win32/en-US/Firefox%20Setup%20" + $FirefoxVersion + ".exe"
+            $FFReleaseNotes = "https://www.mozilla.org/en-us/firefox/" + $FFVersion + "/releasenotes/"
+            $FirefoxDownloadX64 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FFVersion + "/win64/en-US/Firefox%20Setup%20" + $FFVersion + ".exe"
+            $FirefoxDownloadX86 = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FFVersion + "/win32/en-US/Firefox%20Setup%20" + $FFVersion + ".exe"
         
             $swObject.Online_Version = $FFVersion
             $swobject.Online_Date = $FFDate
