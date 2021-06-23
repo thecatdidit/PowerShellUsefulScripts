@@ -8,8 +8,8 @@
 	 Filename:     	Get-OnlineVerPuTTY.ps1
 	===========================================================================
 	.CHANGELOG
-	    v1 [2021.06.16]
-	    Script creation
+	v1 [2021.06.16]
+	Script creation
 
 	.SYNOPSIS
         This script queries details on the latest release of PuTTY.
