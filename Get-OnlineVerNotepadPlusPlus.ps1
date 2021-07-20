@@ -2,17 +2,20 @@
     .NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 19042)
-	 Revision:      v8
-	 Last Modified: 10 June 2021
+	 Revision:      v9
+	 Last Modified: 20 July 2021
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerNotepadPlusPlus.ps1
 	===========================================================================
     .CHANGELOG
+        [2021.07.20] v9
+        .Fixed a bug with passing of version parameter
+        .Added Notepad++ GUP source for easier pull of needed data
         [2021.06.10] v8
-	Added '-UseBasicParsing' to web calls re: IE engine decomm
+	.Added '-UseBasicParsing' to web calls re: IE engine decomm
 	[2021.04.08] v7
-        Overhauled source scraping and parsing functions to reflect the vendor's new
+        .Overhauled source scraping and parsing functions to reflect the vendor's new
         site layout
     .SYNOPSIS
         Queries Notepad++ Website for the current version of
@@ -43,14 +46,14 @@
     .EXAMPLE
         PS C:\> Get-OnlineVerNotePadPlusPlus
         Software_Name    : NotepadPlusPlus
-        Software_URL     : https://notepad-plus-plus.org/
-        Online_Version   : 7.9.5
-        Online_Date      : 2021-03-23
-        Download_URL_x86 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.9.5/npp.7.9.5.Installer.exe
-    Download_URL_x64 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.9.5/npp.7.9.5.Installer.x64.exe
+        Software_URL     : https://notepad-plus-plus.org
+        Online_Version   : 8.1.1
+        Online_Date      : 2021-07-19
+        Download_URL_x86 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.1.1/npp.8.1.1.Installer.exe
+        Download_URL_x64 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.1.1/npp.8.1.1.Installer.x64.exe
 
         PS C:\> Get-OnlineVerNotePadPlusPlus -Quiet
-        7.9.5
+        8.1.1
     .NOTES
         Resources/Credits:
         https://github.com/itsontheb
@@ -72,7 +75,7 @@ function Get-OnlineVerNotepadPlusPlus {
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
-            'Software_URL'     = $uri
+            'Software_URL'     = 'https://notepad-plus-plus.org'
             'Online_Version'   = 'UNKNOWN' 
             'Online_Date'      = 'UNKNOWN'
             'Download_URL_x86' = 'UNKNOWN'
@@ -98,9 +101,10 @@ function Get-OnlineVerNotepadPlusPlus {
             $nppDate = $Matches['content']
             $swObject.Online_Date = $nppDate
             
-            $nppLink.innerText -match "Current Version (?<content>.*)"
-            $nppVersion = $Matches['content']
-            $swObject.Online_Version = $nppVersion    
+            $uri = 'https://notepad-plus-plus.org/update/getDownloadUrl.php'
+            [xml]$nppVersion = (Invoke-WebRequest -Uri $uri -UseBasicParsing).content
+            [string]$nppversion = $nppVersion.GUP.Version
+            $swObject.Online_version = $nppversion
 
         }
         catch {
@@ -113,10 +117,10 @@ function Get-OnlineVerNotepadPlusPlus {
 
             # Get the Download URLs
             if ($swObject.Online_Version -ne 'UNKNOWN') {
-       
+       #                           https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.1.1/npp.8.1.1.Installer.x64.exe
                 $nppDownloadx86 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.exe"
                 $nppDownloadx64 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.x64.exe"
-
+                                  
                 $swObject.Download_URL_x86 = $nppDownloadx86
                 $swObject.Download_URL_x64 = $nppDownloadx64
             }
