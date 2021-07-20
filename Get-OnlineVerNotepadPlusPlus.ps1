@@ -99,12 +99,14 @@ function Get-OnlineVerNotepadPlusPlus {
             $nppDate = (Invoke-WebRequest $nppVersionLink -UseBasicParsing)
             $nppDate.Content -match "<p>Release Date: (?<content>.*)</p>"
             $nppDate = $Matches['content']
-            $swObject.Online_Date = $nppDate
+            
+	    $swObject.Online_Date = $nppDate
             
             $uri = 'https://notepad-plus-plus.org/update/getDownloadUrl.php'
             [xml]$nppVersion = (Invoke-WebRequest -Uri $uri -UseBasicParsing).content
             [string]$nppversion = $nppVersion.GUP.Version
-            $swObject.Online_version = $nppversion
+            
+	    $swObject.Online_version = $nppversion
 
         }
         catch {
@@ -117,7 +119,6 @@ function Get-OnlineVerNotepadPlusPlus {
 
             # Get the Download URLs
             if ($swObject.Online_Version -ne 'UNKNOWN') {
-       #                           https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.1.1/npp.8.1.1.Installer.x64.exe
                 $nppDownloadx86 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.exe"
                 $nppDownloadx64 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.x64.exe"
                                   
