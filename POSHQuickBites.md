@@ -57,3 +57,76 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 
 ### Check Bitlocker encryption status on the OS drive. If Bitlocker is disabled, it will be automatically enabled again
 ```if ((Get-BitLockerVolume -MountPoint ($env:windir)[0] | Select-Object -ExpandProperty ProtectionStatus).Value__ -eq 0) { Resume-BitLocker -MountPoint ($env:windir)[0] }```
+
+### Hardware Info
+```$Manufacturer = (Get-WmiObject -Class:Win32_ComputerSystem).Manufacturer
+$ComputerModel = (Get-WmiObject -Class:Win32_ComputerSystem).Model
+$HPProdCode = (Get-CimInstance -Namespace root/cimv2 -ClassName Win32_BaseBoard).Product
+```
+
+### Machine Info
+```#Machine Name
+$MachineName = $env:ComputerName
+
+#Current Windows 10 Release ID
+$CurrentBuild = Get-ItemPropertyValue "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion" 'ReleaseId' -ErrorAction SilentlyContinue
+
+#Last Reboot
+$LastReboot = (Get-CimInstance -ClassName win32_operatingsystem).lastbootuptime
+
+#Logged on User
+$Loggedon = Get-WmiObject -ComputerName $env:COMPUTERNAME -Class Win32_Computersystem | Select-Object UserName
+
+#Current OS Info
+Function Convert-FromUnixDate ($UnixDate) {[timezone]::CurrentTimeZone.ToLocalTime(([datetime]'1/1/1970').AddSeconds($UnixDate))}
+$CurrentOSInfo = Get-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+$InstallDate_CurrentOS = Convert-FromUnixDate $CurrentOSInfo.GetValue('InstallDate')
+$ReleaseID_CurrentOS = $CurrentOSInfo.GetValue('ReleaseId')
+$BuildUBR_CurrentOS = $($CurrentOSInfo.GetValue('CurrentBuild'))+"."+$($CurrentOSInfo.GetValue('UBR'))
+```
+
+### Client Auth Certificate
+```if($ClientAuthCert = Get-ChildItem Cert:\LocalMachine\My | Where-Object {$_.EnhancedKeyUsageList -match 'Client Authentication'})
+    {
+        
+    if ($ClientAuthCert.Count -gt 1)
+        {
+        $ClientAuthCert = $ClientAuthCert | Sort-Object -Property NotAfter | Select-Object -Last 1
+        }
+    if ($($ClientAuthCert.NotAfter) -lt (get-date))
+        {
+        Write-Host "  Client Auth Cert Expired! $($ClientAuthCert.NotAfter)" -ForegroundColor red
+        }
+    else
+        {
+        Write-Host "  Client Auth Cert Installed, Expires: $($ClientAuthCert.NotAfter)" -ForegroundColor Green
+        }
+    }
+Else
+    {
+        Write-Host "  No Client Auth Cert Installed" -ForegroundColor Yellow
+```
+
+### Battery Info
+```if (Get-WmiObject -Class win32_battery)
+    {
+    if ((Get-WmiObject -Class Win32_Battery –ea 0).BatteryStatus -eq 2)
+        {Write-Host "  Power Status: Device is on AC Power" -ForegroundColor Green}
+    Else
+        {
+        Write-Host "  Power Status: Device is on Battery" -ForegroundColor yellow
+        Write-Host "  Power Status: Time Remaining on Battery = $((Get-WmiObject -Class win32_battery).estimatedChargeRemaining)" -ForegroundColor yellow
+        }
+    }
+```
+
+## Language Pack Info
+```$languagePacks = $OSInfo.MUILanguages
+foreach ($languagePack in $languagePacks)
+    {
+    if ($languagePack -ne "en-US")
+        {
+        Write-host "  Additional Language Pack Installed: $languagePack" -ForegroundColor Yellow
+        }
+    }
+```
