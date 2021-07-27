@@ -129,13 +129,13 @@ ForEach ($i in $PCList)
     $IPAddress = (Get-CMResource -Fast -ResourceId $i.ResourceID | Select-Object -ExpandProperty IPAddresses)[0]
     $ModelInfo = Get-WmiObject -ComputerName "$($SCCMName)" -Namespace "$($Namespace)" `
                 -query ("select SMS_G_System_COMPUTER_SYSTEM.Model
-            from
-		        SMS_G_System_COMPUTER_SYSTEM
-	        where
-		        SMS_G_System_COMPUTER_SYSTEM.Name=  ""$($i.Name)"" ")
+    			from
+		        	SMS_G_System_COMPUTER_SYSTEM
+	        	where
+		       		SMS_G_System_COMPUTER_SYSTEM.Name=  ""$($i.Name)"" ")
     $Model = $ModelInfo.Model
     $ProcessorClass = Get-WmiObject -ComputerName "$($SCCMName)" -Namespace "$($Namespace)" `
-				-Query ("select SMS_R_SYSTEM.ResourceID,SMS_R_SYSTEM.ResourceType,SMS_R_SYSTEM.Name,SMS_R_SYSTEM.SMSUniqueIdentifier,SMS_R_SYSTEM.ResourceDomainORWorkgroup,SMS_R_SYSTEM.Client,SMS_G_System_COMPUTER_SYSTEM.SystemType
+		-Query ("select SMS_R_SYSTEM.ResourceID,SMS_R_SYSTEM.ResourceType,SMS_R_SYSTEM.Name,SMS_R_SYSTEM.SMSUniqueIdentifier,SMS_R_SYSTEM.ResourceDomainORWorkgroup,SMS_R_SYSTEM.Client,SMS_G_System_COMPUTER_SYSTEM.SystemType
 			from 
 				SMS_R_System 
 			inner join 
