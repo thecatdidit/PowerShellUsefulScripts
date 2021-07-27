@@ -1,4 +1,4 @@
-﻿<#
+<#
 	===========================================================================
 	 Created with: 	VS Code 1.58.2/ISE 19043
 	 Revision:      v1
@@ -84,8 +84,9 @@ function Get-OnlineVerGoogleChrome {
         try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             $uri = 'https://omahaproxy.appspot.com/all?csv=1'
-            $ReleaseVersion = (((ConvertFrom-Csv (Invoke-WebRequest -URI $URI -UseBasicParsing).content)) | Where-Object os -Match "win64" | Where-Object channel -EQ "stable").current_version
-            $ReleaseDate = (((ConvertFrom-Csv (Invoke-WebRequest -URI $URI -UseBasicParsing).content)) | Where-Object os -Match "win64" | Where-Object channel -EQ "stable").current_reldate 
+            $ReleaseInfo = (((ConvertFrom-Csv (Invoke-WebRequest -URI $URI -UseBasicParsing).content)) | Where-Object os -Match "win64" | Where-Object channel -EQ "stable")
+            $ReleaseVersion = $ReleaseInfo.current_version
+            $ReleaseDate = $ReleaseInfo.current_reldate 
 
             $swObject.Online_Version = $ReleaseVersion
             $swObject.Online_Date = $ReleaseDate
