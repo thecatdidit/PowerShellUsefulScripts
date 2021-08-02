@@ -3,6 +3,20 @@
 ### Get a list of all Automatic services currently Stopped
 ```Get-Service | select Name, Status, StartType, DisplayName | where StartType -Match "Automatic" | where Status -Match "Stopped"```
 
+### Get the system's last Boot Up Time
+```(Get-CimInstance -ClassName win32_operatingsystem).lastbootuptime```
+
+### Get the logged on username
+```Get-WmiObject -ComputerName $env:COMPUTERNAME -Class Win32_Computersystem | Select-Object UserName```
+
+### Get detailed Windows 10 build and version info
+```Function Convert-FromUnixDate ($UnixDate) {[timezone]::CurrentTimeZone.ToLocalTime(([datetime]'1/1/1970').AddSeconds($UnixDate))}
+$CurrentOSInfo = Get-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+$InstallDate_CurrentOS = Convert-FromUnixDate $CurrentOSInfo.GetValue('InstallDate')
+$ReleaseID_CurrentOS = $CurrentOSInfo.GetValue('ReleaseId')
+$BuildUBR_CurrentOS = $($CurrentOSInfo.GetValue('CurrentBuild'))+"."+$($CurrentOSInfo.GetValue('UBR'))
+```
+
 ### Get a list of all x86 applications installed
 ```(Get-ChildItem 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall' |  select $_.PSPath | Get-ItemProperty) | select DisplayName, InstallDate, UninstallString```
 
