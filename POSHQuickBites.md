@@ -10,7 +10,8 @@
 ```Get-WmiObject -ComputerName $env:COMPUTERNAME -Class Win32_Computersystem | Select-Object UserName```
 
 ### Get detailed Windows 10 build and version info
-```Function Convert-FromUnixDate ($UnixDate) {[timezone]::CurrentTimeZone.ToLocalTime(([datetime]'1/1/1970').AddSeconds($UnixDate))}
+```
+Function Convert-FromUnixDate ($UnixDate) {[timezone]::CurrentTimeZone.ToLocalTime(([datetime]'1/1/1970').AddSeconds($UnixDate))}
 $CurrentOSInfo = Get-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
 $InstallDate_CurrentOS = Convert-FromUnixDate $CurrentOSInfo.GetValue('InstallDate')
 $ReleaseID_CurrentOS = $CurrentOSInfo.GetValue('ReleaseId')
