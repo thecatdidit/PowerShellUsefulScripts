@@ -103,7 +103,7 @@ function Get-OnlineVerAdobeReader {
             $adobeDate = ($matches['date'])
       
             $urlData = $adobeVersion.Replace(".", "")
-            $downloadURL = 'http://ardownload.adobe.com/pub/adobe/reader/win/AcrobatDC/' + $urlData + "/AcrodrDCUpd" + $urlData + ".msp"
+            $downloadURL = 'https://ardownload.adobe.com/pub/adobe/reader/win/AcrobatDC/' + $urlData + "/AcrodrDCUpd" + $urlData + ".msp"
         
             $swObject.Download_URL_x64 = $downloadURL
             $swObject.Online_Version = $adobeVersion
