@@ -2,13 +2,16 @@
     .NOTES
     ===========================================================================
      Created with:  PowerShell ISE (Win10 17763)
-     Revision:  v2
-     Last Modified: 09 June 2021
+     Revision:      v3
+     Last Modified: 16 September 2021
      Created by:    Jay Harper (github.com/thecatdidit/powershellusefulscripts)
      Organizaiton:  Happy Days Are Here Again
      Filename:      Get-OnlineVerAdobeReader.ps1
     ===========================================================================
     .CHANGELOG
+    v3 (16 September 2021)
+    Corrected parsing to determine release date
+	
     v2 (09 June 2021)
     Corrected site scraping/parsing RegEx to reflect a new layout of the Adobe
     support site.
@@ -99,7 +102,7 @@ function Get-OnlineVerAdobeReader {
             $adobeVersion = $versionArray[0]
         
             $site = (Invoke-WebRequest -Uri $uri -UseBasicParsing | Select-Object -ExpandProperty Content)
-            $site -match "Release Type\*</a></b></p>`n</th>`n<th valign=""top""><p><b>Focus</b></p>`n</th>`n</tr><tr><td>(?<date>.*)</td>" | Out-Null
+            $site -match "<th valign=""top""><p><b>Focus</b></p>`n</th>`n</tr><tr><td>(?<date>.*)<br />" | Out-Null
             $adobeDate = ($matches['date'])
       
             $urlData = $adobeVersion.Replace(".", "")
