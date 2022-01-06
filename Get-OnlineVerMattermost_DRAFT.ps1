@@ -7,9 +7,9 @@
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerMattermost.ps1
 	===========================================================================
-	.CHANGELOG
+     .CHANGELOG
 	[v1 - 2021.06.22]
-    Script creatiom
+        Script creatiom
 
     .SYNOPSIS
         Queries the MatterMost webside for the current version of
@@ -17,7 +17,7 @@
         download URLs if available.
 	
     .DESCRIPTION
-	    This function retrieves the latest data associated with Mattermost
+	This function retrieves the latest data associated with Mattermost
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes both the standard EXE installer and the MSI
         instance
@@ -27,7 +27,7 @@
 
         App Site: https://mattermost.com/
 
-	.EXAMPLE
+     .EXAMPLE
         PS C:\> Get-OnlineVerMattermost
 
         Software_Name    : Mattermost
@@ -38,9 +38,10 @@
         MSI_Installer    : https://releases.mattermost.com/desktop/5.0.2/mattermost-desktop-setup-5.0.2-win.exe?src=dl
     
        	PS C:\> Get-OnlineVerMattermost -Quiet
-       	5,0.2
+       	5.0.2
  
  	.INPUTS
+	
         -Quiet
             Use of this parameter will output just the current version of
             Mattermost instead of the entire object. It will always be the
