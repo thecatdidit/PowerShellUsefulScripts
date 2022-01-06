@@ -1,23 +1,23 @@
 ﻿<#
-	===========================================================================
-	 Created with: 	PowerShell ISE - Win10 21H1/19043
-	 Revision:      v1
-	 Last Modified: 06 Jan 2022
-	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
-	 Organizaiton: 	Happy Days Are Here Again
-	 Filename:     	Get-OnlineVerMattermost.ps1
-	===========================================================================
-	.CHANGELOG
-	[v1 - 2021.06.22]
+    ===========================================================================
+     Created with:  PowerShell ISE - Win10 21H1/19043
+     Revision:      v1
+     Last Modified: 06 Jan 2022
+     Created by:    Jay Harper (github.com/thecatdidit/powershellusefulscripts)
+     Organizaiton:  Happy Days Are Here Again
+     Filename:      Get-OnlineVerMattermost.ps1
+    ===========================================================================
+    .CHANGELOG
+    [v1 - 2021.06.22]
     Script creatiom
 
     .SYNOPSIS
         Queries the MatterMost webside for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
-	
+    
     .DESCRIPTION
-	    This function retrieves the latest data associated with Mattermost
+        This function retrieves the latest data associated with Mattermost
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes both the standard EXE installer and the MSI
         instance
@@ -27,7 +27,7 @@
 
         App Site: https://mattermost.com/
 
-	.EXAMPLE
+    .EXAMPLE
         PS C:\> Get-OnlineVerMattermost
 
         Software_Name    : Mattermost
@@ -37,16 +37,16 @@
         EXE_Installer    : https://releases.mattermost.com/desktop/5.0.2/mattermost-desktop-setup-5.0.2-win.exe?src=dl
         MSI_Installer    : https://releases.mattermost.com/desktop/5.0.2/mattermost-desktop-setup-5.0.2-win.exe?src=dl
     
-       	PS C:\> Get-OnlineVerMattermost -Quiet
-       	5,0.2
+        PS C:\> Get-OnlineVerMattermost -Quiet
+        5,0.2
  
- 	.INPUTS
+    .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
             Mattermost instead of the entire object. It will always be the
             last parameter
-	    
-	.OUTPUTS
+        
+    .OUTPUTS
             An object containing the following:
             Software Name: Name of the software
             Software URL: The URL info was sourced from
@@ -57,7 +57,7 @@
     
             If -Quiet is specified then just the value of 'Online Version'
             will be displayed.
-	.NOTES
+    .NOTES
             Resources/Credits:
             https://github.com/itsontheb
 #>
