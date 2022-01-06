@@ -1,4 +1,4 @@
-﻿<#
+<#
 	===========================================================================
 	 Created with: 	PowerShell ISE - Win10 21H1/19043
 	 Revision:      v1
@@ -17,17 +17,14 @@
         download URLs if available.
 	
     .DESCRIPTION
-	This function retrieves the latest data associated with Mattermost
+	    This function retrieves the latest data associated with Mattermost
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes both the standard EXE installer and the MSI
-        instance
-
-        It then outputs the information as a
-        PSObject to the Host
+        instance. It then outputs the information as a PSObject to the Host.
 
         App Site: https://mattermost.com/
 
-     .EXAMPLE
+    .EXAMPLE
         PS C:\> Get-OnlineVerMattermost
 
         Software_Name    : Mattermost
@@ -41,8 +38,7 @@
        	5.0.2
  
  	.INPUTS
-	
-        -Quiet
+	    -Quiet
             Use of this parameter will output just the current version of
             Mattermost instead of the entire object. It will always be the
             last parameter
@@ -62,15 +58,6 @@
             Resources/Credits:
             https://github.com/itsontheb
 #>
-
-$SearchString = "<li><p><strong>v(?<version>.*), released (?<date>.*)</strong></p></li>"
-$MMWebsite = (Invoke-WebRequest -Uri 'https://docs.mattermost.com/install/desktop-app-changelog.html' -UseBasicParsing | Select-Object -ExpandProperty Content)
-$ReleaseVersion = ($Matches['version'])
-$ReleaseDate = ($Matches['date'])
-
-
-$STDRelease = "https://releases.mattermost.com/desktop/" + $ReleaseVersion + "/mattermost-desktop-setup-" + $ReleaseVersion + "-win.exe?src=dl"
-$MSIRelease = "https://releases.mattermost.com/desktop/" + $ReleaseVersion + "/mattermost-desktop-" + $ReleaseVersion + "-x64.msi?src=dl"
 
 function Get-OnlineVerMattermost {
     [cmdletbinding()]
