@@ -36,8 +36,8 @@
     
        	PS C:\> Get-OnlineVerMattermost -Quiet
        	5.0.2
- 
- 	.INPUTS
+    
+	.INPUTS
 	    -Quiet
             Use of this parameter will output just the current version of
             Mattermost instead of the entire object. It will always be the
