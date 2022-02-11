@@ -64,6 +64,7 @@
 
 $SearchString = "<li><p><strong>v(?<version>.*), released (?<date>.*)</strong></p></li>"
 $MMWebsite = (Invoke-WebRequest -Uri 'https://docs.mattermost.com/install/desktop-app-changelog.html' -UseBasicParsing | Select-Object -ExpandProperty Content)
+$MMWebsite -match $SearchString | Out-Null
 $ReleaseVersion = ($Matches['version'])
 $ReleaseDate = ($Matches['date'])
 
