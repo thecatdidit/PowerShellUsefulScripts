@@ -30,7 +30,7 @@
         PS C:\> Get-OnlineVerAtlassianCompanion.ps1
 
         Software_Name    : Atlassian Companion
-        Software_URL     : https://mat
+        Software_URL     : https://confluence.atlassian.com
         Online_Version   : 1.3.1
         Online_Date      : 12 November 2021
         EXE_Installer    : https://update-nucleus.atlassian.com/Atlassian-Companion/291cb34fe2296e5fb82b83a04704c9b4/latest/win32/ia32/Atlassian%20Companion.exe
