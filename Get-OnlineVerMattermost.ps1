@@ -30,15 +30,15 @@
     .EXAMPLE
         PS C:\> Get-OnlineVerMattermost
 
-        Software_Name    : Mattermost
-        Software_URL     : https://mattermost.com/
-        Online_Version   : 5.0.2
-        Online_Date      : 2021-11-15
-        EXE_Installer    : https://releases.mattermost.com/desktop/5.0.2/mattermost-desktop-setup-5.0.2-win.exe?src=dl
-        MSI_Installer    : https://releases.mattermost.com/desktop/5.0.2/mattermost-desktop-setup-5.0.2-win.exe?src=dl
-    
+        Software_Name  : Mattermost
+        Software_URL   : https://mattermost.com/
+        Online_Version : 5.0.3
+        Online_Date    : 2022-02-01
+        EXE_Installer  : https://releases.mattermost.com/desktop/5.0.3/mattermost-desktop-setup-5.0.3-win.exe?src=dl
+        MSI_Installer  : https://releases.mattermost.com/desktop/5.0.3/mattermost-desktop-5.0.3-x64.msi?src=dl
+
         PS C:\> Get-OnlineVerMattermost -Quiet
-        5,0.2
+        5.0.2
  
     .INPUTS
         -Quiet
