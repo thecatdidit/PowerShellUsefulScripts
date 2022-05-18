@@ -8,7 +8,9 @@
 	 Filename:     	Get-OnlineVerVMWarePlayer.ps1
 	===========================================================================
     .CHANGELOG
-     v1 (2021.05.22)
+     2022.05.18
+     Updated query of VMWare XML release feed to reflect style changes in feed
+     2021.05.22
      Initial script creation
     
     .SYNOPSIS
@@ -93,7 +95,7 @@ function Get-OnlineVerVMWarePlayer {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             [xml]$VMWareSite = Invoke-WebRequest -Uri $URI -UseBasicParsing  
             $ReleaseInfo = $VMWareSite.feed.entry[0]
-            $ReleaseInfo.subtitle -match "VMware Workstation Player (?<Version>.*)" | Out-Null
+            $ReleaseInfo.title -match "VMware Workstation (?<Version>.*) Player" | Out-Null
             $ReleaseVersion = $Matches['Version']
             $ReleaseDate = $Releaseinfo.updated.Substring(0, 10)
             $ReleaseDate = [datetime]::parseexact($ReleaseDate, 'yyyy-MM-dd', $null).ToString('dd MMM yyyy')
