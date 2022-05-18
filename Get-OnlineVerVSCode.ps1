@@ -1,14 +1,16 @@
 <#
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 18363)
-	 Revision:      2020.03.16.1800
-	 Last Modified: 16 March 2020
+	 Revision:      2022.05.38
+	 Last Modified: 18 May 2022
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerVSCode.ps1
 	===========================================================================
 	.CHANGELOG
-	[2020.03.16.1800]
+	(2022.05.18)
+    Using an updated XML feed to query for the latest version of VS Code
+    (2020.05.30)
     Initial script creation
 	.SYNOPSIS
         This script retrieves information on the current release of Microsoft
@@ -90,8 +92,9 @@ function Get-OnlineVerVSCode {
             $uri = 'https://code.visualstudio.com/feed.xml'
             $AppInfo = New-Object XML
             $AppInfo.Load($uri)
-            $AppDate = $AppInfo.feed.entry[0].updated.Substring(0, 15)
-            $AppVersion = $AppInfo.feed.entry[0].id.Substring(39, 4).replace("_", ".")
+            $AppInfo = ($AppInfo.feed.entry | Where title -Match "Visual Studio Code")[0]
+            $AppDate = $AppInfo.updated.Substring(0, 10)
+            $AppVersion = $AppInfo.id.Substring(39, 4).replace("_", ".")
             
 
             $swObject.Online_Version = $AppVersion
