@@ -97,7 +97,7 @@ function Get-OnlineVerNotepadPlusPlus {
             $nppVersionLink = "https://notepad-plus-plus.org" + $nppLink.href
             
             $nppDate = (Invoke-WebRequest $nppVersionLink -UseBasicParsing)
-            $nppDate.Content -match "<p>Release Date: (?<content>.*)</p>"
+            $nppDate.Content -match "<p>Release Date: (?<content>.*)</p>" | Out-Null
             $nppDate = $Matches['content']
             
 	    $swObject.Online_Date = $nppDate
