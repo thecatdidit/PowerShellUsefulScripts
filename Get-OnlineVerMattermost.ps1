@@ -129,7 +129,7 @@ function Get-OnlineVerMattermost {
             # Get the Download URLs
             if ($swObject.Online_Version -ne 'UNKNOWN') {
        
-                #Download syntax (Last checked on 24 May 2022
+                #Download syntax (Last checked on 24 May 2022)
                 #https://releases.mattermost.com/desktop/5.1.0/mattermost-desktop-5.1.0-x64.msi
                 #https://releases.mattermost.com/desktop/5.1.0/mattermost-desktop-5.1.0-x64.msi
                 #https://releases.mattermost.com/desktop/5.1.0/mattermost-desktop-setup-5.1.0-win.exe
