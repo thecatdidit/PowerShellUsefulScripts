@@ -65,11 +65,6 @@
             https://github.com/itsontheb
 #>
 
-
-
-$STDRelease = "https://releases.mattermost.com/desktop/" + $ReleaseVersion + "/mattermost-desktop-setup-" + $ReleaseVersion + "-win.exe?src=dl"
-$MSIRelease = "https://releases.mattermost.com/desktop/" + $ReleaseVersion + "/mattermost-desktop-" + $ReleaseVersion + "-x64.msi?src=dl"
-
 function Get-OnlineVerMattermost {
     [cmdletbinding()]
     param (
