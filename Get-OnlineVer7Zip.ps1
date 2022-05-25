@@ -6,22 +6,22 @@
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVer7Zip.ps1
 	===========================================================================
-	.CHANGELOG
-	[2022.05.25]
+    .CHANGELOG
+    [2022.05.25]
     Software querying changed from standard page scrape to JSON feed on SourceForge
     https://sourceforge.net/projects/sevenzip/best_release.json
     [2021.05.08]
-	Added '-UseBasicParsing' to web content calls
-	[2019.03.27]
-	Script creation
-	
+    Added '-UseBasicParsing' to web content calls
+    [2019.03.27]
+    Script creation
+
     .SYNOPSIS
         Queries the 7Zip webside for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
-	
+
     .DESCRIPTION
-	    This function retrieves the latest data associated with 7Zip
+    This function retrieves the latest data associated with 7Zip
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes x86 and x64.
         It then outputs the information as a
@@ -29,7 +29,7 @@
 
         App Site: https://www.7-zip.org/
 
-	.EXAMPLE
+    .EXAMPLE
         PS C:\> Get-OnlineVer7Zip
 
         Software_Name    : 7Zip
@@ -42,13 +42,13 @@
        	PS C:\> Get-OnlineVer7Zip -Quiet
        	19.00
  
- 	.INPUTS
+    .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
             Flash Player instead of the entire object. It will always be the
             last parameter
-	    
-	.OUTPUTS
+        
+    .OUTPUTS
             An object containing the following:
             Software Name: Name of the software
             Software URL: The URL info was sourced from
@@ -60,7 +60,7 @@
             If -Quiet is specified then just the value of 'Online Version'
             will be displayed.
 
-	.NOTES
+    .NOTES
             Resources/Credits:
             https://github.com/itsontheb
             https://github.com/aaronparker
