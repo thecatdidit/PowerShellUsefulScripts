@@ -1,11 +1,11 @@
 <#
-	===========================================================================
-	 Created with: 	PowerShell ISE 19043
-	 Last Modified: 24 May 2022
-	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
-	 Organizaiton: 	Happy Days Are Here Again
-	 Filename:     	Get-OnlineVer7Zip.ps1
-	===========================================================================
+     ===========================================================================
+      Created with: 	PowerShell ISE 19043
+      Last Modified: 	24 May 2022
+      Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
+      Organizaiton: 	Happy Days Are Here Again
+      Filename:     	Get-OnlineVer7Zip.ps1
+     ===========================================================================
     .CHANGELOG
     [2022.05.25]
     Software querying changed from standard page scrape to JSON feed on SourceForge
