@@ -2,36 +2,42 @@
     .NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 19042)
-	 Revision:      v9
-	 Last Modified: 20 July 2021
+	 Revision:      2022.05.24
+	 Last Modified: 24 May 2022
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerNotepadPlusPlus.ps1
 	===========================================================================
     .CHANGELOG
-        [2021.07.20] v9
-        .Fixed a bug with passing of version parameter
-        .Added Notepad++ GUP source for easier pull of needed data
-        [2021.06.10] v8
-	.Added '-UseBasicParsing' to web calls re: IE engine decomm
-	[2021.04.08] v7
-        .Overhauled source scraping and parsing functions to reflect the vendor's new
-        site layout
+    [2022.05.24]
+    Updated query source to Github release feed
+    [2021.07.20]
+    Fixed a bug with passing of version parameter
+    Added Notepad++ GUP source for easier pull of needed data
+    [2021.06.10]
+	Added '-UseBasicParsing' to web calls re: IE engine decomm
+	[2021.04.08]
+    Overhauled source scraping and parsing functions to reflect the vendor's new
+    site layout
+
     .SYNOPSIS
         Queries Notepad++ Website for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
+
     .DESCRIPTION
         This function retrieves the latest data associated with Notepad++.
-        Utilizes Invoke-WebRequest to query NotepadPlusPlus Download Page and
+        Utilizes Invoke-WebRequest to query the app's Download Page and
         pulls out the Version, Update Date and Download URLs for both
         x86 and x64 versions. It then outputs the information as a
         PSObject to the Host.
+
     .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
             Google Chrome instead of the entire object. It will always be the
             last parameter.
+
     .OUTPUTS
         An object containing the following:
         Software Name: Name of the software
@@ -43,20 +49,24 @@
     
         If -Quiet is specified then just the value of 'Online Version'
         will be displayed.
+
     .EXAMPLE
         PS C:\> Get-OnlineVerNotePadPlusPlus
+        
         Software_Name    : NotepadPlusPlus
         Software_URL     : https://notepad-plus-plus.org
-        Online_Version   : 8.1.1
-        Online_Date      : 2021-07-19
-        Download_URL_x86 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.1.1/npp.8.1.1.Installer.exe
-        Download_URL_x64 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.1.1/npp.8.1.1.Installer.x64.exe
+        Online_Version   : 8.4.1
+        Online_Date      : 2022-05-11
+        Download_URL_x86 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4.1/npp.8.4.1.Installer.exe
+        Download_URL_x64 : https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4.1/npp.8.4.1.Installer.x64.exe
 
         PS C:\> Get-OnlineVerNotePadPlusPlus -Quiet
-        8.1.1
+        8.4.1
+
     .NOTES
         Resources/Credits:
         https://github.com/itsontheb
+        https://github.com/aaronparker
 #>
 
 function Get-OnlineVerNotepadPlusPlus {
@@ -91,6 +101,8 @@ function Get-OnlineVerNotepadPlusPlus {
         try {
             
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
+          
+          <#Retaining prior query logic for future reference
             $uri = 'https://notepad-plus-plus.org/'
             $nppURL = (Invoke-WebRequest -Uri $uri -UseBasicParsing)
             $nppLink = ($nppURL.Links | Where outerHTML -Match "Current Version")
@@ -99,14 +111,27 @@ function Get-OnlineVerNotepadPlusPlus {
             $nppDate = (Invoke-WebRequest $nppVersionLink -UseBasicParsing)
             $nppDate.Content -match "<p>Release Date: (?<content>.*)</p>" | Out-Null
             $nppDate = $Matches['content']
-            
-	    $swObject.Online_Date = $nppDate
+           
+	    
+            $Site = "https://api.github.com/repos/notepad-plus-plus/notepad-plus-plus/releases/latest"
             
             $uri = 'https://notepad-plus-plus.org/update/getDownloadUrl.php'
             [xml]$nppVersion = (Invoke-WebRequest -Uri $uri -UseBasicParsing).content
             [string]$nppversion = $nppVersion.GUP.Version
-            
-	    $swObject.Online_version = $nppversion
+        #>
+        
+            $Site = "https://api.github.com/repos/notepad-plus-plus/notepad-plus-plus/releases/latest"
+            $AppInfo = (Invoke-WebRequest -Uri $Site -UseBasicParsing).Content | ConvertFrom-Json
+            #Obtain App Version
+            $AppVersion = $AppInfo.tag_name.Replace("v","")
+            #Obtain App Release Date
+            $AppDate = $AppInfo.created_at
+            $Begin = 0
+            $End = $AppDate.IndexOf("T")
+            $AppDate = $AppDate.Substring(0,$End)
+
+	        $swObject.Online_Date = $AppDate
+            $swObject.Online_version = $AppVersion
 
         }
         catch {
@@ -116,11 +141,10 @@ function Get-OnlineVerNotepadPlusPlus {
         }
         finally {
           
-
-            # Get the Download URLs
+        # Get the Download URLs
             if ($swObject.Online_Version -ne 'UNKNOWN') {
-                $nppDownloadx86 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.exe"
-                $nppDownloadx64 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $nppVersion + "/" + "npp." + $nppVersion + ".Installer.x64.exe"
+                $nppDownloadx86 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $AppVersion + "/" + "npp." + $AppVersion + ".Installer.exe"
+                $nppDownloadx64 = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v" + $AppVersion + "/" + "npp." + $AppVersion + ".Installer.x64.exe"
                                   
                 $swObject.Download_URL_x86 = $nppDownloadx86
                 $swObject.Download_URL_x64 = $nppDownloadx64
