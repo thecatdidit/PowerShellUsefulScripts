@@ -1,22 +1,26 @@
 <#
 	===========================================================================
-	 Created with: 	Visual Studio Code 1.56.1/PSE 19042
-	 Revision:      v2
-	 Last Modified: 18 May 2021
+	 Created with: 	PowerShell ISE 19043
+	 Last Modified: 24 May 2022
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVer7Zip.ps1
 	===========================================================================
 	.CHANGELOG
-	[2021.05.08.01]
+	[2022.05.25]
+    Software querying changed from standard page scrape to JSON feed on SourceForge
+    https://sourceforge.net/projects/sevenzip/best_release.json
+    [2021.05.08]
 	Added '-UseBasicParsing' to web content calls
-	[2019.03.27.01]
+	[2019.03.27]
 	Script creation
-	.SYNOPSIS
+	
+    .SYNOPSIS
         Queries the 7Zip webside for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
-	.DESCRIPTION
+	
+    .DESCRIPTION
 	    This function retrieves the latest data associated with 7Zip
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes x86 and x64.
@@ -30,10 +34,10 @@
 
         Software_Name    : 7Zip
         Software_URL     : https://www.7-zip.org/download.html
-        Online_Version   : 19.00
-        Online_Date      : 2019-02-21
-        Download_URL_x64 : https://www.7-zip.org/a/7z1900-x64.msi
-        Download_URL_x86 : https://www.7-zip.org/a/7z1900.msi
+        Online_Version   : 21.07
+        Online_Date      : 2021-12-28
+        Download_URL_x86 : https://www.7-zip.org/a/7z2107.msi
+        Download_URL_x64 : https://www.7-zip.org/a/7z2107-x64.msi
     
        	PS C:\> Get-OnlineVer7Zip -Quiet
        	19.00
@@ -55,9 +59,11 @@
     
             If -Quiet is specified then just the value of 'Online Version'
             will be displayed.
+
 	.NOTES
             Resources/Credits:
             https://github.com/itsontheb
+            https://github.com/aaronparker
 #>
 
 function Get-OnlineVer7Zip {
@@ -91,12 +97,24 @@ function Get-OnlineVer7Zip {
         # Get the Version & Release Date
         try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
-            $uri = 'https://www.7-zip.org/download.html'
+            $Site = 'https://sourceforge.net/projects/sevenzip/best_release.json'
+            $7ZipInfo = (Invoke-WebRequest -Uri $Site -UseBasicParsing).Content | ConvertFrom-Json
+            
+            #Parsing out version info
+            $7ZipFileName = $7ZipInfo.release.filename
+            $Begin = $7ZipFileName.IndexOf("`/7-Zip/") + 7
+            $End = $7ZipFileName.IndexOf("/7z")
+            $7ZipVersion = ($7ZipFileName).Substring($begin,$end-$begin)
+
+            $7ZipDate = $7ZipInfo.release.date.Substring(0,10)
+            
+           <# Keeping the prior scraping logic commmented for posterity's sake
             $7ZipURL = (Invoke-WebRequest -Uri $uri -UseBasicParsing | Select-Object -ExpandProperty Content)
             $7ZIPURL -match "<P><B>Download 7-Zip (?<version>.*) \((?<date>.*)\) f" | Out-Null
             $7ZipVersion = ($matches['version'])
             $7ZipDate = ($matches['date'])
-            
+           #>
+
             $swObject.Online_Version = $7ZipVersion
             $swObject.Online_Date = $7ZipDate
 
@@ -107,14 +125,12 @@ function Get-OnlineVer7Zip {
             $swObject | Add-Member -MemberType NoteProperty -Name 'ERROR' -Value $message
         }
         finally {
-          
 
             # Get the Download URLs
             if ($swObject.Online_Version -ne 'UNKNOWN') {
        
                 $7ZipDownloadx64 = "https://www.7-zip.org/a/7z" + $7ZipVersion.replace(".", "") + "-x64.msi"
                 $7ZipDownloadx86 = "https://www.7-zip.org/a/7z" + $7ZipVersion.replace(".", "") + ".msi"
-            
             
                 $swObject.Download_URL_x86 = $7ZipDownloadx86
                 $swObject.Download_URL_x64 = $7ZipDownloadx64
