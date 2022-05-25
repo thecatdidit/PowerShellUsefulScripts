@@ -21,7 +21,7 @@
         download URLs if available.
 
     .DESCRIPTION
-    This function retrieves the latest data associated with 7Zip
+        This function retrieves the latest data associated with 7Zip
         Invoke-WebRequest queries the site to obtain app release date, version and 
         download URLs. This includes x86 and x64.
         It then outputs the information as a
@@ -40,7 +40,7 @@
         Download_URL_x64 : https://www.7-zip.org/a/7z2107-x64.msi
     
        	PS C:\> Get-OnlineVer7Zip -Quiet
-       	19.00
+       	21.07
  
     .INPUTS
         -Quiet
