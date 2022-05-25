@@ -116,7 +116,7 @@ function Get-OnlineVerAudacity {
             $swObject.Online_Date = $AppDate
             $swObject.Software_URL = $AppNotes
 
-         <#
+            <# The prior query logic is being kept in comment for future reference
             $Site = "https://www.audacityteam.org/download/windows/"
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             $SiteWiki = "https://wiki.audacityteam.org/wiki/Audacity_Versions"
