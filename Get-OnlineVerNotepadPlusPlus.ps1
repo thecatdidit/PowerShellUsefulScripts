@@ -1,13 +1,12 @@
 <#	
-    .NOTES
-	===========================================================================
-	 Created with: 	PowerShell ISE (Win10 19042)
-	 Revision:      2022.05.24
-	 Last Modified: 24 May 2022
-	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
-	 Organizaiton: 	Happy Days Are Here Again
-	 Filename:     	Get-OnlineVerNotepadPlusPlus.ps1
-	===========================================================================
+    ===========================================================================
+    Created with: 	PowerShell ISE (Win10 19042)
+    Revision:		2022.05.24
+    Last Modified:	24 May 2022
+    Created by:		Jay Harper (github.com/thecatdidit/powershellusefulscripts)
+    Organizaiton: 	Happy Days Are Here Again
+    Filename: 		Get-OnlineVerNotepadPlusPlus.ps1
+    ===========================================================================
     .CHANGELOG
     [2022.05.24]
     Updated query source to Github release feed
@@ -15,8 +14,8 @@
     Fixed a bug with passing of version parameter
     Added Notepad++ GUP source for easier pull of needed data
     [2021.06.10]
-	Added '-UseBasicParsing' to web calls re: IE engine decomm
-	[2021.04.08]
+    Added '-UseBasicParsing' to web calls re: IE engine decomm
+    [2021.04.08]
     Overhauled source scraping and parsing functions to reflect the vendor's new
     site layout
 
