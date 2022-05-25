@@ -129,7 +129,7 @@ function Get-OnlineVerNotepadPlusPlus {
             $End = $AppDate.IndexOf("T")
             $AppDate = $AppDate.Substring(0,$End)
 
-	        $swObject.Online_Date = $AppDate
+	    $swObject.Online_Date = $AppDate
             $swObject.Online_version = $AppVersion
 
         }
