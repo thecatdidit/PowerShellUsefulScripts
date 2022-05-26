@@ -1,8 +1,8 @@
-﻿<#
+<#
     ===========================================================================
-     Created with: 	VS Code 1.56.1/ISE 19042
-     Revision:      2022.05.24
-     Last Modified: 24 May 2022
+     Created with:	VS Code 1.56.1/ISE 19042
+     Revision:		2022.05.24
+     Last Modified:	24 May 2022
      Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
      Organizaiton: 	Happy Days Are Here Again
      Filename:     	Get-OnlineVerAudacity.ps1
