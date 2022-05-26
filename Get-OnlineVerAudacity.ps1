@@ -130,8 +130,6 @@ function Get-OnlineVerAudacity {
             
             $swObject.Software_URL = $AudacityReleaseNotes
             #>
-           
-        
         }
         catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
