@@ -1,4 +1,7 @@
 <#	
+
+	[07.07.22]: This script is broken. I will investigate when time permits -JH
+	
 	.NOTES
 	===========================================================================
 	 Created with: 	PowerShell ISE (Win10 18363)
