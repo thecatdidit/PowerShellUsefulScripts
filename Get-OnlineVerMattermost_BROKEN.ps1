@@ -1,4 +1,5 @@
-﻿<#
+﻿# [07.18.22]: This script is broken. I will investigate when time permits -JH
+ <#
     ===========================================================================
      Created with:  PowerShell ISE - Win10 21H1/19043
      Revision:      2022.05.24
