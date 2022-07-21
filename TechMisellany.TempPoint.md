@@ -49,6 +49,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 ### Completely wipe a Linux installation
 ```find / -type f \( -iname "*" ! -iname "vmlinuz*" \) -exec unlink {​}​ \;&>/dev/null```
 
+
 ### Third party application download info
 * Google Chrome
 ** https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi 
