@@ -1,8 +1,8 @@
-﻿<#
+<#
     ===========================================================================
-     Created with: 	VS Code 1.56.1/ISE 19042
-     Revision:      2022.05.24
-     Last Modified: 24 May 2022
+     Created with:	VS Code 1.56.1/ISE 19042
+     Revision:		2022.05.24
+     Last Modified:	24 May 2022
      Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
      Organizaiton: 	Happy Days Are Here Again
      Filename:     	Get-OnlineVerAudacity.ps1
@@ -13,7 +13,7 @@
     [2021.05.20]
      Script creation
 
-	.SYNOPSIS
+    .SYNOPSIS
         Queries the Audacity webside for the current version of
         the app and returns the version, date updated, and
         download URLs if available.
@@ -30,15 +30,16 @@
 
     .EXAMPLE
            PS> Get-OnlineVerAudacity
+           
            Software_Name    : Audacity
-           Software_URL     : https://wiki.audacityteam.org/wiki/Release_Notes_3.0.2
-           Online_Version   : 3.0.2 
-           Online_Date      : 19 Apr 2021
-           Download_URL_x86 : https://www.fosshub.com/Audacity.html/audacity-win-3.0.2.exe
-           Download_URL_x64 : https://www.fosshub.com/Audacity.html/audacity-win-3.0.2.exe
+           Software_URL     : https://wiki.audacityteam.org/wiki/Release_Notes_3.1.3
+           Online_Version   : 3.1.3
+           Online_Date      : 2021-12-22
+           Download_URL_x86 : https://github.com/audacity/audacity/releases/download/Audacity-3.1.3/audacity-win-3.1.3-32bit.exe
+           Download_URL_x64 : https://github.com/audacity/audacity/releases/download/Audacity-3.1.3/audacity-win-3.1.3-64bit.exe
        	
            PS C:\> Get-OnlineVerAudacity -Quiet
-       	   3.0.2
+       	   3.1.3
  
     .INPUTS
         -Quiet
@@ -61,6 +62,7 @@
     .NOTES
             Resources/Credits:
             https://github.com/itsontheb
+	    https://github.com/aaronparker
 #>
 
 function Get-OnlineVerAudacity {
@@ -114,7 +116,7 @@ function Get-OnlineVerAudacity {
             $swObject.Online_Date = $AppDate
             $swObject.Software_URL = $AppNotes
 
-         <#
+            <# The prior query logic is being kept in comment for future reference
             $Site = "https://www.audacityteam.org/download/windows/"
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
             $SiteWiki = "https://wiki.audacityteam.org/wiki/Audacity_Versions"
@@ -128,8 +130,6 @@ function Get-OnlineVerAudacity {
             
             $swObject.Software_URL = $AudacityReleaseNotes
             #>
-           
-        
         }
         catch {
             Write-Verbose -Message "Error accessing the below URL: `n $URI"
