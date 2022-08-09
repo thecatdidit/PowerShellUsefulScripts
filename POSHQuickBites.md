@@ -6,7 +6,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 ```
 
 ### Get a list of all Automatic services currently Stopped
-```goAA Get-Service | select Name, Status, StartType, DisplayName | where StartType -Match "Automatic" | where Status -Match "Stopped"```
+```goAA 
+Get-Service | select Name, Status, StartType, DisplayName | where StartType -Match "Automatic" | where Status -Match "Stopped"
+```
 
 ### Get the system's last Boot Up Time
 ```(Get-CimInstance -ClassName win32_operatingsystem).lastbootuptime```
