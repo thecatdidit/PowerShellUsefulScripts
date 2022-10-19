@@ -179,4 +179,14 @@ foreach ($languagePack in $languagePacks)
         }
     }
 ```
-
+## Querying HP BIOS settings
+```goAA
+#Connect to the HP_BIOSEnumeration WMI class
+$SettingList = Get-WmiObject -Namespace root\HP\InstrumentedBIOS -Class HP_BIOSEnumeration
+ 
+#Return a list of all configurable settings
+$SettingList | Select-Object Name,Value
+ 
+#Return the current and available values for a specific setting
+($SettingList | Where-Object Name -eq "Deep Sleep").Value
+```
