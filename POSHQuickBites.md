@@ -190,3 +190,10 @@ $SettingList | Select-Object Name,Value
 #Return the current and available values for a specific setting
 ($SettingList | Where-Object Name -eq "Deep Sleep").Value
 ```
+
+## Disable Windows Update control of BIOS updates
+## This BIOS setting - set to Disabled - should disallow Windows Update from foisting newer BIOS/Firmware updates
+```goAA
+$Interface = Get-WmiObject -Namespace root\HP\InstrumentedBIOS -Class HP_BIOSSettingInterface
+$Interface.SetBIOSSetting("Native OS Firmware Update Service","Disable")
+```
