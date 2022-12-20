@@ -1,19 +1,27 @@
 ## PowerShell Quick Bites
 
 ### Install Chocolatey Package Manager
-```Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))```
+```goAA
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
 
 ### Get a list of all Automatic services currently Stopped
-```Get-Service | select Name, Status, StartType, DisplayName | where StartType -Match "Automatic" | where Status -Match "Stopped"```
+```goAA 
+Get-Service | select Name, Status, StartType, DisplayName | where StartType -Match "Automatic" | where Status -Match "Stopped"
+```
 
 ### Get the system's last Boot Up Time
-```(Get-CimInstance -ClassName win32_operatingsystem).lastbootuptime```
+```goAA
+(Get-CimInstance -ClassName win32_operatingsystem).lastbootuptime
+```
 
 ### Get the logged on username
-```Get-WmiObject -ComputerName $env:COMPUTERNAME -Class Win32_Computersystem | Select-Object UserName```
+```goAA
+Get-WmiObject -ComputerName $env:COMPUTERNAME -Class Win32_Computersystem | Select-Object UserName
+```
 
 ### Get detailed Windows 10 build and version info
-```
+```goAA
 Function Convert-FromUnixDate ($UnixDate) {[timezone]::CurrentTimeZone.ToLocalTime(([datetime]'1/1/1970').AddSeconds($UnixDate))}
 $CurrentOSInfo = Get-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
 $InstallDate_CurrentOS = Convert-FromUnixDate $CurrentOSInfo.GetValue('InstallDate')
@@ -22,29 +30,42 @@ $BuildUBR_CurrentOS = $($CurrentOSInfo.GetValue('CurrentBuild'))+"."+$($CurrentO
 ```
 
 ### Get a list of all x86 applications installed
-```(Get-ChildItem 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall' |  select $_.PSPath | Get-ItemProperty) | select DisplayName, InstallDate, UninstallString```
+```goAA
+(Get-ChildItem 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall' |  select $_.PSPath | Get-ItemProperty) | select DisplayName, InstallDate, UninstallString
+```
 
 ### Get a list of all x64 applications installed
-```(Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' |  select $_.PSPath | Get-ItemProperty) | select DisplayName, InstallDate, UninstallString```
+```goAA
+(Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' |  select $_.PSPath | Get-ItemProperty) | select DisplayName, InstallDate, UninstallString
+```
 
 ### Get information on the latest version of Firefox
-```(Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION```
+```goAA
+(Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION
+```
 
 ### Download and automatically install the latest version of Firefox (Note: Uses 'C:\Temp' as download spot. Change to reflect your target dir if needed)
-```New-Item -ItemType Directory -Path C:\Temp -Force | Out-Null
+```goAA
+New-Item -ItemType Directory -Path C:\Temp -Force | Out-Null
 $Firefox = (Invoke-WebRequest -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json" -UseBasicParsing | ConvertFrom-json) | select LAST_RELEASE_DATE, LATEST_FIREFOX_VERSION
 $FirefoxDownload = "https://download-origin.cdn.mozilla.net/pub/firefox/releases/" + $FIREFOX.LATEST_FIREFOX_VERSION + "/win64/en-US/Firefox%20Setup%20" + $FIREFOX.LATEST_FIREFOX_VERSION + ".exe"
 Invoke-WebRequest -Uri $FirefoxDownload -UseBasicParsing -OutFile "C:\Temp\Firefox_$($FIREFOX.LATEST_FIREFOX_VERSION).exe"
 Start-Process -NoNewWindow -FilePath "C:\Temp\Firefox_$FirefoxVersion.exe" -ArgumentList /S
 ```
+
 ### Locate an existing Firefox installation, then uninstall silently. (NOTE: Remove the '/S' parameter if you want the uninstall wizard)
-```Start-Process(((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty) | where DisplayName -Match "Firefox").UninstallString) /S```
+```goAA
+Start-Process(((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty) | where DisplayName -Match "Firefox").UninstallString) /S
+```
 
 ### Locate an existing Chrome installation, then uninstall silently. (NOTE: Remove '/qn' parameter if you want the uninstall wizard)
-```Start-process C:\windows\system32\msiexec.exe ((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty | where DisplayName -Match "Chrome").UninstallString).split('')[1], '/qn'```
+```goAA
+Start-process C:\windows\system32\msiexec.exe ((Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall' | select $_.PSPath | Get-ItemProperty | where DisplayName -Match "Chrome").UninstallString).split('')[1], '/qn'
+```
 
 ### Reset Outlook default font to Arial (run as user)
-```if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\MailSettings") -ne $true) {  New-Item "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\MailSettings" -force -ErrorAction SilentlyContinue | Out-Null }
+```goAA
+if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\MailSettings") -ne $true) {  New-Item "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\MailSettings" -force -ErrorAction SilentlyContinue | Out-Null }
 New-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mailsettings" -Name 'Template' -Value '' -PropertyType ExpandString -Force -ErrorAction SilentlyContinue | Out-Null;
 New-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mailsettings" -Name 'NewTheme' -Value '' -PropertyType String -Force -ErrorAction SilentlyContinue | Out-Null;
 Remove-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mailsettings" -Name 'MarkCommentsWith' -Force -ErrorAction SilentlyContinue | Out-Null;
@@ -57,7 +78,8 @@ New-ItemProperty -LiteralPath "HKCU:\SOFTWARE\Microsoft\Office\16.0\Common\Mails
 ```
 
 ### Windows Server TLS 1.2 fix for SCHANNEL errors (Event Log: System Events)
-```if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client" -force -ea SilentlyContinue };
+```goAA
+if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client" -force -ea SilentlyContinue };
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -Name 'DisabledByDefault' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -Name 'Enabled' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
@@ -71,19 +93,25 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramewor
 ```
 
 ### List all main Windows Updates (KBs) installed on a computer, and put them into Grid View (Note: Remove the query on Title for all updates - drivers, etc.)
-``` (new-object -com "Microsoft.Update.Searcher").QueryHistory(0,((new-object -com "Microsoft.Update.Searcher").gettotalhistorycount()-1)) | where Title -Match "KB" | select Title, Description, Date | Out-GridView```
+```goAA
+(new-object -com "Microsoft.Update.Searcher").QueryHistory(0,((new-object -com "Microsoft.Update.Searcher").gettotalhistorycount()-1)) | where Title -Match "KB" | select Title, Description, Date | Out-GridView
+```
 
 ### Check Bitlocker encryption status on the OS drive. If Bitlocker is disabled, it will be automatically enabled again
-```if ((Get-BitLockerVolume -MountPoint ($env:windir)[0] | Select-Object -ExpandProperty ProtectionStatus).Value__ -eq 0) { Resume-BitLocker -MountPoint ($env:windir)[0] }```
+```goAA
+if ((Get-BitLockerVolume -MountPoint ($env:windir)[0] | Select-Object -ExpandProperty ProtectionStatus).Value__ -eq 0) { Resume-BitLocker -MountPoint ($env:windir)[0] }
+```
 
 ### Hardware Info
-```$Manufacturer = (Get-WmiObject -Class:Win32_ComputerSystem).Manufacturer
+```goAA
+$Manufacturer = (Get-WmiObject -Class:Win32_ComputerSystem).Manufacturer
 $ComputerModel = (Get-WmiObject -Class:Win32_ComputerSystem).Model
 $HPProdCode = (Get-CimInstance -Namespace root/cimv2 -ClassName Win32_BaseBoard).Product
 ```
 
 ### Machine Info
-```#Machine Name
+```goAA
+#Machine Name
 $MachineName = $env:ComputerName
 
 #Current Windows 10 Release ID
@@ -104,7 +132,8 @@ $BuildUBR_CurrentOS = $($CurrentOSInfo.GetValue('CurrentBuild'))+"."+$($CurrentO
 ```
 
 ### Client Auth Certificate
-```if($ClientAuthCert = Get-ChildItem Cert:\LocalMachine\My | Where-Object {$_.EnhancedKeyUsageList -match 'Client Authentication'})
+```goAA
+if($ClientAuthCert = Get-ChildItem Cert:\LocalMachine\My | Where-Object {$_.EnhancedKeyUsageList -match 'Client Authentication'})
     {
         
     if ($ClientAuthCert.Count -gt 1)
@@ -126,7 +155,8 @@ Else
 ```
 
 ### Battery Info
-```if (Get-WmiObject -Class win32_battery)
+```goAA
+if (Get-WmiObject -Class win32_battery)
     {
     if ((Get-WmiObject -Class Win32_Battery –ea 0).BatteryStatus -eq 2)
         {Write-Host "  Power Status: Device is on AC Power" -ForegroundColor Green}
@@ -139,7 +169,8 @@ Else
 ```
 
 ## Language Pack Info
-```$languagePacks = $OSInfo.MUILanguages
+```goAA
+$languagePacks = $OSInfo.MUILanguages
 foreach ($languagePack in $languagePacks)
     {
     if ($languagePack -ne "en-US")
@@ -147,4 +178,22 @@ foreach ($languagePack in $languagePacks)
         Write-host "  Additional Language Pack Installed: $languagePack" -ForegroundColor Yellow
         }
     }
+```
+## Querying HP BIOS settings
+```goAA
+#Connect to the HP_BIOSEnumeration WMI class
+$SettingList = Get-WmiObject -Namespace root\HP\InstrumentedBIOS -Class HP_BIOSEnumeration
+ 
+#Return a list of all configurable settings
+$SettingList | Select-Object Name,Value
+ 
+#Return the current and available values for a specific setting
+($SettingList | Where-Object Name -eq "Deep Sleep").Value
+```
+
+## Disable Windows Update control of BIOS updates
+## This BIOS setting - set to Disabled - should disallow Windows Update from foisting newer BIOS/Firmware updates
+```goAA
+$Interface = Get-WmiObject -Namespace root\HP\InstrumentedBIOS -Class HP_BIOSSettingInterface
+$Interface.SetBIOSSetting("Native OS Firmware Update Service","Disable")
 ```
