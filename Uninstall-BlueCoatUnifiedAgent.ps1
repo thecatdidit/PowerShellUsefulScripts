@@ -9,9 +9,9 @@
 	===========================================================================
     .CHANGELOG
         [08 Aug 2023]
-	Foratting and grammar cleanup of some comments
+	Formatting and grammar cleanup of some comments
 	[14 Jul 2021]
-	.Cleaned up script formatting
+	Cleaned up script formatting
     .SYNOPSIS
         This script forces a manual uninstall of Blue Coat Unified Agent. The process
         is based upon Symantec's official HOWTO for removing the agent. 
