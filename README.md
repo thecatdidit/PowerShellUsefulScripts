@@ -1,6 +1,6 @@
 ## PowerShell Useful Scripts
 
-This is a collection of scripts that I have created in the course of work and study to streamline processes related to SCCM and Third Party (3PUP) patch management. Included are scripts to directly query version and installer download information for major third party applications. 
+This is a collection of scripts that I have created in the course of work and study to streamline processes related to Unified Endpoint Management and Third Party (3PUP) patch management. Included are scripts to directly query version and installer download information for major third party applications. 
 
 There are also a few other miscellaneous bits here and there that may not be necessarily related to the above. 
 
