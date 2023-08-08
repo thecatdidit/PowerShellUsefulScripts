@@ -8,7 +8,9 @@
 	 Filename:       Uninstall-BlueCoatUnifiedAgent.ps1
 	===========================================================================
     .CHANGELOG
-        v3 (14 Jul 2021)
+        [08 Aug 2023]
+	Foratting and grammar cleanup of some comments
+	[14 Jul 2021]
 	.Cleaned up script formatting
     .SYNOPSIS
         This script forces a manual uninstall of Blue Coat Unified Agent. The process
@@ -40,7 +42,7 @@
     .INPUTS
         NONE
     .OUTPUTS
-        The script with output results of each step to the console. It will also
+        The script will output the results of each step to the console. It will also
         store the entirety of the process to a logfile.
     .NOTES
         This was a need-based script. I am no longer in the sphere of BCUA. YMMV
