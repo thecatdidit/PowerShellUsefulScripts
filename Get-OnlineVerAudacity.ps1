@@ -44,7 +44,7 @@
     .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
-            Flash Player instead of the entire object. It will always be the
+            Audacity instead of the entire object. It will always be the
             last parameter
         
     .OUTPUTS
