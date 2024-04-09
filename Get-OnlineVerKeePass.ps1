@@ -33,7 +33,7 @@
         Software_URL   : https://keepass.info/
         Online_Version : 2.56
         Online_Date    : 2024-02-04
-        Installer      : https://sourceforge.net/projects/keepass/files/KeePass%202.x/2.56/KeePass-2.56-Setup.exe/download
+        Download_URL_x64: https://sourceforge.net/projects/keepass/files/KeePass%202.x/2.56/KeePass-2.56-Setup.exe/download
     
         PS C:\> Get-OnlineVerKeePass -Quiet
         2.56
@@ -41,7 +41,7 @@
     .INPUTS
         -Quiet
             Use of this parameter will output just the current version of
-            Atlassian Companion instead of the entire object. It will always be the
+            KeePass instead of the entire object. It will always be the
             last parameter
         
     .OUTPUTS
