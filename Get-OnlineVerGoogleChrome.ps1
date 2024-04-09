@@ -1,13 +1,15 @@
 <#
 	===========================================================================
-	 Created with: 	VS Code 1.58.2/ISE 19043
-	 Revision:      v1
-	 Last Modified: 27 July 2021
+	 Created with: 	ISE 19045
+	 Revision:      v2
+	 Last Modified: 09 April 2024
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerGoogleChrome.ps1
 	===========================================================================
 	.CHANGELOG
+        v2 [09 April 2024]
+        Update release tracker source and filter logic
         v1 [27 July 2021]
         Script creation
 
@@ -16,14 +18,14 @@
         
 	.DESCRIPTION
         Release information is obtained from Chromium Dev Team's release tracker
-        https://omahaproxy.appsot.com
+        https://chromiumdash.appspot.com/releases?platform=Windows
 
 	.EXAMPLE
         PS> Get-OnlineVerGoogleChrome
         Software_Name    : Google Chrome
-        Software_URL     : https://omahaproxy.appspot.com/
-        Online_Version   : 92.0.4515.107
-        Online_Date      : 07/20/21
+        Software_URL     : https://chromiumdash.appspot.com/releases?platform=Windows
+        Online_Version   : 123.0.6312.106
+        Online_Date      : 2024-04-04T18:17:35.711205Z
         Download_URL_x86 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi
         Download_URL_x64 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi
        	
@@ -65,7 +67,7 @@ function Get-OnlineVerGoogleChrome {
     begin {
         # Initial Variables
         $SoftwareName = 'Google Chrome'
-        $URI = 'https://omahaproxy.appspot.com/'
+        $URI = 'https://chromiumdash.appspot.com/releases?platform=Windows/'
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
@@ -83,11 +85,10 @@ function Get-OnlineVerGoogleChrome {
         # Get the Version & Release Date
         try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
-            $uri = 'https://omahaproxy.appspot.com/all?csv=1'
-            $ReleaseInfo = (((ConvertFrom-Csv (Invoke-WebRequest -URI $URI -UseBasicParsing).content)) | Where-Object os -Match "win64" | Where-Object channel -EQ "stable")
-            $ReleaseVersion = $ReleaseInfo.current_version
-            $ReleaseDate = $ReleaseInfo.current_reldate 
-
+            $ReleaseInfo = ((Invoke-WebRequest -Uri https://versionhistory.googleapis.com/v1/chrome/platforms/win64/channels/stable/versions/all/releases?filter=endtime=none).content) | ConvertFrom-Json
+            $ReleaseVersion = $ReleaseInfo.releases.version
+            $ReleaseDate = (($ReleaseInfo.releases).serving | select -ExpandProperty startTime).Substring(0,10)
+            
             $swObject.Online_Version = $ReleaseVersion
             $swObject.Online_Date = $ReleaseDate
 
