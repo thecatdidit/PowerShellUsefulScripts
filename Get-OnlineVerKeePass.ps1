@@ -1,14 +1,15 @@
-﻿<#
+<#
     ===========================================================================
-     Created with:  PowerShell ISE - Win10 21H1/19043
-     Revision:      v1
-     Last Modified: 31 Mar 2022
+     Created with:  PowerShell ISE - Win10 22H2/19045
+     Revision:      v2
+     Last Modified: 09 April 2024
      Created by:    Jay Harper (github.com/thecatdidit/powershellusefulscripts)
      Organizaiton:  Happy Days Are Here Again
      Filename:      Get-OnlineVerKeePass.ps1
     ===========================================================================
     .CHANGELOG
-     [03.31.22] Initial script creation
+     v2 [04.09.24] Updates to reflect the offial app's release feed
+     v1 [03.31.22] Initial script creation
     
     .SYNOPSIS
         Queries for the current version of KeePass and returns the version, date updated, and
@@ -28,15 +29,14 @@
     .EXAMPLE
         PS C:\> Get-OnlineVerKeePass.ps1
 
-        Software_Name    : Atlassian Companion
-        Software_URL     : https://confluence.atlassian.com
-        Online_Version   : 1.3.1
-        Online_Date      : 12 November 2021
-        EXE_Installer    : https://update-nucleus.atlassian.com/Atlassian-Companion/291cb34fe2296e5fb82b83a04704c9b4/latest/win32/ia32/Atlassian%20Companion.exe
-        MSI_Installer    : https://update-nucleus.atlassian.com/Atlassian-Companion/291cb34fe2296e5fb82b83a04704c9b4/latest/win32/ia32/Atlassian%20Companion.msi
+        Software_Name  : KeePass
+        Software_URL   : https://keepass.info/
+        Online_Version : 2.56
+        Online_Date    : 2024-02-04
+        Installer      : https://sourceforge.net/projects/keepass/files/KeePass%202.x/2.56/KeePass-2.56-Setup.exe/download
     
-        PS C:\> Get-OnlineVerAtlassianCompanion -Quiet
-        1.3.1
+        PS C:\> Get-OnlineVerKeePass -Quiet
+        2.56
  
     .INPUTS
         -Quiet
@@ -60,7 +60,7 @@
             https://github.com/itsontheb
 #>
 
-function Get-OnlineVerAtlassianCompanion {
+function Get-OnlineVerKeePass {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $false, 
@@ -71,16 +71,15 @@ function Get-OnlineVerAtlassianCompanion {
 
     begin {
         # Initial Variables
-        $SoftwareName = 'Atlassian Companion'
-        $URI = 'https://confluence.atlassian.com'
+        $SoftwareName = 'KeePass'
+        $URI = 'https://keepass.info/'
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
             'Software_URL'     = $uri
             'Online_Version'   = 'UNKNOWN' 
             'Online_Date'      = 'UNKNOWN'
-            'EXE_Installer' = 'https://update-nucleus.atlassian.com/Atlassian-Companion/291cb34fe2296e5fb82b83a04704c9b4/latest/win32/ia32/Atlassian%20Companion.exe'
-            'MSI_Installer' = 'https://update-nucleus.atlassian.com/Atlassian-Companion/291cb34fe2296e5fb82b83a04704c9b4/latest/win32/ia32/Atlassian%20Companion.msi'
+            'Installer' = 'UNKNOWN'
         }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
@@ -91,16 +90,13 @@ function Get-OnlineVerAtlassianCompanion {
         # Get the Version & Release Date
         try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
-            $URI = 'https://confluence.atlassian.com/doc/atlassian-companion-app-release-notes-958455712.html'
-            $ACURL = (Invoke-WebRequest -Uri $URI -UseBasicParsing | Select-Object -ExpandProperty Content)
-            $query = "Latest versions</h2><h3 id=""AtlassianCompanionappreleasenotes-AtlassianCompanion"">Atlassian Companion (?<version>.*)</h3><p>Released (?<date>.*)</p><p>"
-            $ACURL -match $query
-             
-            $ACVersion = ($matches['version'])
-            $ACDate = ($matches['date'])
-            
-            $swObject.Online_Version = $ACVersion
-            $swObject.Online_Date = $ACDate
+            $ReleaseInfo = (Invoke-WebRequest -uri https://sourceforge.net/projects/keepass/best_release.json).content | ConvertFrom-Json
+            $ReleaseVersion = ($ReleaseInfo.release.filename).Substring(13,4)
+            $ReleaseDate = ($ReleaseInfo.release.date).Substring(0,10)
+
+                      
+            $swObject.Online_Version = $ReleaseVersion
+            $swObject.Online_Date = $ReleaseDate
 
         }
         catch {
@@ -110,17 +106,12 @@ function Get-OnlineVerAtlassianCompanion {
         }
         finally {
           
-
             # Get the Download URLs
             if ($swObject.Online_Version -ne 'UNKNOWN') {
-       
-                $MMDownloadEXE = "https://update-nucleus.atlassian.com/Atlassian-Companion/291cb34fe2296e5fb82b83a04704c9b4/latest/win32/ia32/Atlassian%20Companion.exe"
-                $MMDownloadMSI = "https://update-nucleus.atlassian.com/Atlassian-Companion/291cb34fe2296e5fb82b83a04704c9b4/latest/win32/ia32/Atlassian%20Companion.msi"
-                
-                   
-                $swObject.EXE_Installer = $MMDownloadEXE
-                $swObject.MSI_Installer = $MMDownloadMSI
-                
+
+                $KPDownload = "https://sourceforge.net/projects/keepass/files/KeePass%202.x/" + $ReleaseVersion + "/KeePass-" + $ReleaseVersion + "-Setup.exe/download"
+                $swObject.Installer = $KPDownload
+                               
             }
         }
     }
@@ -134,4 +125,4 @@ function Get-OnlineVerAtlassianCompanion {
             Return $swobject
         }
     }
-}  # END Function Get-OnlineVerAtlassianCompanion
+}  # END Function Get-OnlineVerKeePass
