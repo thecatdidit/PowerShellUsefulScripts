@@ -79,7 +79,7 @@ function Get-OnlineVerKeePass {
             'Software_URL'     = $uri
             'Online_Version'   = 'UNKNOWN' 
             'Online_Date'      = 'UNKNOWN'
-            'Installer' = 'UNKNOWN'
+            'Download_URL_x64' = 'UNKNOWN'
         }
     
         $swObject = New-Object -TypeName PSObject -Property $hashtable
@@ -110,7 +110,7 @@ function Get-OnlineVerKeePass {
             if ($swObject.Online_Version -ne 'UNKNOWN') {
 
                 $KPDownload = "https://sourceforge.net/projects/keepass/files/KeePass%202.x/" + $ReleaseVersion + "/KeePass-" + $ReleaseVersion + "-Setup.exe/download"
-                $swObject.Installer = $KPDownload
+                $swObject.Download_URL_x64 = $KPDownload
                                
             }
         }
