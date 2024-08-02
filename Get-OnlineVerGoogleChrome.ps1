@@ -1,13 +1,15 @@
 <#
 	===========================================================================
 	 Created with: 	ISE 19045
-	 Revision:      v2
-	 Last Modified: 09 April 2024
+	 Revision:      v3
+	 Last Modified: 02 August 2024
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerGoogleChrome.ps1
 	===========================================================================
 	.CHANGELOG
+        v3 [02 August 2024]
+        Update source and filter logic to reflect site content changes
         v2 [09 April 2024]
         Update release tracker source and filter logic
         v1 [27 July 2021]
@@ -23,14 +25,14 @@
 	.EXAMPLE
         PS> Get-OnlineVerGoogleChrome
         Software_Name    : Google Chrome
-        Software_URL     : https://chromiumdash.appspot.com/releases?platform=Windows
-        Online_Version   : 123.0.6312.106
-        Online_Date      : 2024-04-04T18:17:35.711205Z
+        Software_URL     : https://versionhistory.googleapis.com/v1/chrome/platforms/win64/channels/stable/versions/all/releases?filter=endtime=none
+        Online_Version   : 127.0.6533.89
+        Online_Date      : 2024-08-01
         Download_URL_x86 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi
         Download_URL_x64 : https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi
        	
         PS> Get-GetOnlineVerGooglechrome -Quiet
-       	92.0.4515.107
+       	127.0.6533.89
 
  	.INPUTS
         -Quiet
@@ -67,7 +69,7 @@ function Get-OnlineVerGoogleChrome {
     begin {
         # Initial Variables
         $SoftwareName = 'Google Chrome'
-        $URI = 'https://chromiumdash.appspot.com/releases?platform=Windows/'
+        $URI = 'https://versionhistory.googleapis.com/v1/chrome/platforms/win64/channels/stable/versions/all/releases?filter=endtime=none'
             
         $hashtable = [ordered]@{
             'Software_Name'    = $softwareName
@@ -85,9 +87,9 @@ function Get-OnlineVerGoogleChrome {
         # Get the Version & Release Date
         try {
             Write-Verbose -Message "Attempting to pull info from the below URL: `n $URI"
-            $ReleaseInfo = ((Invoke-WebRequest -Uri https://versionhistory.googleapis.com/v1/chrome/platforms/win64/channels/stable/versions/all/releases?filter=endtime=none).content) | ConvertFrom-Json
-            $ReleaseVersion = $ReleaseInfo.releases.version
-            $ReleaseDate = (($ReleaseInfo.releases).serving | select -ExpandProperty startTime).Substring(0,10)
+            $ReleaseInfo = ((Invoke-WebRequest -Uri $URI).content) | ConvertFrom-Json
+            $ReleaseVersion = $ReleaseInfo.releases[0].version
+            $ReleaseDate = ($ReleaseInfo.releases[0].serving.startTime).Substring(0,10)
             
             $swObject.Online_Version = $ReleaseVersion
             $swObject.Online_Date = $ReleaseDate
