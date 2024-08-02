@@ -3,15 +3,15 @@
 	===========================================================================
 	 Created with:   PowerShell ISE (Win10 19042)
 	 Revision:       v3
-	 Last Modified:  14 July 2021
+	 Last Modified:  08 Aug 2023
 	 Created by:     Jay Harper (jayharper@gmail.com)
 	 Filename:       Uninstall-BlueCoatUnifiedAgent.ps1
 	===========================================================================
     .CHANGELOG
         [08 Aug 2023]
-	Formatting and grammar cleanup of some comments
+	v3 - Formatting and grammar cleanup of some comments
 	[14 Jul 2021]
-	Cleaned up script formatting
+	v2 - Cleaned up script formatting
     .SYNOPSIS
         This script forces a manual uninstall of Blue Coat Unified Agent. The process
         is based upon Symantec's official HOWTO for removing the agent. 
