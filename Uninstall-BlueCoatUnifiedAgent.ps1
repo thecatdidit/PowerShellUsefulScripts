@@ -33,7 +33,7 @@
             e. Delete installation directly under 'C:\Program Files'
             f. Delete installation folder under 'C:\ProgramData'
             g. Remove files related to Windows driver registration
-        Afterward, it is recommended that you reboot the system. If desired, ou should be able to install
+        Afterward, it is recommended that you reboot the system. If desired, you should be able to install
         whatever BCUA version is needed.
         A log file is created to log details of the agent removal. To set it
         to another directory, update the $logFile variable
