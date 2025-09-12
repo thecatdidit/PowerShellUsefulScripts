@@ -8,7 +8,7 @@
 	 Filename:       Uninstall-BlueCoatUnifiedAgent.ps1
 	===========================================================================
     .CHANGELOG
-        [08 Aug 2023]
+    [08 Aug 2023]
 	v3 - Formatting and grammar cleanup of some comments
 	[14 Jul 2021]
 	v2 - Cleaned up script formatting
