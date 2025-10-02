@@ -1,4 +1,4 @@
-﻿<#
+<#
     ===========================================================================
      Created with:  PowerShell ISE - Win10 21H1/19043
      Revision:      v1
@@ -8,7 +8,7 @@
      Filename:      Get-OnlineVerAtlassianCompanion.ps1
     ===========================================================================
     .CHANGELOG
-     [03.31.22] Initial script creation
+     (03.31.22) Initial script creation
     
     .SYNOPSIS
         Queries the Atlassian webside for the current version of
@@ -38,6 +38,7 @@
     
         PS C:\> Get-OnlineVerAtlassianCompanion -Quiet
         1.3.1
+
  
     .INPUTS
         -Quiet
@@ -59,6 +60,7 @@
     .NOTES
             Resources/Credits:
             https://github.com/itsontheb
+
 #>
 
 function Get-OnlineVerAtlassianCompanion {
