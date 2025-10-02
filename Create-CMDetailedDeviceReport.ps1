@@ -1,16 +1,18 @@
 <#
 	===========================================================================
-	 Created with: 	PowerShell ISE (Win10 17134)
-	 Revision:	2018.12.14.01
-	 Last Modified:	14 Dec 2018
+	 Created with: 	PowerShell ISE (Win11 22621)
+	 Revision:      v2
+	 Last Modified:	02 Oct 2025
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Create-CMDetailedDeviceReport.ps1
 	===========================================================================
 	.CHANGELOG
-	 (14 Dec 2018)
-         Script initial creation.
-
+	 v2 [02 Oct 2025
+	 Updated comments to correct spelling and grammar issues
+	 v1 [14 Dec 2018]
+	 Script initial creation
+	 
 	.SYNOPSIS
         Script to query Device-Based Collection(s) and return detailed data
         for each machine. This can be run against Windows workstations and
@@ -170,10 +172,11 @@ ForEach ($i in $PCList)
 
     
     ##
-    # Perform a double-check of user's AD information.
-    # In the event that no information can be obtained.
-    # User fields will be populated with "<NA>"
+    # Perform a query of user's AD information.
+	# If the user's manager is linked in AD, this info will be returned, as well.
+    # In the event that no information can be obtained, User fields will be populated with "<NA>"
     ##
+	
     if ($i.UserName -gt '')
     
     {
