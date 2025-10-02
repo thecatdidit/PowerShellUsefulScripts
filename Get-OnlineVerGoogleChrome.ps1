@@ -1,14 +1,16 @@
 <#
 	===========================================================================
 	 Created with: 	ISE 19045
-	 Revision:      v3
-	 Last Modified: 02 August 2024
+	 Revision:      v4
+	 Last Modified: 02 October 2025
 	 Created by:   	Jay Harper (github.com/thecatdidit/powershellusefulscripts)
 	 Organizaiton: 	Happy Days Are Here Again
 	 Filename:     	Get-OnlineVerGoogleChrome.ps1
 	===========================================================================
 	.CHANGELOG
-        v3 [02 August 2024]
+        v4 [02 October 2025]
+		Corrected download links for the MSI installers - x86 and x64 flavors
+		v3 [02 August 2024]
         Update source and filter logic to reflect site content changes
         v2 [09 April 2024]
         Update release tracker source and filter logic
@@ -122,4 +124,5 @@ function Get-OnlineVerGoogleChrome {
         }
     }
 }  # END Function Get-OnlineVerGoogleChrome
+
 
