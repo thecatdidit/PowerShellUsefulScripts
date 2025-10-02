@@ -106,8 +106,8 @@ function Get-OnlineVerGoogleChrome {
             # Get the Download URLs
             if ($swObject.Online_Version -ne 'UNKNOWN') {
                 
-                $swObject.Download_URL_x86 = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi"
-                $swObject.Download_URL_x64 = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi"
+                $swObject.Download_URL_x86 = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi"
+                $swObject.Download_URL_x64 = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi"
             }
         }
     }
@@ -122,3 +122,4 @@ function Get-OnlineVerGoogleChrome {
         }
     }
 }  # END Function Get-OnlineVerGoogleChrome
+
