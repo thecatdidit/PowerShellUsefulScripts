@@ -1,30 +1,3 @@
-MsiExec.exe and InstMsi.exe Error Messages
-	Error Value	Error code	Description
-	0	ERROR_SUCCESS	The action completed successfully.
-	13	ERROR_INVALID_DATA	The data is invalid.
-	87	ERROR_INVALID_PARAMETER	One of the parameters was invalid.
-	120	ERROR_CALL_NOT_IMPLEMENTED	This value is returned when a custom action attempts to call a function that cannot be called from custom actions. The function returns the value ERROR_CALL_NOT_IMPLEMENTED. Available beginning with Windows Installer version 3.0.
-	1259	ERROR_APPHELP_BLOCK	If Windows Installer determines a product may be incompatible with the current operating system, it displays a dialog box informing the user and asking whether to try to install anyway. This error code is returned if the user chooses not to try the installation.
-	1601	ERROR_INSTALL_SERVICE_FAILURE	The Windows Installer service could not be accessed. Contact your support personnel to verify that the Windows Installer service is properly registered.
-	1602	ERROR_INSTALL_USEREXIT	The user cancels installation.
-	1603	ERROR_INSTALL_FAILURE	A fatal error occurred during installation.
-	1604	ERROR_INSTALL_SUSPEND	Installation suspended, incomplete.
-	1605	ERROR_UNKNOWN_PRODUCT	This action is only valid for products that are currently installed.
-	1606	ERROR_UNKNOWN_FEATURE	The feature identifier is not registered.
-	1607	ERROR_UNKNOWN_COMPONENT	The component identifier is not registered.
-	1608	ERROR_UNKNOWN_PROPERTY	This is an unknown property.
-	1609	ERROR_INVALID_HANDLE_STATE	The handle is in an invalid state.
-	1610	ERROR_BAD_CONFIGURATION	The configuration data for this product is corrupt. Contact your support personnel.
-	1611	ERROR_INDEX_ABSENT	The component qualifier not present.
-	1612	ERROR_INSTALL_SOURCE_ABSENT	The installation source for this product is not available. Verify that the source exists and that you can access it.
-	1613	ERROR_INSTALL_PACKAGE_VERSION	This installation package cannot be installed by the Windows Installer service. You must install a Windows service pack that contains a newer version of the Windows Installer service.
-	1614	ERROR_PRODUCT_UNINSTALLED	The product is uninstalled.
-	1615	ERROR_BAD_QUERY_SYNTAX	The SQL query syntax is invalid or unsupported.
-	1616	ERROR_INVALID_FIELD	The record field does not exist.
-	1618	ERROR_INSTALL_ALREADY_RUNNING	Another installation is already in progress. Complete that installation before proceeding with this install.
-			
-			For information about the mutex, see _MSIExecute Mutex.
-
 	1619	ERROR_INSTALL_PACKAGE_OPEN_FAILED	This installation package could not be opened. Verify that the package exists and is accessible, or contact the application vendor to verify that this is a valid Windows Installer package.
 	1620	ERROR_INSTALL_PACKAGE_INVALID	This installation package could not be opened. Contact the application vendor to verify that this is a valid Windows Installer package.
 	1621	ERROR_INSTALL_UI_FAILURE	There was an error starting the Windows Installer service user interface. Contact your support personnel.
